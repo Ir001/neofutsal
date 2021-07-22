@@ -53,8 +53,7 @@
             <input type="text" name="end_at" placeholder="Jam Selesai" class="timepicker">
         </div>
     </div>
-    <button type="submit"
-        class="mt-2 w-full px-1 py-2 bg-primary text-white font-medium text-md rounded-md hover:shadow-lg">
+    <button type="submit" class="btn-primary">
         Cek Ketersediaan
     </button>
 </form>

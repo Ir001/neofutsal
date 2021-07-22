@@ -17,9 +17,9 @@
     {{-- Navbar --}}
     @include('theme.navbar')
     {{-- End Navbar --}}
-    <div class="max-w-3xl mx-auto bg-gray-100 rounded-md min-h-screen overflow-hidden mb-16">
+    <div class="max-w-3xl mx-auto bg-gray-100 rounded-md min-h-screen overflow-hidden">
         {{-- Content --}}
-        <div id="content" class="px-8 py-4">
+        <div id="content" class="px-8 py-4 mb-20">
             {{-- Header --}}
             <div class="flex justify-between align-middle items-center">
                 <div id="logo">
@@ -40,7 +40,6 @@
             @yield('content')
             {{-- End of Content --}}
         </div>
-    </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

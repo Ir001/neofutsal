@@ -32763,6 +32763,8 @@ video {
   color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
 
+/* Form */
+
 label {
   font-size: 0.75rem;
   line-height: 1rem;
@@ -32771,11 +32773,17 @@ label {
   color: rgba(156, 163, 175, var(--tw-text-opacity));
 }
 
-input {
+input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="hour"], input[type="tel"], input[type="number"] {
   width: 100%;
   border-radius: 0.25rem;
-  --tw-bg-opacity: 1;
-  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="hour"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
+  --tw-border-opacity: 1;
+  border-color: rgba(2, 53, 60, var(--tw-border-opacity));
+}
+
+input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="hour"], input[type="tel"], input[type="number"] {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
   padding-top: 0.5rem;
@@ -32784,20 +32792,54 @@ input {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-input:focus {
-  --tw-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="hour"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
-input {
+input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="hour"], input[type="tel"], input[type="number"] {
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
   transition-duration: 500ms;
+}
+
+.btn-primary {
+  margin-top: 0.5rem;
+  width: 100%;
+  border-radius: 0.375rem;
+  --tw-bg-opacity: 1;
+  background-color: rgba(63, 208, 201, var(--tw-bg-opacity));
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+
+.btn-primary:hover {
+  --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+/* Navbar */
+
+nav > a {
+  text-align: center;
+  --tw-text-opacity: 1;
+  color: rgba(156, 163, 175, var(--tw-text-opacity));
+}
+
+nav > a.active {
+  --tw-text-opacity: 1;
+  color: rgba(63, 208, 201, var(--tw-text-opacity));
 }
 
 @media (min-width: 640px) {

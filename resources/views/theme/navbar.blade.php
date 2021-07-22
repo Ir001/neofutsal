@@ -1,20 +1,22 @@
-<div
+<nav
     class="flex justify-between bg-white px-8 py-4 rounded-t fixed max-w-3xl w-full inset-x-0 mx-auto bottom-0 border-t-2">
-    <a href="{{url("/")}}" class="text-primary text-center">
+    <a href="{{route('app')}}" class="{{request()->routeIs('app') ? 'active' : null }}">
         <i class="fas fa-xl fa-home text-xl"></i>
         <small class="text-xs block">Home</small>
     </a>
-    <a href="" class="text-gray-400 ml-3 text-center">
+    <a href="{{route('app.myorder')}}" class="{{request()->routeIs('app.myorder') ? 'active' : null }}">
         <i class="fas fa-xl fa-receipt text-xl"></i>
         <small class="text-xs block">My Order</small>
     </a>
-    <a href="" class="text-gray-400 ml-3 text-center">
-        @auth
+    @auth
+    <a href="{{route('app.profile')}}" class="{{request()->routeIs('app.profile') ? 'active' : null }}">
         <i class="fas fa-xl fa-user text-xl"></i>
         <small class="text-xs block">Profile</small>
-        @else
+    </a>
+    @else
+    <a href="{{route('login')}}" class="{{request()->routeIs('login') ? 'active' : null }}">
         <i class="fas fa-xl fa-sign-in-alt text-xl"></i>
         <small class="text-xs block">Login</small>
-        @endauth
     </a>
-</div>
+    @endauth
+</nav>

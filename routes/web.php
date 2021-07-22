@@ -16,8 +16,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('dashboard');
-});
+})->name('app');
+Route::get('login', function () {
+    return view('auth.login');
+})->name('login');
+
+Route::get('register', function () {
+    return view('auth.register');
+})->name('register');
+
 Route::get('detail', function () {
     return view('detail');
 });
 Route::post('api/check-schedule', [OrderController::class, 'checkSchedule'])->name('check-schedule');
+
+// My Order
+Route::get('my-order', [OrderController::class, 'myOrder'])->name('app.myorder');
