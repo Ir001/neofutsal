@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#description > p {
+    @apply font-semibold leading-8 text-sm text-gray-600;
+}
+.badge-ball {
+    @apply px-2 py-1 rounded-md bg-info text-white mx-1;
+}
+label {
+    @apply text-xs font-light text-gray-400;
+}
+input {
+    @apply w-full px-3 py-2 rounded focus:outline-none shadow-md bg-white transition duration-500 focus:shadow-2xl;
+}
