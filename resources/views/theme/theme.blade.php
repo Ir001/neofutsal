@@ -10,7 +10,7 @@
         integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     @yield('css')
-    <title>Hijau Bola - @yield('title')</title>
+    <title>Neofutsal - @yield('title')</title>
 </head>
 
 <body class="bg-gray-100">
@@ -24,9 +24,9 @@
             <div class="flex justify-between align-middle items-center">
                 <div id="logo">
                     <a href="/">
-                        <h1 class="text-2xl text-success font-extrabold"><i class="fas fa-xl text-3xl fa-futbol"></i>
-                            Hijau
-                            Bola</h1>
+                        <h1 class="text-2xl text-success font-extrabold font-poppins-bold"><i
+                                class="fas fa-xl text-3xl fa-futbol"></i>
+                            Neofutsal</h1>
                     </a>
                 </div>
                 <div>
@@ -54,7 +54,7 @@
         let toastr = (type, msg, btn=null)=>{
             Swal.fire({
                 icon : type,
-                text : msg,
+                html : msg,
                 showConfirmButton : (btn == null ? false : true),
                 confirmButtonText : btn,
             })

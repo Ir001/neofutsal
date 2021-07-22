@@ -83,13 +83,11 @@
 <script>
     $(document).ready(function(){
     //    Timepicker
-        let timeNow = new Date().getHours();
         $('.timepicker').timepicker({
             timeFormat: 'HH:mm',
             interval: 60,
             minTime: '08:00',
             maxTime: '21:00',
-            defaultTime: `${timeNow.toString().length == 1 ? `0${timeNow}` : timeNow}:00`,
             startTime: '08:00',
             dynamic: false,
             dropdown: true,
@@ -109,8 +107,12 @@
             dataType : 'json',
             success : function(data){
                 if(data?.success){
-                    toastr('success',data?.message);
+                    return toastr('success',data?.message, `<a href='?schedule=${data?.data}'> Check</a>`);
                 }
+                if(data?.error){
+                    return toastr('error', data?.message, `Saya Paham`);
+                }
+                return toastr('error', data?.message, `Cari Jadwal Lain`);
             },
             error : function(xhr, status,err){
                 toastr('error',err);
