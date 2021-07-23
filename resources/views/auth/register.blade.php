@@ -15,8 +15,7 @@
             </div>
             <div class="mb-3">
                 <label>WhatsApp</label>
-                {{-- +62822 4344 0959 --}}
-                <input type="tel" class="bg-gray-100" name="phone" inputmode="tel" placeholder="+62812-3456-7890">
+                <input type="tel" class="bg-gray-100" name="phone" inputmode="tel" placeholder="8123-4567-890">
             </div>
             <div class="mb-3">
                 <label>Kata Sandi</label>
@@ -56,19 +55,24 @@
             e.preventDefault();
             let val = $(this).val().replaceAll('-','');
             let length = val.length;
+            let first = val.substring(0,2);
+            if(first == "08"){
+                val = val.substring(1,length);
+            }
             if(length > 12){
                 val = val.substring(0,length-1);
             }
             let match = val.match(/.{1,4}/g);
-            console.log(match);
             let str = ``;
-            match.map((value,index)=>{
-                if(index+1 >= match.length){
-                    str+=`${value}`;
-                }else{
-                    str+=`${value}-`;
-                }
-            })
+            if(match.length > 0){
+                match.map((value,index)=>{
+                    if(index+1 >= match.length){
+                        str+=`${value}`;
+                    }else{
+                        str+=`${value}-`;
+                    }
+                })
+            }
             $(this).val(str);
         })
         //on Submit
