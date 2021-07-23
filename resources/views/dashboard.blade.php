@@ -60,11 +60,9 @@
 </div>
 @endsection
 @section('css')
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 @endsection
 @section('js')
-<script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
     const swiper = new Swiper('.swiper-container', {
