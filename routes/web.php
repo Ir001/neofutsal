@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\User\OrderController;
+use App\Http\Controllers\User\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +27,7 @@ Route::get('register', function () {
 })->name('register');
 
 Route::get('detail', function () {
-    return view('detail');
+    return view('order.detail');
 });
 Route::get('order', function ($id = 1) { //id lapangan
     $base64 = request()->schedule;
@@ -34,10 +35,11 @@ Route::get('order', function ($id = 1) { //id lapangan
     if (empty($schedule)) {
         return 'Invalid!';
     }
-    return view('order', compact('schedule'));
+    return view('order.order', compact('schedule'));
 });
 Route::post('api/check-schedule', [OrderController::class, 'checkSchedule'])->name('check-schedule');
 
 // My Order
-Route::get('transaction', [OrderController::class, 'transaction'])->name('app.transaction');
-Route::get('transaction/history', [OrderController::class, 'transactionHistory'])->name('app.transaction.history');
+Route::get('transaction', [TransactionController::class, 'index'])->name('app.transaction');
+Route::get('transaction/{id}', [TransactionController::class, 'detail']);
+Route::get('transaction/history', [TransactionController::class, 'history'])->name('app.transaction.history');
