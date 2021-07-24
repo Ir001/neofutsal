@@ -28,7 +28,16 @@ Route::get('register', function () {
 Route::get('detail', function () {
     return view('detail');
 });
+Route::get('order', function ($id = 1) { //id lapangan
+    $base64 = request()->schedule;
+    $schedule = json_decode(base64_decode($base64));
+    if (empty($schedule)) {
+        return 'Invalid!';
+    }
+    return view('order', compact('schedule'));
+});
 Route::post('api/check-schedule', [OrderController::class, 'checkSchedule'])->name('check-schedule');
 
 // My Order
-Route::get('my-order', [OrderController::class, 'myOrder'])->name('app.myorder');
+Route::get('transaction', [OrderController::class, 'transaction'])->name('app.transaction');
+Route::get('transaction/history', [OrderController::class, 'transactionHistory'])->name('app.transaction.history');

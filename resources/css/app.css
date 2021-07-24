@@ -24,12 +24,22 @@ input[type="password"],
 input[type="date"],
 input[type="hour"],
 input[type="tel"],
-input[type="number"] {
+input[type="number"],
+select.form-select {
     @apply w-full px-3 py-2 rounded focus:outline-none  focus:ring focus:border-dark shadow-md transition duration-500;
 }
 
 .btn-primary {
-    @apply mt-2 w-full px-1 py-2 bg-primary text-white font-medium rounded-md hover:shadow-lg;
+    @apply mt-2 w-full px-1 py-2 bg-primary  text-center text-white font-medium rounded-md hover:shadow-lg;
+}
+.btn-gray {
+    @apply mt-2 w-full px-1 py-2 bg-gray-500  text-center text-white font-medium rounded-md hover:shadow-lg;
+}
+.payment-radio {
+    @apply bg-gray-500 px-5 py-3 flex-1 rounded-md flex flex-col text-white cursor-pointer transition duration-500 hover:shadow-md;
+}
+.payment-radio.active {
+    @apply bg-dark;
 }
 
 /* Navbar */
@@ -38,4 +48,27 @@ nav > a {
 }
 nav > a.active {
     @apply text-primary;
+}
+
+/* Transaction */
+.order-flex {
+    @apply flex-auto text-center font-medium py-3 border-b-2 text-gray-400 border-gray-400 transition duration-500;
+}
+.order-flex.active {
+    @apply text-primary border-primary;
+}
+.order-flex a {
+    @apply block;
+}
+.card-transaction {
+    @apply px-3 py-2 bg-white w-full rounded-md shadow-lg my-2;
+}
+.card-transaction div {
+    @apply py-2;
+}
+.card-transaction .card-header {
+    @apply border-b-2;
+}
+.card-transaction .card-footer {
+    @apply flex justify-between space-x-2;
 }

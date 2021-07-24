@@ -32773,17 +32773,17 @@ label {
   color: rgba(156, 163, 175, var(--tw-text-opacity));
 }
 
-input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="hour"], input[type="tel"], input[type="number"] {
+input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="hour"], input[type="tel"], input[type="number"], select.form-select {
   width: 100%;
   border-radius: 0.25rem;
 }
 
-input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="hour"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="hour"]:focus, input[type="tel"]:focus, input[type="number"]:focus, select.form-select:focus {
   --tw-border-opacity: 1;
   border-color: rgba(2, 53, 60, var(--tw-border-opacity));
 }
 
-input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="hour"], input[type="tel"], input[type="number"] {
+input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="hour"], input[type="tel"], input[type="number"], select.form-select {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
   padding-top: 0.5rem;
@@ -32792,7 +32792,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="dat
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="hour"]:focus, input[type="tel"]:focus, input[type="number"]:focus {
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="hour"]:focus, input[type="tel"]:focus, input[type="number"]:focus, select.form-select:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
@@ -32800,7 +32800,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
-input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="hour"], input[type="tel"], input[type="number"] {
+input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="hour"], input[type="tel"], input[type="number"], select.form-select {
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
@@ -32819,6 +32819,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="dat
   padding-right: 0.25rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  text-align: center;
   font-weight: 500;
   --tw-text-opacity: 1;
   color: rgba(255, 255, 255, var(--tw-text-opacity));
@@ -32827,6 +32828,62 @@ input[type="text"], input[type="email"], input[type="password"], input[type="dat
 .btn-primary:hover {
   --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.btn-gray {
+  margin-top: 0.5rem;
+  width: 100%;
+  border-radius: 0.375rem;
+  --tw-bg-opacity: 1;
+  background-color: rgba(107, 114, 128, var(--tw-bg-opacity));
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  text-align: center;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+
+.btn-gray:hover {
+  --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.payment-radio {
+  display: flex;
+  flex: 1 1 0%;
+  cursor: pointer;
+  flex-direction: column;
+  border-radius: 0.375rem;
+  --tw-bg-opacity: 1;
+  background-color: rgba(107, 114, 128, var(--tw-bg-opacity));
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+
+.payment-radio:hover {
+  --tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.payment-radio {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 500ms;
+}
+
+.payment-radio.active {
+  --tw-bg-opacity: 1;
+  background-color: rgba(2, 53, 60, var(--tw-bg-opacity));
 }
 
 /* Navbar */
@@ -32840,6 +32897,73 @@ nav > a {
 nav > a.active {
   --tw-text-opacity: 1;
   color: rgba(63, 208, 201, var(--tw-text-opacity));
+}
+
+/* Transaction */
+
+.order-flex {
+  flex: 1 1 auto;
+  border-bottom-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgba(156, 163, 175, var(--tw-border-opacity));
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  text-align: center;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgba(156, 163, 175, var(--tw-text-opacity));
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 500ms;
+}
+
+.order-flex.active {
+  --tw-border-opacity: 1;
+  border-color: rgba(63, 208, 201, var(--tw-border-opacity));
+  --tw-text-opacity: 1;
+  color: rgba(63, 208, 201, var(--tw-text-opacity));
+}
+
+.order-flex a {
+  display: block;
+}
+
+.card-transaction {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  border-radius: 0.375rem;
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.card-transaction div {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.card-transaction .card-header {
+  border-bottom-width: 2px;
+}
+
+.card-transaction .card-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-transaction .card-footer > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 @media (min-width: 640px) {

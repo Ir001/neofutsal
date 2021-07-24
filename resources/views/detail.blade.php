@@ -129,7 +129,7 @@
             dataType : 'json',
             success : function(data){
                 if(data?.success){
-                    return toastr('success',data?.message, `<a href='?schedule=${data?.data}'> Check</a>`);
+                    return toastr('success',data?.message, `<a href='{{url('order')}}?schedule=${data?.data}'> Check</a>`);
                 }
                 if(data?.error){
                     return toastr('error', data?.message, `Saya Paham`);

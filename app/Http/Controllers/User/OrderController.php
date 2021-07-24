@@ -40,4 +40,12 @@ class OrderController extends Controller
         } catch (Exception $e) {
         }
     }
+    public function transaction()
+    {
+        return view('transaction.index');
+    }
+    public function transactionHistory()
+    {
+        return view('transaction.history');
+    }
 }

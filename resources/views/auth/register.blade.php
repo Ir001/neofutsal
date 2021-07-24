@@ -30,6 +30,9 @@
             <button class="btn-primary" type="submit">
                 Daftar
             </button>
+            <p class="mt-3 text-sm font-medium text-gray-600">
+                Belum punya akun? <a href="{{route('register')}}" class="text-primary">Daftar</a>
+            </p>
         </form>
     </div>
 </div>
@@ -78,6 +81,7 @@
         //on Submit
         $('form').submit(function(e){
             e.preventDefault();
+            console.log($(this).serialize());
             console.log(phoneInput.getNumber());
         })
     })
