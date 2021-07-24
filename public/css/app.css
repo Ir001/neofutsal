@@ -32738,6 +32738,7 @@ video {
 
 * {
   font-family: "Poppins";
+  box-sizing: border-box;
 }
 
 #description > p {

@@ -6,6 +6,7 @@
 
 * {
     font-family: "Poppins";
+    box-sizing: border-box;
 }
 #description > p {
     @apply font-semibold leading-8 text-sm text-gray-600;

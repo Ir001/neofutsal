@@ -19,20 +19,47 @@
     {{-- End Navbar --}}
     <div class="max-w-3xl mx-auto bg-gray-100 rounded-md min-h-screen overflow-hidden">
         {{-- Content --}}
-        <div id="content" class="px-8 py-4 mb-20">
+        <div id="content" class="px-8 py-4 mb-20 relative">
             {{-- Header --}}
-            <div class="flex justify-between align-middle items-center">
-                <div id="logo">
-                    <a href="/">
-                        <h1 class="text-2xl text-success font-extrabold font-poppins-bold"><i
-                                class="fas fa-xl text-3xl fa-futbol"></i>
-                            Neofutsal</h1>
-                    </a>
-                </div>
-                <div>
-                    <a href="" class="text-3xl text-gray-400">
-                        <i class="fas fa-xs fa-bell"></i>
-                    </a>
+            <div class="sticky top-0">
+                <div class="flex justify-between align-middle items-center">
+                    <div id="logo" class="flex-shrink-0">
+                        <a href="/">
+                            <h1 class="text-2xl text-success font-extrabold font-poppins-bold"><i
+                                    class="fas fa-xl text-3xl fa-futbol"></i>
+                                Neofutsal</h1>
+                        </a>
+                    </div>
+                    <div class="flex-1 flex flex-col">
+                        <div class="flex justify-end">
+                            <a href="#" id="btn-notification" class="text-3xl text-gray-400">
+                                <i class="fas fa-xs fa-bell"></i>
+                            </a>
+                        </div>
+                        <div class="bg-white px-3 py-4 rounded-md shadow-2xl absolute z-50 right-0 top-12 w-full transition duration-500 hidden"
+                            id="notification-card" style="z-index: 9999 !important">
+                            <div class="flex justify-between items-center pb-3 border-b">
+                                <p class="text-dark font-medium">Notifikasi</p>
+                                <a href="#" class="text-xs text-gray-500 font-medium py-3">
+                                    Lihat Semua
+                                </a>
+                            </div>
+                            <div class="notification-content border-b pb-3">
+                                <a href="">
+                                    <p class="font-medium text-gray-600 py-2">
+                                        Booking telah dikonfirmasi!
+                                    </p>
+                                    <p class="text-sm text-gray-500">
+                                        Pembayaran anda telah dikonfirmasi. Periksa
+                                    </p>
+                                    <p class="text-right text-gray-500 text-sm">
+                                        1 jam yang lalu
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
             {{-- End of Header --}}
@@ -58,6 +85,21 @@
                 confirmButtonText : btn,
             })
         }
+    </script>
+    <script>
+        $(document).ready(function(){
+            let isNotifOpen = false;
+            $('#btn-notification').click(function(){
+                if(!isNotifOpen){
+                    $(this).addClass('text-primary').removeClass('text-gray-400');
+                    $('#notification-card').removeClass('hidden');
+                }else{
+                    $(this).removeClass('text-primary').addClass('text-gray-400');
+                    $('#notification-card').addClass('hidden');
+                }
+                isNotifOpen = !isNotifOpen;
+            })
+        })
     </script>
     @yield('js')
 </body>

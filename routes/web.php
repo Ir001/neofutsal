@@ -41,5 +41,5 @@ Route::post('api/check-schedule', [OrderController::class, 'checkSchedule'])->na
 
 // My Order
 Route::get('transaction', [TransactionController::class, 'index'])->name('app.transaction');
-Route::get('transaction/{id}', [TransactionController::class, 'detail']);
 Route::get('transaction/history', [TransactionController::class, 'history'])->name('app.transaction.history');
+Route::get('transaction/{id}', [TransactionController::class, 'detail']);

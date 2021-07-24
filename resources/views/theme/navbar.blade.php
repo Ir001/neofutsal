@@ -1,5 +1,5 @@
 <nav
-    class="flex justify-between bg-white px-8 py-4 rounded-t fixed max-w-3xl w-full inset-x-0 mx-auto bottom-0 border-t-2">
+    class="flex justify-between bg-white px-8 py-4 rounded-t fixed max-w-3xl w-full inset-x-0 mx-auto bottom-0 border-t-2 z-50">
     <a href="{{route('app')}}" class="{{request()->routeIs('app') ? 'active' : null }}">
         <i class="fas fa-xl fa-home text-xl"></i>
         <small class="text-xs block">Home</small>

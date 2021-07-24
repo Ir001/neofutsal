@@ -3,7 +3,7 @@
 @section('content')
 {{-- Slider --}}
 <div id="slider" class="my-3">
-    <div class="swiper-container h-36 md:h-64">
+    <div class="swiper-container h-36 md:h-64 z-0">
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
             <!-- Slides -->
@@ -19,7 +19,7 @@
     </div>
 </div>
 {{-- End of Slider --}}
-<h1 class="text-md text-dark font-semibold border-b-2 border-primary pb-3">Booking Online</h1>
+<h1 class="text-md text-dark font-semibold border-b-2 pb-3">Booking Online</h1>
 <div class="my-3 grid grid-flow-row grid-cols-1 md:grid-cols-3 gap-2 auto-rows-max">
     @for ($i = 0; $i < 5; $i++) <div class="w-full bg-white shadow-sm rounded-md overflow-hidden" id="fields">
         <div class="img">
