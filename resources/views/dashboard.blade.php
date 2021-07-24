@@ -3,7 +3,7 @@
 @section('content')
 {{-- Slider --}}
 <div id="slider" class="my-3">
-    <div class="swiper-container h-36 md:h-64 z-0">
+    <div class="swiper-container h-36 md:h-64">
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
             <!-- Slides -->
