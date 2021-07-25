@@ -41,10 +41,10 @@
     {{-- Footer --}}
     <div class="card-footer">
         <div class="flex-auto">
-            <a href="" class="btn-gray block">Detail</a>
+            <a href="/transaction/detail" class="btn-gray block">Detail</a>
         </div>
         <div class="flex-auto">
-            <a href="" class="btn-primary block">Bayar Pelunasan</a>
+            <a href="/transaction/pay/1" class="btn-primary block">Bayar Pelunasan</a>
         </div>
 
     </div>

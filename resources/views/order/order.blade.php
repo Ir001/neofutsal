@@ -1,7 +1,7 @@
 @extends('theme.theme')
 @section('title','Checkout')
 @section('content')
-<div class="mt-2  pb-3 border-b border-primary flex justify-between items-center">
+<div class="mt-2 pb-3 mb-2 border-b flex justify-between items-center">
     <h1 class="text-md text-dark font-semibold">Review Order</h1>
     <a href="#" onclick="return window.history.go(-1)" class="py-2 text-xs font-medium text-gray-500"><i
             class="fas fa-xs fa-arrow-left"></i> Kembali</a>
@@ -13,7 +13,7 @@
     <p><i class="fas mr-2 fa-calendar"></i> Jumat, 27 Agustus 2021</p>
     <p><i class="fas mr-2 fa-clock"></i> 08:00 - 11:00 WIB (2 jam)</p>
 </div>
-<h1 class="text-md text-black font-semibold border-b-2 border-primary pb-3">Informasi Harga</h1>
+<h1 class="text-md text-dark font-semibold border-b-2 pb-3 mb-2">Informasi Harga</h1>
 <form action="{{route('check-schedule')}}" method="post">
     @csrf
     <div class="w-full mb-3">

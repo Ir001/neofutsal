@@ -19,4 +19,8 @@ class TransactionController extends Controller
     {
         return view('transaction.detail');
     }
+    public function pay($id = 1)
+    {
+        return view('transaction.pay');
+    }
 }

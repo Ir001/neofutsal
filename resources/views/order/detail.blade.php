@@ -19,10 +19,10 @@
     </div>
 </div>
 {{-- End of Slider --}}
-<h1 class="text-md text-black font-semibold border-b-2 border-primary pb-3">Informasi Lapangan</h1>
+<h1 class="text-md text-black font-semibold border-b-2 pb-3 mb-2">Informasi Lapangan</h1>
 <div id="description" class="my-3">
     <p>
-        <i class="fas fa-money-bill"></i> Sewa / Jam : Rp. 75,000
+        <i class="fas fa-money-bill"></i> Sewa per jam : Rp. 75,000
     </p>
     <p>
         <i class="fas fa-ruler-combined"></i> Luas Lapangan : 25m x 16m

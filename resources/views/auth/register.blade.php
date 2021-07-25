@@ -31,7 +31,7 @@
                 Daftar
             </button>
             <p class="mt-3 text-sm font-medium text-gray-600">
-                Belum punya akun? <a href="{{route('register')}}" class="text-primary">Daftar</a>
+                Sudah punya akun? <a href="{{route('login')}}" class="text-primary">Masuk</a>
             </p>
         </form>
     </div>

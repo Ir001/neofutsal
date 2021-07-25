@@ -24,11 +24,12 @@
             <div class="flex justify-between align-middle items-center relative" style="z-index: 100">
                 <div id="logo" class="flex-shrink-0">
                     <a href="/">
-                        <h1 class="text-2xl text-success font-extrabold font-poppins-bold"><i
+                        <h1 class="text-2xl text-primary font-extrabold font-poppins-bold"><i
                                 class="fas fa-xl text-3xl fa-futbol"></i>
                             Neofutsal</h1>
                     </a>
                 </div>
+                @auth
                 <div class="flex-1 flex flex-col">
                     <div class="flex justify-end">
                         <a href="#" id="btn-notification" class="text-3xl text-gray-400">
@@ -60,6 +61,7 @@
                     </div>
 
                 </div>
+                @endauth
             </div>
             {{-- End of Header --}}
             {{-- Content --}}

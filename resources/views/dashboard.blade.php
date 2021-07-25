@@ -20,8 +20,8 @@
 </div>
 {{-- End of Slider --}}
 <h1 class="text-md text-dark font-semibold border-b-2 pb-3">Booking Online</h1>
-<div class="my-3 grid grid-flow-row grid-cols-1 md:grid-cols-3 gap-2 auto-rows-max">
-    @for ($i = 0; $i < 5; $i++) <div class="w-full bg-white shadow-sm rounded-md overflow-hidden" id="fields">
+<div class="my-3 grid grid-flow-row grid-cols-1 md:grid-cols-3 gap-4 auto-rows-max">
+    @for ($i = 0; $i < 5; $i++) <div class="w-full bg-white shadow-2xl rounded-md overflow-hidden" id="fields">
         <div class="img">
             <a href="/detail">
                 <img src="https://smktrimulia.sch.id/wp-content/uploads/2020/09/Ilustrasi-futsal-istimewa8f521491d609bc2c.jpg"
@@ -30,18 +30,18 @@
         </div>
         <div class="description px-2 py-4">
             <a href="/detail">
-                <h2 class="text-success font-medium text-xl">
+                <h2 class="text-dark font-medium text-xl">
                     Lapangan X
                 </h2>
             </a>
             <div class="caption flex justify-between align-middle items-center">
-                <p class="text-info">
+                <p class="text-gray-600">
                     <i class="fas fa-xs fa-money-bill-wave"></i>
                     <small class="font-light">
                         Rp. 75,000 / Jam
                     </small>
                 </p>
-                <p class="text-info">
+                <p class="text-gray-500">
                     <i class="fas fa-xs fa-ruler-combined"></i>
                     <small class="font-light">
                         25m x 16m
@@ -49,10 +49,14 @@
                 </p>
             </div>
         </div>
-        <div class="footer px-2 py-2 flex justify-end border-t-1">
+        <div class="footer px-2 py-2 flex justify-end border-t-1 space-x-2">
+            <a href="/detail" class="px-3 py-2 w-full font-semibold text-xs text-center rounded-md transition duration-500
+                 bg-white border border-primary hover:bg-primary text-primary hover:text-white">
+                Cek Jadwal
+            </a>
             <a href="/detail" class="px-3 py-2 w-full font-semibold text-xs text-center rounded-md transition duration-500
                  bg-secondary hover:bg-primary text-primary hover:text-white">
-                Info Detail
+                Booking
             </a>
         </div>
 </div>
