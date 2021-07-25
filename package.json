@@ -12,10 +12,15 @@
     "devDependencies": {
         "autoprefixer": "^10.3.1",
         "axios": "^0.21.1",
+        "bootstrap": "^4.6.0",
+        "jquery": "^3.6",
         "laravel-mix": "^6.0.25",
         "lodash": "^4.17.19",
+        "popper.js": "^1.16.1",
         "postcss": "^8.3.5",
+        "sass": "^1.32.11",
+        "sass-loader": "^11.0.1",
         "tailwindcss": "^2.2.4"
     },
-    "dependencies": {}
+    "dependencies": []
 }

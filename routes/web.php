@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\TransactionController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,9 +41,23 @@ Route::get('order', function ($id = 1) { //id lapangan
     return view('order.order', compact('schedule'));
 });
 Route::post('api/check-schedule', [OrderController::class, 'checkSchedule'])->name('check-schedule');
-
+Route::get('app/profile', function () {
+    return 1;
+})->name('app.profile');
 // My Order
 Route::get('transaction', [TransactionController::class, 'index'])->name('app.transaction');
 Route::get('transaction/history', [TransactionController::class, 'history'])->name('app.transaction.history');
 Route::get('transaction/pay/{id}', [TransactionController::class, 'pay']);
 Route::get('transaction/{id}', [TransactionController::class, 'detail']);
+
+Auth::routes();
+
+Route::get('admin', [DashboardController::class, 'index'])->name('home');
+
+Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'name' => 'admin.'], function () {
+    Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
+    Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
+    Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
+    Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+    Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
+});
