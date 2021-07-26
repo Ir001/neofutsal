@@ -23,7 +23,7 @@
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse @if (@$parent == " master") show @endif" id="master-menu">
+                <div class="collapse @if (@$parent == 'master') show @endif" id="master-menu">
                     <ul class="nav">
                         <li class="@if ($activePage == 'users') active @endif">
                             <a href="#">
@@ -31,8 +31,8 @@
                                 <p> {{ __("Pelanggan") }} </p>
                             </a>
                         </li>
-                        <li class="@if ($activePage == 'users') active @endif">
-                            <a href="#">
+                        <li class="@if ($activePage == 'field') active @endif">
+                            <a href="{{route('admin.master.field.index')}}">
                                 <i class="fas fa-futbol"></i>
                                 <p> {{ __("Lapangan") }} </p>
                             </a>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Master\FieldController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\TransactionController;
@@ -55,6 +56,16 @@ Auth::routes();
 Route::get('admin', [DashboardController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'name' => 'admin.'], function () {
+    Route::group(['prefix' => 'master', 'name' => 'master.'], function () {
+        // Lapangan Route | admin.master.field
+        Route::get('fields', [FieldController::class, 'index'])->name('admin.master.field.index');
+        Route::prefix('field')->group(function () {
+            Route::post('/', [FieldController::class, 'store'])->name('admin.field.store');
+            Route::get('create', [FieldController::class, 'create'])->name('admin.field.create');
+            Route::get('edit/{field}', [FieldController::class, 'edit']);
+            Route::patch('edit/{field}', [FieldController::class, 'update']);
+        });
+    });
     Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
     Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
     Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
