@@ -24,9 +24,8 @@
             <div class="flex justify-between align-middle items-center relative" style="z-index: 100">
                 <div id="logo" class="flex-shrink-0">
                     <a href="/">
-                        <h1 class="text-2xl text-primary font-extrabold font-poppins-bold"><i
-                                class="fas fa-xl text-3xl fa-futbol"></i>
-                            Neofutsal</h1>
+                        <img src="{{asset('images/logo-neofutsal.png')}}" alt="Logo Neofutsal"
+                            class="object-cover max-h-16 max-w-26">
                     </a>
                 </div>
                 @auth
