@@ -1,7 +1,7 @@
 @extends('layouts.app', [
-'namePage' => 'Kelola Pelanggan',
+'namePage' => 'Kelola Pengguna',
 'class' => 'login-page sidebar-mini ',
-'activePage' => 'customer',
+'activePage' => 'user',
 'backgroundImage' => asset('now') . "/img/bg14.jpg",
 'parent' => 'master'
 ])
@@ -18,7 +18,7 @@
                         <div class="card-title">
                             Kelola Pelanggan
                         </div>
-                        <a href="{{route('admin.customer.create')}}" class="btn btn-round btn-primary">
+                        <a href="{{route('admin.user.create')}}" class="btn btn-round btn-primary">
                             <i class="fas fa-plus"></i> Buat Akun
                         </a>
                     </div>
@@ -42,6 +42,17 @@
                             <h2 class="h4 card-title">Irwan Antonio</h2>
                         </div>
                         <div class="card-body">
+                            <div class="mb-3">
+                                <p class="my-1">Role</p>
+                                <p class="my-1 text-muted">
+                                    <span class="badge badge-primary">
+                                        Customer
+                                    </span>
+                                    <span class="badge badge-success">
+                                        Superadmin
+                                    </span>
+                                </p>
+                            </div>
                             <div class="mb-3">
                                 <p class="my-1">Email</p>
                                 <p class="my-1 text-muted">

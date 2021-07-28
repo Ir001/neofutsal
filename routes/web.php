@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Master\BallController;
-use App\Http\Controllers\Admin\Master\CustomerController;
 use App\Http\Controllers\Admin\Master\FieldController;
+use App\Http\Controllers\Admin\Master\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\TransactionController;
@@ -63,13 +63,13 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'name' => 'admi
     Route::get('/', [DashboardController::class, 'index'])->name('home');
     // Master
     Route::group(['prefix' => 'master', 'name' => 'master.'], function () {
-        // Pelanggan Route | admin.customer
-        Route::get('customers', [CustomerController::class, 'index'])->name('admin.customer.index');
-        Route::prefix('customer')->group(function () {
-            Route::post('/', [CustomerController::class, 'store'])->name('admin.customer.store');
-            Route::get('create', [CustomerController::class, 'create'])->name('admin.customer.create');
-            Route::get('edit/{customer}', [CustomerController::class, 'edit']);
-            Route::patch('edit/{customer}', [CustomerController::class, 'update']);
+        // Pengguna Route | admin.customer
+        Route::get('users', [UserController::class, 'index'])->name('admin.user.index');
+        Route::prefix('user')->group(function () {
+            Route::post('/', [UserController::class, 'store'])->name('admin.user.store');
+            Route::get('create', [UserController::class, 'create'])->name('admin.user.create');
+            Route::get('edit/{user}', [UserController::class, 'edit']);
+            Route::patch('edit/{user}', [UserController::class, 'update']);
         });
         // Lapangan Route | admin.field
         Route::get('fields', [FieldController::class, 'index'])->name('admin.field.index');

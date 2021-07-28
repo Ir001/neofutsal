@@ -25,10 +25,10 @@
                 </a>
                 <div class="collapse @if (@$parent == 'master') show @endif" id="master-menu">
                     <ul class="nav">
-                        <li class="@if ($activePage == 'customer') active @endif">
-                            <a href="{{route('admin.customer.index')}}">
+                        <li class="@if ($activePage == 'user') active @endif">
+                            <a href="{{route('admin.user.index')}}">
                                 <i class="now-ui-icons users_single-02"></i>
-                                <p> {{ __("Pelanggan") }} </p>
+                                <p> {{ __("Pengguna") }} </p>
                             </a>
                         </li>
                         <li class="@if ($activePage == 'field') active @endif">

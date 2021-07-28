@@ -1,7 +1,7 @@
 @extends('layouts.app', [
-'namePage' => 'Buat Akun Pelanggan',
+'namePage' => 'Buat Akun',
 'class' => 'login-page sidebar-mini ',
-'activePage' => 'customer',
+'activePage' => 'user',
 'backgroundImage' => asset('now') . "/img/bg14.jpg",
 'parent' => 'master'
 ])
@@ -16,9 +16,9 @@
                 <div class="card-header">
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="card-title">
-                            Buat Akun Pelanggan
+                            Buat Akun
                         </div>
-                        <a href="{{route('admin.customer.index')}}" class="btn btn-round btn-link">
+                        <a href="{{route('admin.user.index')}}" class="btn btn-round btn-link">
                             <i class="fas fa-arrow-left"></i> Kembali
                         </a>
                     </div>
