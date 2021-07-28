@@ -1,4 +1,4 @@
-<div class="sidebar" data-color="blue">
+<div class="sidebar" data-color="orange">
     <!--
     Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
 -->
@@ -37,10 +37,10 @@
                                 <p> {{ __("Lapangan") }} </p>
                             </a>
                         </li>
-                        <li class="@if ($activePage == 'users') active @endif">
-                            <a href="#">
+                        <li class="@if ($activePage == 'ball') active @endif">
+                            <a href="{{route('admin.ball.index')}}">
                                 <i class="fas fa-futbol"></i>
-                                <p> {{ __("Bola") }} </p>
+                                <p> {{ __("Jenis Bola") }} </p>
                             </a>
                         </li>
                         <li class="@if ($activePage == 'users') active @endif">

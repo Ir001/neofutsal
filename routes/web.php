@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Master\BallController;
 use App\Http\Controllers\Admin\Master\CustomerController;
 use App\Http\Controllers\Admin\Master\FieldController;
 use App\Http\Controllers\Auth\LoginController;
@@ -62,7 +63,7 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'name' => 'admi
     Route::get('/', [DashboardController::class, 'index'])->name('home');
     // Master
     Route::group(['prefix' => 'master', 'name' => 'master.'], function () {
-        // Pelanggan Route | admin.master.customer
+        // Pelanggan Route | admin.customer
         Route::get('customers', [CustomerController::class, 'index'])->name('admin.customer.index');
         Route::prefix('customer')->group(function () {
             Route::post('/', [CustomerController::class, 'store'])->name('admin.customer.store');
@@ -70,13 +71,21 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'name' => 'admi
             Route::get('edit/{customer}', [CustomerController::class, 'edit']);
             Route::patch('edit/{customer}', [CustomerController::class, 'update']);
         });
-        // Lapangan Route | admin.master.field
+        // Lapangan Route | admin.field
         Route::get('fields', [FieldController::class, 'index'])->name('admin.field.index');
         Route::prefix('field')->group(function () {
             Route::post('/', [FieldController::class, 'store'])->name('admin.field.store');
             Route::get('create', [FieldController::class, 'create'])->name('admin.field.create');
             Route::get('edit/{field}', [FieldController::class, 'edit']);
             Route::patch('edit/{field}', [FieldController::class, 'update']);
+        });
+        // Lapangan Route | admin.ball
+        Route::get('balls', [BallController::class, 'index'])->name('admin.ball.index');
+        Route::prefix('ball')->group(function () {
+            Route::post('/', [BallController::class, 'store'])->name('admin.ball.store');
+            Route::get('create', [BallController::class, 'create'])->name('admin.ball.create');
+            Route::get('edit/{ball}', [BallController::class, 'edit']);
+            Route::patch('edit/{ball}', [BallController::class, 'update']);
         });
     });
     Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
