@@ -25,8 +25,8 @@
                 </a>
                 <div class="collapse @if (@$parent == 'master') show @endif" id="master-menu">
                     <ul class="nav">
-                        <li class="@if ($activePage == 'users') active @endif">
-                            <a href="#">
+                        <li class="@if ($activePage == 'customer') active @endif">
+                            <a href="{{route('admin.customer.index')}}">
                                 <i class="now-ui-icons users_single-02"></i>
                                 <p> {{ __("Pelanggan") }} </p>
                             </a>

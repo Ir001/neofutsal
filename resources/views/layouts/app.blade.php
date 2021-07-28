@@ -72,14 +72,22 @@
             }
         }
         let submitForm = (req)=>{
+            let htmlButton = req?.button?.html();
+            req?.button?.html(`Menunggu <i class='fas fa-spin fa-spinner'></i>`);
+            req?.button?.attr('disabled',true);
+            let resetButton = ()=>{
+                req?.button?.attr('disabled',false);
+                req?.button?.html(htmlButton);
+            }
             $.ajax({
                 url : req?.url,
                 type : req?.type,
                 data : req?.data,
                 dataType : 'json',
                 success : function(res){
+                    resetButton();
                     if(res?.success){
-                        req?.successCallback()
+                        req?.successCallback();
                         return toastr('success',res?.message);
                     }
                     toastr('error',res?.message);
@@ -89,6 +97,7 @@
                 },
                 error : function(xhr,status,err){
                     toastr('error',err,'Kembali');
+                    resetButton();
                 }
             })
         }

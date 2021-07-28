@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Master\CustomerController;
 use App\Http\Controllers\Admin\Master\FieldController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\TransactionController;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +62,14 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'name' => 'admi
     Route::get('/', [DashboardController::class, 'index'])->name('home');
     // Master
     Route::group(['prefix' => 'master', 'name' => 'master.'], function () {
+        // Pelanggan Route | admin.master.customer
+        Route::get('customers', [CustomerController::class, 'index'])->name('admin.customer.index');
+        Route::prefix('customer')->group(function () {
+            Route::post('/', [CustomerController::class, 'store'])->name('admin.customer.store');
+            Route::get('create', [CustomerController::class, 'create'])->name('admin.customer.create');
+            Route::get('edit/{customer}', [CustomerController::class, 'edit']);
+            Route::patch('edit/{customer}', [CustomerController::class, 'update']);
+        });
         // Lapangan Route | admin.master.field
         Route::get('fields', [FieldController::class, 'index'])->name('admin.field.index');
         Route::prefix('field')->group(function () {

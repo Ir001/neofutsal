@@ -19,6 +19,7 @@ class FieldController extends Controller
     {
         $data['success'] = true;
         $data['message'] = 'Lapangan berhasil ditambahkan';
+        $data['data'] = $request->all();
         return response()->json($data);
     }
 }

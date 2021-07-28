@@ -104,16 +104,18 @@
         $('form').submit(function(e){
             e.preventDefault();
             $('#price-submit').val(cleanNumber(price.val()));
+            let button = $(this).find('button[type=submit]');
             let url = $(this).attr('action');
             let type = $(this).attr('method');
             let data = $(this).serialize();
             submitForm({
-                url : url,
-                type : type,
-                data : data,
+                url,
+                type,
+                data,
                 successCallback : function(){
                     $('button[type=reset]').click();
-                }
+                },
+                button,
             });
         })
     })
