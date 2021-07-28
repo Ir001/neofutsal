@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Master\FieldController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\TransactionController;
@@ -23,11 +24,11 @@ Route::get('/', function () {
     return view('dashboard');
 })->name('app');
 Route::get('login', function () {
-    return view('auth.login');
+    return view('user.auth.login');
 })->name('login');
 
 Route::get('register', function () {
-    return view('auth.register');
+    return view('user.auth.register');
 })->name('register');
 
 Route::get('detail', function () {
@@ -51,14 +52,18 @@ Route::get('transaction/history', [TransactionController::class, 'history'])->na
 Route::get('transaction/pay/{id}', [TransactionController::class, 'pay']);
 Route::get('transaction/{id}', [TransactionController::class, 'detail']);
 
-Auth::routes();
-
-Route::get('admin', [DashboardController::class, 'index'])->name('home');
-
-Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'name' => 'admin.'], function () {
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::prefix('admin')->group(function () {
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('login', [LoginController::class, 'login']);
+});
+Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'name' => 'admin.'], function () {
+    // Dashboard
+    Route::get('/', [DashboardController::class, 'index'])->name('home');
+    // Master
     Route::group(['prefix' => 'master', 'name' => 'master.'], function () {
         // Lapangan Route | admin.master.field
-        Route::get('fields', [FieldController::class, 'index'])->name('admin.master.field.index');
+        Route::get('fields', [FieldController::class, 'index'])->name('admin.field.index');
         Route::prefix('field')->group(function () {
             Route::post('/', [FieldController::class, 'store'])->name('admin.field.store');
             Route::get('create', [FieldController::class, 'create'])->name('admin.field.create');
@@ -66,9 +71,5 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'name' => 'admin.'], 
             Route::patch('edit/{field}', [FieldController::class, 'update']);
         });
     });
-    Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
-    Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
-    Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
-    Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
     Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
 });

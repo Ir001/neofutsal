@@ -47,6 +47,52 @@
     <script src="{{ asset('assets') }}/js/now-ui-dashboard.min.js?v=1.3.0" type="text/javascript"></script>
     <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
     <script src="{{ asset('assets') }}/demo/demo.js"></script>
+    {{-- Sweetalert2 --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        let toastr = (type, msg, btn=null)=>{
+            Swal.fire({
+                icon : type,
+                html : msg,
+                showConfirmButton : (btn == null ? false : true),
+                confirmButtonText : btn,
+            })
+        }
+    </script>
+    <script>
+        //show Errors
+        let showErrors = (errors) => {
+            if (errors != undefined && data?.success == false && Object.keys(errors).length > 0) {
+                let html = `<ul>`;
+                Object.keys(errors).forEach(key => {
+                    html+=errors[key];
+                });
+                html+=`</ul>`;
+                toastr('error',html,'Saya Paham');
+            }
+        }
+        let submitForm = (req)=>{
+            $.ajax({
+                url : req?.url,
+                type : req?.type,
+                data : req?.data,
+                dataType : 'json',
+                success : function(res){
+                    if(res?.success){
+                        req?.successCallback()
+                        return toastr('success',res?.message);
+                    }
+                    toastr('error',res?.message);
+                    if(res?.error){
+                        showErrors('error',res?.errors);
+                    }
+                },
+                error : function(xhr,status,err){
+                    toastr('error',err,'Kembali');
+                }
+            })
+        }
+    </script>
     @stack('js')
 </body>
 

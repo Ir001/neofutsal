@@ -32,7 +32,7 @@
                             </a>
                         </li>
                         <li class="@if ($activePage == 'field') active @endif">
-                            <a href="{{route('admin.master.field.index')}}">
+                            <a href="{{route('admin.field.index')}}">
                                 <i class="fas fa-futbol"></i>
                                 <p> {{ __("Lapangan") }} </p>
                             </a>
@@ -63,13 +63,13 @@
                 <div class="collapse @if (@$parent == " order") show @endif" id="order-menu">
                     <ul class="nav">
                         <li class="@if ($activePage == 'profile') active @endif">
-                            <a href="{{ route('profile.edit') }}">
+                            <a href="#">
                                 <i class="fas fa-receipt"></i>
                                 <p> {{ __("Rekap Order") }} </p>
                             </a>
                         </li>
                         <li class="@if ($activePage == 'users') active @endif">
-                            <a href="{{ route('user.index') }}">
+                            <a href="#">
                                 <i class="fas fa-hand-holding-usd"></i>
                                 <p> {{ __("Pendapatan") }} </p>
                             </a>

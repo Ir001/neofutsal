@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('neofutsal'),
             'created_at' => now(),
             'updated_at' => now(),
-            'is_admin' => 1
+            'is_admin' => '1'
         ]);
     }
 }

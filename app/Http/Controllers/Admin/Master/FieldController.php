@@ -11,4 +11,14 @@ class FieldController extends Controller
     {
         return view('admin.master.field.index');
     }
+    public function create()
+    {
+        return view('admin.master.field.create');
+    }
+    public function store(Request $request)
+    {
+        $data['success'] = true;
+        $data['message'] = 'Lapangan berhasil ditambahkan';
+        return response()->json($data);
+    }
 }
