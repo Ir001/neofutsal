@@ -3,7 +3,10 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Master\BallController;
 use App\Http\Controllers\Admin\Master\FieldController;
+use App\Http\Controllers\Admin\Master\PaymentTypeController;
 use App\Http\Controllers\Admin\Master\UserController;
+use App\Http\Controllers\Admin\Order\IncomeController;
+use App\Http\Controllers\Admin\Order\SummaryController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\TransactionController;
@@ -71,6 +74,14 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'name' => 'admi
             Route::get('edit/{user}', [UserController::class, 'edit']);
             Route::patch('edit/{user}', [UserController::class, 'update']);
         });
+        // Lapangan Route | admin.ball
+        Route::get('balls', [BallController::class, 'index'])->name('admin.ball.index');
+        Route::prefix('ball')->group(function () {
+            Route::post('/', [BallController::class, 'store'])->name('admin.ball.store');
+            Route::get('create', [BallController::class, 'create'])->name('admin.ball.create');
+            Route::get('edit/{ball}', [BallController::class, 'edit']);
+            Route::patch('edit/{ball}', [BallController::class, 'update']);
+        });
         // Lapangan Route | admin.field
         Route::get('fields', [FieldController::class, 'index'])->name('admin.field.index');
         Route::prefix('field')->group(function () {
@@ -79,13 +90,32 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'name' => 'admi
             Route::get('edit/{field}', [FieldController::class, 'edit']);
             Route::patch('edit/{field}', [FieldController::class, 'update']);
         });
-        // Lapangan Route | admin.ball
-        Route::get('balls', [BallController::class, 'index'])->name('admin.ball.index');
-        Route::prefix('ball')->group(function () {
-            Route::post('/', [BallController::class, 'store'])->name('admin.ball.store');
-            Route::get('create', [BallController::class, 'create'])->name('admin.ball.create');
-            Route::get('edit/{ball}', [BallController::class, 'edit']);
-            Route::patch('edit/{ball}', [BallController::class, 'update']);
+        // Lapangan Route | admin.paymentType
+        Route::get('payment-types', [PaymentTypeController::class, 'index'])->name('admin.paymentType.index');
+        Route::prefix('payment-type')->group(function () {
+            Route::post('/', [PaymentTypeController::class, 'store'])->name('admin.paymentType.store');
+            Route::get('create', [PaymentTypeController::class, 'create'])->name('admin.paymentType.create');
+            Route::get('edit/{paymentType}', [PaymentTypeController::class, 'edit']);
+            Route::patch('edit/{paymentType}', [PaymentTypeController::class, 'update']);
+        });
+    });
+    // Order
+    Route::prefix('order')->group(function () {
+        // Rekap Orderan
+        Route::get('sumaries', [SummaryController::class, 'index'])->name('admin.summary.index');
+        Route::prefix('summary')->group(function () {
+            Route::post('/', [SummaryController::class, 'store'])->name('admin.summary.store');
+            Route::get('create', [SummaryController::class, 'create'])->name('admin.summary.create');
+            Route::get('edit/{summary}', [SummaryController::class, 'edit']);
+            Route::patch('edit/{summary}', [SummaryController::class, 'update']);
+        });
+        // Pendapatan
+        Route::get('incomes', [IncomeController::class, 'index'])->name('admin.income.index');
+        Route::prefix('income')->group(function () {
+            Route::post('/', [IncomeController::class, 'store'])->name('admin.income.store');
+            Route::get('create', [IncomeController::class, 'create'])->name('admin.income.create');
+            Route::get('edit/{income}', [IncomeController::class, 'edit']);
+            Route::patch('edit/{income}', [IncomeController::class, 'update']);
         });
     });
     Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);

@@ -1,11 +1,11 @@
 @extends('layouts.app', [
-'namePage' => 'Login page',
+'namePage' => 'Masuk',
 'class' => 'login-page sidebar-mini ',
 'activePage' => 'login',
 'backgroundImage' =>
 "https://images.unsplash.com/photo-1587384474964-3a06ce1ce699?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80",
 ])
-
+@section('title','Masuk')
 @section('content')
 <div class="content">
     <div class="container">

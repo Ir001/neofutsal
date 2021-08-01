@@ -43,8 +43,8 @@
                                 <p> {{ __("Jenis Bola") }} </p>
                             </a>
                         </li>
-                        <li class="@if ($activePage == 'users') active @endif">
-                            <a href="#">
+                        <li class="@if ($activePage == 'payment-type') active @endif">
+                            <a href="{{route('admin.paymentType.index')}}">
                                 <i class="fas fa-money-check"></i>
                                 <p> {{ __("Metode Pembayaran") }} </p>
                             </a>
@@ -60,22 +60,28 @@
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse @if (@$parent == " order") show @endif" id="order-menu">
+                <div class="collapse @if (@$parent == 'order') show @endif" id="order-menu">
                     <ul class="nav">
-                        <li class="@if ($activePage == 'profile') active @endif">
-                            <a href="#">
+                        <li class="@if ($activePage == 'rekap') active @endif">
+                            <a href="{{route('admin.summary.index')}}">
                                 <i class="fas fa-receipt"></i>
                                 <p> {{ __("Rekap Order") }} </p>
                             </a>
                         </li>
-                        <li class="@if ($activePage == 'users') active @endif">
-                            <a href="#">
+                        <li class="@if ($activePage == 'income') active @endif">
+                            <a href="{{route('admin.income.index')}}">
                                 <i class="fas fa-hand-holding-usd"></i>
                                 <p> {{ __("Pendapatan") }} </p>
                             </a>
                         </li>
                     </ul>
                 </div>
+            </li>
+            <li class="@if ($activePage == 'setting') active @endif">
+                <a href="#">
+                    <i class="fas fa-calendar-alt"></i>
+                    <p>{{ __('Jadwal Futsal') }}</p>
+                </a>
             </li>
             <li class="@if ($activePage == 'setting') active @endif">
                 <a href="#">
