@@ -14,7 +14,7 @@
                 <input type="email" class="bg-gray-100" name="email" placeholder="irwan@neofutsal.id">
             </div>
             <div class="mb-3">
-                <label>WhatsApp</label>
+                <label class="block">WhatsApp</label>
                 <input type="tel" class="bg-gray-100" name="phone" inputmode="tel" placeholder="8123-4567-890">
             </div>
             <div class="mb-3">

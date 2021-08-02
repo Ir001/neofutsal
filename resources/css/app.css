@@ -15,7 +15,7 @@
     @apply px-2 py-1 rounded-md bg-info text-white mx-1;
 }
 /* Form */
-label {
+form label {
     @apply text-xs font-light text-gray-400;
 }
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\checkScheduleRequest;
 use Carbon\Carbon;
 use Exception;
+use Helpers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,14 +17,7 @@ class OrderController extends Controller
         $request = new checkScheduleRequest();
         $validator = Validator::make(request()->all(), $request->rules(), $request->messages());
         if ($validator->fails()) {
-            $errors = "<ul class='text-left font-sm list-inside list-decimal'>";
-            foreach ($validator->errors()->messages() as $error) {
-                $x = count($error);
-                for ($i = 0; $i < $x; $i++) {
-                    $errors .= "<li>{$error[$i]}</li>";
-                }
-            }
-            $errors .= "</ul>";
+            $errors = Helpers::setErrors($validator->errors()->messages());
             return response()->json(['success' => false, 'error' => true, 'message' => $errors]);
         }
         try {
