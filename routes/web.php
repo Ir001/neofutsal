@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Master\UserController;
 use App\Http\Controllers\Admin\Order\IncomeController;
 use App\Http\Controllers\Admin\Order\SummaryController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\TransactionController;
 use Illuminate\Support\Facades\Auth;
@@ -27,16 +28,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard');
 })->name('app');
-Route::get('login', function () {
-    return view('user.auth.login');
-})->name('login');
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'authLogin'])->name('login');
 
-Route::get('register', function () {
-    return view('user.auth.register');
-})->name('register');
+Route::get('register', [AuthController::class, 'register'])->name('register');
+Route::post('register', [AuthController::class, 'authRegister']);
 
 Route::get('detail', function () {
-    return view('order.detail');
+    return view('user.order.detail');
 });
 Route::get('order', function ($id = 1) { //id lapangan
     $base64 = request()->schedule;
@@ -56,7 +55,8 @@ Route::get('transaction/history', [TransactionController::class, 'history'])->na
 Route::get('transaction/pay/{id}', [TransactionController::class, 'pay']);
 Route::get('transaction/{id}', [TransactionController::class, 'detail']);
 
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+// Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::prefix('admin')->group(function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('login', [LoginController::class, 'login']);

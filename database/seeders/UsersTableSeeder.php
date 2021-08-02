@@ -24,5 +24,14 @@ class UsersTableSeeder extends Seeder
             'updated_at' => now(),
             'is_admin' => '1'
         ]);
+        DB::table('users')->insert([
+            'name' => 'User',
+            'email' => 'user@neofutsal.id',
+            'email_verified_at' => now(),
+            'password' => Hash::make('neofutsal'),
+            'created_at' => now(),
+            'updated_at' => now(),
+            'is_admin' => '0'
+        ]);
     }
 }

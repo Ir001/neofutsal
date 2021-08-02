@@ -5,7 +5,8 @@
     <div class=" bg-white shadow-xl px-4 py-4 rounded-lg w-full md:max-w-sm">
         <h1 class="text-3xl text-dark font-extrabold text-center">Masuk</h1>
 
-        <form action="" method="post">
+        <form action="{{route('login')}}" method="post" id="formLogin">
+            @csrf
             <div class="mb-3">
                 <label>Email</label>
                 <input type="email" class="bg-gray-100" name="email" placeholder="Email Anda">
@@ -23,7 +24,7 @@
                     <p>Simpan Informasi Login</p>
                 </label>
             </div>
-            <button class="btn-primary" type="submit">
+            <button type="submit" class="btn-primary" type="submit">
                 Masuk
             </button>
             <p class="mt-3 text-sm font-medium text-gray-600">
@@ -36,4 +37,30 @@
 @section('css')
 @endsection
 @section('js')
+<script>
+    $(document).ready(function(){
+        $('#formLogin').submit(function(e){
+            e.preventDefault();
+            let button = $(this).find('button[type=submit]');
+            let buttonEl = button.html();
+            button.html(`<i class="fas fa-spin fa-spinner"></i>`);
+            button.attr('disabled', true);
+            $.ajax({
+                type : 'post',
+                url : $(this).attr('action'),
+                data : $(this).serialize(),
+                dataType : 'json',
+                success : function(response){
+                    button.html(buttonEl);
+                    button.attr('disabled', false);
+                    if(response?.success){
+                        toastr("success",response?.message);
+                        return window.location.href="{{url()->previous()}}";
+                    }
+                    return toastr("error",response?.message);
+                }
+            })
+        })
+    })
+</script>
 @endsection

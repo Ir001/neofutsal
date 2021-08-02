@@ -4,10 +4,11 @@
 <div class="mt-5 h-full align-middle flex justify-center items-center flex-col">
     <div class=" bg-white shadow-xl px-4 py-4 rounded-lg w-full md:max-w-sm">
         <h1 class="text-3xl text-dark font-extrabold text-center">Daftar</h1>
-        <form action="" method="post">
+        <form action="{{route('register')}}" method="post" id="formRegister">
+            @csrf
             <div class="mb-3">
                 <label>Nama Lengkap</label>
-                <input type="text" class="bg-gray-100" name="fullname" placeholder="Irwan Antonio">
+                <input type="text" class="bg-gray-100" name="name" placeholder="Irwan Antonio">
             </div>
             <div class="mb-3">
                 <label>Email</label>
@@ -22,9 +23,14 @@
                 <input type="password" class="bg-gray-100" name="password" placeholder="Kata Sandi">
             </div>
             <div class="mb-3">
+                <label>Konfirmasi Kata Sandi</label>
+                <input type="password" class="bg-gray-100" name="password_confirmation"
+                    placeholder="Ketik Ulang Kata Sandi">
+            </div>
+            <div class="mb-3">
                 <label class="flex justify-start">
-                    <input type="checkbox" name="remember_me" class="p-5 mr-3" value="1">
-                    <p>Saya setuju dengan <a href="" class="text-primary">S&K</a> yang berlaku</p>
+                    <input type="checkbox" name="is_aggree" class="p-5 mr-3" value="1">
+                    <p>Saya setuju dengan <a href="#" class="text-primary">S&K</a> yang berlaku</p>
                 </label>
             </div>
             <button class="btn-primary" type="submit">
@@ -79,11 +85,30 @@
             $(this).val(str);
         })
         //on Submit
-        $('form').submit(function(e){
+        $(document).ready(function(){
+        $('#formRegister').submit(function(e){
             e.preventDefault();
-            console.log($(this).serialize());
-            console.log(phoneInput.getNumber());
+            let button = $(this).find('button[type=submit]');
+            let buttonEl = button.html();
+            button.html(`<i class="fas fa-spin fa-spinner"></i>`);
+            button.attr('disabled', true);
+            $.ajax({
+                type : 'post',
+                url : $(this).attr('action'),
+                data : `${$(this).serialize()}&phone=${phoneInput.getNumber()}`,
+                dataType : 'json',
+                success : function(response){
+                    button.html(buttonEl);
+                    button.attr('disabled', false);
+                    if(response?.success){
+                        toastr("success",response?.message);
+                        return window.location.href="{{url()->previous()}}";
+                    }
+                    return toastr("error",response?.message);
+                }
+            })
         })
+    })
     })
 </script>
 @endsection

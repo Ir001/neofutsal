@@ -9,18 +9,18 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        return view('transaction.index');
+        return view('user.transaction.index');
     }
     public function history()
     {
-        return view('transaction.history');
+        return view('user.transaction.history');
     }
     public function detail($id = 1)
     {
-        return view('transaction.detail');
+        return view('user.transaction.detail');
     }
     public function pay($id = 1)
     {
-        return view('transaction.pay');
+        return view('user.transaction.pay');
     }
 }
