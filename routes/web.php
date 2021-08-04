@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Order\IncomeController;
 use App\Http\Controllers\Admin\Order\SummaryController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\TransactionController;
 use Illuminate\Support\Facades\Auth;
@@ -25,9 +26,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->name('app');
+Route::get('/', [UserDashboardController::class, 'index'])->name('app');
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'authLogin'])->name('login');
 
