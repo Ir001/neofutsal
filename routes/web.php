@@ -33,9 +33,7 @@ Route::post('login', [AuthController::class, 'authLogin'])->name('login');
 Route::get('register', [AuthController::class, 'register'])->name('register');
 Route::post('register', [AuthController::class, 'authRegister']);
 
-Route::get('detail', function () {
-    return view('user.order.detail');
-});
+Route::get('detail/{field}', [OrderController::class, 'detail']);
 Route::get('order', function ($id = 1) { //id lapangan
     $base64 = request()->schedule;
     $schedule = json_decode(base64_decode($base64));
@@ -44,7 +42,7 @@ Route::get('order', function ($id = 1) { //id lapangan
     }
     return view('order.order', compact('schedule'));
 });
-Route::post('api/check-schedule', [OrderController::class, 'checkSchedule'])->name('check-schedule');
+Route::post('api/check-schedule/{field_id}', [OrderController::class, 'checkSchedule'])->name('check-schedule');
 Route::get('app/profile', function () {
     return 1;
 })->name('app.profile');

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\checkScheduleRequest;
+use App\Models\BallType;
+use App\Models\FutsalField;
 use Carbon\Carbon;
 use Exception;
 use Helpers;
@@ -12,8 +14,16 @@ use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
-    public function checkSchedule()
+    public function detail(FutsalField $field)
     {
+        $ball_types = BallType::select("name")->where('is_available', '1')->get();
+        return view('user.order.detail', compact('field', 'ball_types'));
+    }
+
+    // Helper
+    public function checkSchedule($field_id)
+    {
+        $field = FutsalField::where('is_available', '1')->findOrFail($field_id);
         $request = new checkScheduleRequest();
         $validator = Validator::make(request()->all(), $request->rules(), $request->messages());
         if ($validator->fails()) {

@@ -22,22 +22,23 @@
 <h1 class="text-md text-black font-semibold border-b-2 pb-3 mb-2">Informasi Lapangan</h1>
 <div id="description" class="my-3">
     <p>
-        <i class="fas fa-money-bill"></i> Sewa per jam : Rp. 75,000
+        <i class="fas fa-money-bill"></i> Sewa per jam : Rp. {{number_format($field->price)}}
     </p>
     <p>
-        <i class="fas fa-ruler-combined"></i> Luas Lapangan : 25m x 16m
+        <i class="fas fa-ruler-combined"></i> Luas Lapangan : {{$field->width}}m x {{$field->height}}m
     </p>
     <p>
-        <i class="fas fa-list"></i> Jenis Lapangan : Sintetis
+        <i class="fas fa-list"></i> Jenis Lapangan : {{$field->field_type->name}}
     </p>
     <p>
-        <i class="fas fa-futbol"></i> Bola Tersedia : <span class="badge-ball">Kecil</span>, <span
-            class="badge-ball">Besar</span>,
-        <span class="badge-ball">Original</span>
+        <i class="fas fa-futbol"></i> Bola Tersedia :
+        @foreach ($ball_types as $ball)
+        <span class="badge-ball">{{$ball->name}}</span>
+        @endforeach
     </p>
 </div>
 <h1 class="text-md text-black font-semibold border-b-2 border-primary pb-3">Pilih Jadwal</h1>
-<form action="{{route('check-schedule')}}" method="post">
+<form action="{{route('check-schedule',['field_id' => $field->id])}}" method="post">
     @csrf
     <div class="w-full">
         <label>Hari, Tanggal</label>

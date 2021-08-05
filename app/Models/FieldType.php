@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class FieldType extends Model
 {
     use HasFactory;
+
+    protected $table = 'field_types';
+
+    protected $fillable = ['name', 'description'];
 }
