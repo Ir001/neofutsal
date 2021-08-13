@@ -38,7 +38,7 @@
     </p>
 </div>
 <h1 class="text-md text-black font-semibold border-b-2 border-primary pb-3">Pilih Jadwal</h1>
-<form action="{{route('check-schedule',['field_id' => $field->id])}}" method="post">
+<form action="{{route('check-schedule',['field' => $field->id])}}" method="post">
     @csrf
     <div class="w-full">
         <label>Hari, Tanggal</label>
@@ -130,7 +130,7 @@
             dataType : 'json',
             success : function(data){
                 if(data?.success){
-                    return toastr('success',data?.message, `<a href='{{url('order')}}?schedule=${data?.data}'> Check</a>`);
+                    return toastr('success',data?.message, `<a href='{{url("order/$field->id")}}?schedule=${data?.data}'> Booking</a>`);
                 }
                 if(data?.error){
                     return toastr('error', data?.message, `Saya Paham`);

@@ -36,6 +36,9 @@ select.form-select {
 .btn-gray {
     @apply mt-2 w-full px-1 py-2 bg-gray-500  text-center text-white font-medium rounded-md hover:shadow-lg;
 }
+.btn {
+    @apply mt-2 w-full px-1 py-2  text-center font-medium rounded-md hover:shadow-lg;
+}
 .payment-radio {
     @apply bg-gray-500 px-5 py-3 flex-1 rounded-md flex flex-col text-white cursor-pointer transition duration-500 hover:shadow-md;
 }

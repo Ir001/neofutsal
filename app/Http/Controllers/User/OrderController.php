@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\checkScheduleRequest;
 use App\Models\BallType;
 use App\Models\FutsalField;
+use App\Models\PaymentType;
 use Carbon\Carbon;
 use Exception;
 use Helpers;
@@ -20,10 +21,30 @@ class OrderController extends Controller
         return view('user.order.detail', compact('field', 'ball_types'));
     }
 
-    // Helper
-    public function checkSchedule($field_id)
+    public function order(FutsalField $field)
     {
-        $field = FutsalField::where('is_available', '1')->findOrFail($field_id);
+        $base64 = request()->schedule;
+        $schedule = json_decode(base64_decode($base64));
+        if (empty($schedule)) {
+            return redirect()->back()->with('error', 'Invalid!');
+        }
+        $date = $schedule->day;
+        $start_at = "{$date} " . $schedule->start_at;
+        $end_at = "{$date} " . $schedule->end_at;
+        $dateReadable = Carbon::parse($date)->locale('id')->translatedFormat('l, d F Y');
+        $hours = Carbon::parse($start_at)->diffInHours($end_at);
+        $priceTotal = $hours * $field->price;
+        $downPayment = $priceTotal * 0.5;
+        $paymentTypes = PaymentType::select(['id', 'bank_name'])->where('is_active', '1')->get();
+        return view('user.order.order', compact('schedule', 'hours', 'field', 'dateReadable', 'priceTotal', 'downPayment', 'paymentTypes'));
+    }
+
+    // Helper
+    public function checkSchedule(FutsalField $field)
+    {
+        if ($field->is_available < 1) {
+            abort(404);
+        }
         $request = new checkScheduleRequest();
         $validator = Validator::make(request()->all(), $request->rules(), $request->messages());
         if ($validator->fails()) {
@@ -42,6 +63,7 @@ class OrderController extends Controller
             }
             return response()->json(['success' => false, 'message' => 'Jadwal tidak tersedia!']);
         } catch (Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
 }

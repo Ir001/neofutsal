@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\OrderController;
+use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\TransactionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -34,18 +35,10 @@ Route::get('register', [AuthController::class, 'register'])->name('register');
 Route::post('register', [AuthController::class, 'authRegister']);
 
 Route::get('detail/{field}', [OrderController::class, 'detail']);
-Route::get('order', function ($id = 1) { //id lapangan
-    $base64 = request()->schedule;
-    $schedule = json_decode(base64_decode($base64));
-    if (empty($schedule)) {
-        return 'Invalid!';
-    }
-    return view('order.order', compact('schedule'));
-});
-Route::post('api/check-schedule/{field_id}', [OrderController::class, 'checkSchedule'])->name('check-schedule');
-Route::get('app/profile', function () {
-    return 1;
-})->name('app.profile');
+Route::get('order/{field}', [OrderController::class, 'order']);
+Route::post('api/check-schedule/{field:id}', [OrderController::class, 'checkSchedule'])->name('check-schedule');
+Route::get('app/profile', [ProfileController::class, 'index'])->name('app.profile');
+Route::get('app/profile/edit', [ProfileController::class, 'edit'])->name('app.profile.edit');
 // My Order
 Route::get('transaction', [TransactionController::class, 'index'])->name('app.transaction');
 Route::get('transaction/history', [TransactionController::class, 'history'])->name('app.transaction.history');

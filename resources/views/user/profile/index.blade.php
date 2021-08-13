@@ -1,0 +1,54 @@
+@extends('theme.theme')
+@section('title','My Profile')
+@section('content')
+<div class="px-2 py-4 bg-white rounded">
+    <div class="flex justify-end">
+        <a href="{{route('app.profile.edit')}}" class="-mt-2 text-sm text-gray-500">
+            <i class="fas fa-pen"></i> Edit
+        </a>
+    </div>
+    <div class="mx-auto rounded-full bg-primary w-20 h-20 flex justify-center items-center overflow-hidden">
+        {{-- <span class="text-4xl text-white"><i class="fas fa-camera"></i></span> --}}
+        <img src="https://www.pngarts.com/files/11/Avatar-PNG-Transparent-Image.png" alt="Foto Profile" class="object-cover">
+    </div>
+    <h2 class="text-2xl font-extrabold text-primary text-center">{{$user->name}}</h2>
+    <div class="my-2 px-2 py-3 border border-gray-200 rounded flex space-x-2 items-center">
+        <div>
+            <span class="text-3xl text-primary"><i class="fas fa-calendar-alt"></i></span>
+        </div>
+        <div>
+            <p class="text-gray-900">Join Date</p>
+            <p class="text-sm text-gray-500">Jumat, 27 Agustus 2021</p>
+        </div>
+    </div>
+    <div class="my-2 px-2 py-3 border border-gray-200 rounded flex space-x-2 items-center">
+        <div>
+            <span class="text-3xl text-primary"><i class="fas fa-envelope"></i></span>
+        </div>
+        <div>
+            <p class="text-gray-900">Email</p>
+            <p class="text-sm text-gray-500">user@neofutsal.id</p>
+        </div>
+    </div>
+    <div class="my-2 px-2 py-3 border border-gray-200 rounded flex space-x-2 items-center">
+        <div>
+            <span class="text-3xl text-primary"><i class="fab fa-whatsapp"></i></span>
+        </div>
+        <div>
+            <p class="text-gray-900">WhatsApp</p>
+            <p class="text-sm text-gray-500">+62822-4344-0959</p>
+        </div>
+    </div>
+    <a href="" class="btn-gray mb-1 block">Ganti Password</a>
+    <form action="{{route('logout')}}" method="post">
+        @csrf
+        <button type="submit" class="btn bg-red-500 text-white">
+            Keluar
+        </button>
+    </form>
+</div>
+@endsection
+@section('css')
+@endsection
+@section('js')
+@endsection

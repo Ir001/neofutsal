@@ -8,13 +8,13 @@
 </div>
 <div id="description" class="my-3">
     <p>
-        <i class="fas mr-2 fa-futbol"></i> Lapangan X (Rp. 75,000 / jam)
+        <i class="fas mr-2 fa-futbol"></i> {{$field->name}} (Rp. {{number_format($field->price)}} / jam)
     </p>
-    <p><i class="fas mr-2 fa-calendar"></i> Jumat, 27 Agustus 2021</p>
-    <p><i class="fas mr-2 fa-clock"></i> 08:00 - 11:00 WIB (2 jam)</p>
+    <p><i class="fas mr-2 fa-calendar"></i> {{$dateReadable}}</p>
+    <p><i class="fas mr-2 fa-clock"></i> {{$schedule->start_at}} - {{$schedule->end_at}} WIB ({{$hours}} jam)</p>
 </div>
 <h1 class="text-md text-dark font-semibold border-b-2 pb-3 mb-2">Informasi Harga</h1>
-<form action="{{route('check-schedule')}}" method="post">
+<form action="#" method="post">
     @csrf
     <div class="w-full mb-3">
         <label>Pilih Jenis Pembayaran</label>
@@ -34,21 +34,23 @@
         <label>Pilih Metode Pembayaran</label>
         <select name="payment_method_id" class="form-select bg-white">
             <option value="" selected disabled>Pilih Metode Pembayaran</option>
-            <option value="1">Tests</option>
+            @foreach ($paymentTypes as $type)
+            <option value="{{$type->id}}">{{$type->bank_name}}</option>
+            @endforeach
         </select>
     </div>
     <div class="w-full mb-3">
         <div class="flex justify-between mb-3">
             <p>Harga Sewa</p>
-            <p>2 x Rp. 75,000</p>
+            <p>{{$hours}} x Rp. {{number_format($field->price)}}</p>
         </div>
         <div class="flex justify-between mb-3">
             <p>Total</p>
-            <p id="total">Rp. 150,000</p>
+            <p id="total">Rp. {{number_format($priceTotal)}}</p>
         </div>
         <div class="flex justify-between mb-3 border-t border-gray-400">
             <p>DP</p>
-            <p class="text-success text-2xl" id="dp">Rp. 75,000</p>
+            <p class="text-success text-2xl" id="dp">Rp. {{number_format($downPayment)}}</p>
         </div>
     </div>
     <button type="submit" class="btn-gray transition duration-500" disabled>
