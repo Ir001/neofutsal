@@ -17,4 +17,10 @@ class FutsalField extends Model
     {
         return $this->belongsTo(FieldType::class, 'field_type_id', 'id');
     }
+
+    // Helper
+    public function available()
+    {
+        return $this->attributes['is_available'] < 1 ? false : true;
+    }
 }

@@ -19,7 +19,6 @@ class StatusTransactionSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
         DB::table('status_transactions')->truncate();
         Schema::enableForeignKeyConstraints();
-
         // 1
         StatusTransaction::insert([
             'name_client' => 'Belum dibayar',
@@ -27,13 +26,13 @@ class StatusTransactionSeeder extends Seeder
         ]);
         // 2
         StatusTransaction::insert([
-            'name_client' => 'Menunggu validasi pembayaran',
-            'name_admin' => 'Menunggu validasi pembayaran',
+            'name_client' => 'Bukti pembayaran tidak valid',
+            'name_admin' => 'Bukti pembayaran tidak valid',
         ]);
         // 3
         StatusTransaction::insert([
-            'name_client' => 'Berhasil Membayar DP',
-            'name_admin' => 'Sudah membayar DP',
+            'name_client' => 'Menunggu validasi pembayaran DP',
+            'name_admin' => 'Menunggu validasi pembayaran DP',
         ]);
         // 4
         StatusTransaction::insert([
@@ -42,13 +41,13 @@ class StatusTransactionSeeder extends Seeder
         ]);
         // 5
         StatusTransaction::insert([
-            'name_client' => 'Lunas',
-            'name_admin' => 'Lunas',
+            'name_client' => 'Berhasil membayar DP',
+            'name_admin' => 'Sudah membayar DP',
         ]);
         // 6
         StatusTransaction::insert([
-            'name_client' => 'Bukti Pembayaran Tidak Valid',
-            'name_admin' => 'Bukti Pembayaran Tidak Valid',
+            'name_client' => 'Lunas',
+            'name_admin' => 'Lunas',
         ]);
     }
 }

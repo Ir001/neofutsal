@@ -9,14 +9,14 @@
             @csrf
             <div class="mb-3">
                 <label>Email</label>
-                <input type="email" class="bg-gray-100" name="email" placeholder="Email Anda">
+                <input type="email" class="bg-gray-100" name="email" placeholder="Email Anda" value="user@neofutsal.id">
             </div>
             <div class="mb-3">
                 <div class="flex justify-between mb-2">
                     <label>Password</label>
                     <a href="" tabindex="-1" class="text-primary text-xs small">Lupa Password</a>
                 </div>
-                <input type="password" class="bg-gray-100" name="password" placeholder="Password">
+                <input type="password" class="bg-gray-100" name="password" placeholder="Password" value="neofutsal">
             </div>
             <div class="mb-3">
                 <label class="flex justify-start">

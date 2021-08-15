@@ -17,4 +17,8 @@ class ProfileController extends Controller
         $user = auth()->user();
         return view('user.profile.edit', compact('user'));
     }
+    public function password()
+    {
+        return view('user.profile.password');
+    }
 }

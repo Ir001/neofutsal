@@ -14,11 +14,12 @@
     <p><i class="fas mr-2 fa-clock"></i> {{$schedule->start_at}} - {{$schedule->end_at}} WIB ({{$hours}} jam)</p>
 </div>
 <h1 class="text-md text-dark font-semibold border-b-2 pb-3 mb-2">Informasi Harga</h1>
-<form action="#" method="post">
+<form action="{{route('booking',['field'=>$field->id])}}" method="post">
     @csrf
+    <input type="hidden" name="schedule" value="{{request()->schedule}}">
     <div class="w-full mb-3">
         <label>Pilih Jenis Pembayaran</label>
-        <input type="hidden" name="type_payment" value="1" id="type-payment-radio">
+        <input type="hidden" name="transaction_type_id" value="1" id="transaction_type">
         <div class="flex justify-between space-x-2">
             <div class="active payment-radio" data-id="1">
                 <p class="text-xl icon"><i class="fas fa-xs fa-check-circle"></i></p>
@@ -32,7 +33,7 @@
     </div>
     <div class="w-full mb-3">
         <label>Pilih Metode Pembayaran</label>
-        <select name="payment_method_id" class="form-select bg-white">
+        <select name="payment_type_id" class="form-select bg-white">
             <option value="" selected disabled>Pilih Metode Pembayaran</option>
             @foreach ($paymentTypes as $type)
             <option value="{{$type->id}}">{{$type->bank_name}}</option>
@@ -125,7 +126,7 @@
             $('.payment-radio').find('.icon').html(unCheck);
             $(this).addClass('active');
             icon.html(check);
-            $('#type-payment-radio').val(id);
+            $('#transaction_type').val(id);
             checkPaymentType(id);
         })
         //select on change

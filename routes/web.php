@@ -35,18 +35,22 @@ Route::get('register', [AuthController::class, 'register'])->name('register');
 Route::post('register', [AuthController::class, 'authRegister']);
 
 Route::get('detail/{field}', [OrderController::class, 'detail']);
+Route::post('order/booking/{field}', [OrderController::class, 'booking'])
+    ->middleware('auth')
+    ->name('booking');
 Route::get('order/{field}', [OrderController::class, 'order']);
 Route::post('api/check-schedule/{field:id}', [OrderController::class, 'checkSchedule'])->name('check-schedule');
 Route::get('app/profile', [ProfileController::class, 'index'])->name('app.profile');
 Route::get('app/profile/edit', [ProfileController::class, 'edit'])->name('app.profile.edit');
+Route::get('app/profile/password', [ProfileController::class, 'password'])->name('app.profile.password');
 // My Order
 Route::get('transaction', [TransactionController::class, 'index'])->name('app.transaction');
 Route::get('transaction/history', [TransactionController::class, 'history'])->name('app.transaction.history');
 Route::get('transaction/pay/{id}', [TransactionController::class, 'pay']);
 Route::get('transaction/{id}', [TransactionController::class, 'detail']);
 
-// Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('logout', [LoginController::class, 'logout']);
 Route::prefix('admin')->group(function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('login', [LoginController::class, 'login']);

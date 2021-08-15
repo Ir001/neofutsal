@@ -39,8 +39,8 @@
             <p class="text-sm text-gray-500">+62822-4344-0959</p>
         </div>
     </div>
-    <a href="" class="btn-gray mb-1 block">Ganti Password</a>
-    <form action="{{route('logout')}}" method="post">
+    <a href="{{route('app.profile.password')}}" class="btn-gray mb-1 block">Ganti Password</a>
+    <form action="{{route('logout')}}" method="post" id="formLogout">
         @csrf
         <button type="submit" class="btn bg-red-500 text-white">
             Keluar
@@ -51,4 +51,21 @@
 @section('css')
 @endsection
 @section('js')
+<script>
+    $(document).ready(function(){
+        $('#formLogout button').click(function(e){
+            e.preventDefault();
+            Swal.fire({
+                html: 'Apakah Anda Yakin Ingin Keluar?',
+                showCancelButton: true,
+                confirmButtonText: `Keluar`,
+                cancelButtonText : `Batal`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parent().submit();
+                }
+            });
+        })
+    })
+</script>
 @endsection

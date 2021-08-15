@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\checkScheduleRequest;
 use App\Models\BallType;
 use App\Models\FutsalField;
+use App\Models\Order;
 use App\Models\PaymentType;
+use App\Models\Transaction;
 use Carbon\Carbon;
 use Exception;
 use Helpers;
@@ -23,26 +25,95 @@ class OrderController extends Controller
 
     public function order(FutsalField $field)
     {
-        $base64 = request()->schedule;
-        $schedule = json_decode(base64_decode($base64));
-        if (empty($schedule)) {
-            return redirect()->back()->with('error', 'Invalid!');
+        try {
+            $base64 = request()->schedule;
+            $schedule = json_decode(base64_decode($base64));
+            if (empty($schedule)) {
+                return redirect()->back()->with('error', 'Invalid!');
+            }
+            $date = $schedule->day;
+            $start_at = "{$date} " . $schedule->start_at;
+            $end_at = "{$date} " . $schedule->end_at;
+            $dateReadable = Carbon::parse($date)->locale('id')->translatedFormat('l, d F Y');
+            $hours = Carbon::parse($start_at)->diffInHours($end_at);
+            $priceTotal = $hours * $field->price;
+            $downPayment = $priceTotal * 0.5;
+            $paymentTypes = PaymentType::select(['id', 'bank_name'])->where('is_active', '1')->get();
+            return view('user.order.order', compact('schedule', 'hours', 'field', 'dateReadable', 'priceTotal', 'downPayment', 'paymentTypes'));
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
-        $date = $schedule->day;
-        $start_at = "{$date} " . $schedule->start_at;
-        $end_at = "{$date} " . $schedule->end_at;
-        $dateReadable = Carbon::parse($date)->locale('id')->translatedFormat('l, d F Y');
-        $hours = Carbon::parse($start_at)->diffInHours($end_at);
-        $priceTotal = $hours * $field->price;
-        $downPayment = $priceTotal * 0.5;
-        $paymentTypes = PaymentType::select(['id', 'bank_name'])->where('is_active', '1')->get();
-        return view('user.order.order', compact('schedule', 'hours', 'field', 'dateReadable', 'priceTotal', 'downPayment', 'paymentTypes'));
     }
 
-    // Helper
+    public function booking(FutsalField $field, Request $request)
+    {
+        if (!$field->available()) {
+            abort(404);
+        }
+        $validator = Validator::make($request->all(), [
+            'schedule' => 'required',
+            'transaction_type_id' => 'required|numeric',
+            'payment_type_id' => 'required|numeric',
+        ], [
+            'schedule.required' => 'Invalid Schedule, Try Again Later!',
+            'transaction_type_id.required' => 'Jenis Pembayaran Wajib Dipilih',
+            'payment_type_id.required' => 'Metode Pembayaran Wajib Dipilih',
+        ]);
+        if ($validator->fails()) {
+            $errors = Helpers::setErrors($validator->errors()->messages());
+            return response()->json(['success' => false, 'error' => true, 'message' => $errors]);
+        }
+        try {
+            $req = $validator->validated();
+            $schedule = json_decode(base64_decode($req['schedule']));
+            $diff = (new Carbon($schedule['start_at']))->diff($schedule['end_at']);
+            $isScheduleExist = Order::isScheduleExist($field->id, $schedule['day'], $schedule['start_at'], $schedule['end_at']);
+            if ($diff->invert > 0) {
+                return response()->json(['success' => false, 'error' => true, 'message' => 'Mohon periksa jam mulai dan selesai!']);
+            } elseif ($isScheduleExist) {
+                return response()->json(['success' => false, 'error' => true, 'message' => 'Lapangan telah dibooking pada waktu tersebut!']);
+            }
+
+            $totalPrice = ($field->price * $diff->h);
+            $downPayment = (0.5 * $totalPrice);
+            $expiredPayment = Carbon::now('id')->addHour(2)->format('Y-m-d H:i:s');
+
+            $order = Order::create([
+                'user_id' => auth()->user()->id,
+                'futsal_field_id' => $field->id,
+                'hours' => $diff->h,
+                'price' => $totalPrice,
+                'play_date' => $schedule['day'],
+                'start_at' => $schedule['start_at'],
+                'end_at' => $schedule['end_at'],
+            ]);
+            $trx = Transaction::create([
+                'order_id' => $order->id(),
+                'transaction_type_id' => $req['transaction_type_id'],
+                'payment_type_id' => $req['payment_type_id'],
+                'code' => rand(100, 999),
+                'amount' => ($req['payment_type_id'] == 1 ? $downPayment : $totalPrice),
+                'expired_payment' => $expiredPayment
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Lapangan berhasil dipesan. Segera lakukan pembayaran',
+                'data' => ['orderId' => $order->id(), 'expired_at' => $expiredPayment, 'transactionId' => $trx->id()],
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Check Schedule Playing Futsal function
+     *
+     * @param FutsalField $field
+     * @return json
+     */
     public function checkSchedule(FutsalField $field)
     {
-        if ($field->is_available < 1) {
+        if (!$field->available()) {
             abort(404);
         }
         $request = new checkScheduleRequest();
@@ -54,10 +125,11 @@ class OrderController extends Controller
         try {
             $validated = $validator->validated();
             $diff = (new Carbon($validated['start_at']))->diff($validated['end_at']);
+            $isScheduleExist = Order::isScheduleExist($field->id, $validated['day'], $validated['start_at'], $validated['end_at']);
             if ($diff->invert > 0) {
                 return response()->json(['success' => false, 'error' => true, 'message' => 'Mohon periksa jam mulai dan selesai!']);
             }
-            if ($diff->h > 0 && $diff->i == 0) {
+            if ($diff->h > 0 && $diff->i == 0 && !$isScheduleExist) {
                 $data = base64_encode(json_encode($validated));
                 return response()->json(['success' => true, 'message' => 'Jadwal Tersedia!', 'data' => $data]);
             }
