@@ -52,7 +52,7 @@ class Order extends Model
      * @param [string] $date
      * @param [string] $time_start
      * @param [string] $time_end
-     * @return boolean
+     * @return boolean 
      */
     public static function isScheduleExist($field_id, $date, $time_start, $time_end)
     {
@@ -60,12 +60,11 @@ class Order extends Model
             $exist = Order::where([
                 ['field_id', '=', $field_id],
                 ['play_date', '=', $date],
-                ['start_at', '>=', $time_start], //Cek Jam Mulai Lebih dari jam mulai
-                ['end_at', '<=', $time_start], // Cek Jam Selesai Kurang dari jam mulai
-                ['start_at', '>=', $time_end], // Cek Jam Mulai Kurang dari jam selesai
-                ['end_at', '<=', $time_end], // Cek Jam Selesai kurang dari jam selesai
                 ['status_transaction_id', '>=', 3]
-            ])->exist();
+            ])
+            ->whereBetween('start_at',[$time_start,$time_end])
+            ->whereBetween('end_at',[$time_start, $time_end])
+            ->exist();
             return $exist;
         } catch (Exception $e) {
             return false;

@@ -27,10 +27,10 @@ class CreateOrdersTable extends Migration
                 ->onDelete("set null");
             $table->foreignId("status_transaction_id")
                 ->nullable()
+                ->default(1)
                 ->constrained("status_transactions", "id")
                 ->onUpdate("cascade")
-                ->onDelete("set null")
-                ->default(1);
+                ->onDelete("set null");
             $table->integer("hours")->nullable()->default(1);
             $table->double("price")->nullable()->default(0);
             $table->date("play_date")->nullable();

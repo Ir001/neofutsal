@@ -1,8 +1,7 @@
 <div class="w-full bg-white shadow-2xl rounded-md overflow-hidden">
     <div class="img">
         <a href="{{url("detail/$field->id")}}">
-            <img src="https://smktrimulia.sch.id/wp-content/uploads/2020/09/Ilustrasi-futsal-istimewa8f521491d609bc2c.jpg"
-                alt="Foto Lapangan" class="object-cover w-full">
+            <img src="{{ asset('images/field/default.png') }}" alt="Foto Lapangan" class="object-cover w-full">
         </a>
     </div>
     <div class="description px-2 py-4">

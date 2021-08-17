@@ -8,12 +8,12 @@
         <div class="swiper-wrapper">
             <!-- Slides -->
             <div class="swiper-slide">
-                <img src="https://smktrimulia.sch.id/wp-content/uploads/2020/09/Ilustrasi-futsal-istimewa8f521491d609bc2c.jpg"
-                    class="object-cover h-36 md:h-64 w-full rounded" alt="">
+                <img src="{{ asset('images/banner/banner-1.png') }}" class="object-cover h-36 md:h-64 w-full rounded"
+                    alt="">
             </div>
             <div class="swiper-slide">
-                <img src="https://d10dnch8g6iuzs.cloudfront.net/pictures/480x306/picture/92620190718180021549"
-                    class="object-cover h-36 md:h-64 w-full rounded" alt="">
+                <img src="{{ asset('images/banner/banner-2.png') }}" class="object-cover h-36 md:h-64 w-full rounded"
+                    alt="">
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
 <h1 class="text-md text-dark font-semibold border-b-2 pb-3">Booking Online</h1>
 <div class="my-3 grid grid-flow-row grid-cols-1 md:grid-cols-3 gap-4 auto-rows-max">
     @foreach ($futsal_fields as $field)
-        <x-product-card :field="$field"/>
+    <x-product-card :field="$field" />
     @endforeach
 </div>
 @endsection

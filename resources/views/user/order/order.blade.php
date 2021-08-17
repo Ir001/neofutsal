@@ -137,24 +137,24 @@
         // on Submit
         $('form').submit(function(e){
             e.preventDefault();
-            const URL  = $(this).attr('action');
-            const TYPE  = $(this).attr('method');
-            const DATA = $(this).serialize();
             $.ajax({
-                url : URL,
-                type : TYPE,
-                data : DATA,
+                url : $(this).attr('action'),
+                type : $(this).attr('method'),
+                data : $(this).serialize(),
                 dataType : 'json',
                 success : function(data){
                     if(data?.success){
-                        return toastr('success',data?.message, `<a href='?schedule=${data?.data}'> Check</a>`);
+                        return toastr('success',data?.message, `<a href='/transaction/${data?.data?.transactionId}'> Bayar</a>`);
                     }
                     if(data?.error){
-                        return toastr('error', data?.message, `Saya Paham`);
+                        return toastr('error', data?.message, `Tutup`);
                     }
-                    return toastr('error', data?.message, `Cari Jadwal Lain`);
+                    return toastr('error', data?.message, `Tutup`);
                 },
                 error : function(xhr, status,err){
+                    if(xhr?.status == 401){
+                        return toastr('error',`Masuk atau Buat Akun terlebih dahulu!`,`<a href='{{route('login')}}'>Masuk</a>`);
+                    }
                     toastr('error',err);
                 }
             })

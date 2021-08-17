@@ -66,29 +66,31 @@ class OrderController extends Controller
         try {
             $req = $validator->validated();
             $schedule = json_decode(base64_decode($req['schedule']));
-            $diff = (new Carbon($schedule['start_at']))->diff($schedule['end_at']);
-            $isScheduleExist = Order::isScheduleExist($field->id, $schedule['day'], $schedule['start_at'], $schedule['end_at']);
+            $diff = (new Carbon($schedule->start_at))->diff($schedule->end_at);
+            $isScheduleExist = Order::isScheduleExist($field->id, $schedule->day, $schedule->start_at, $schedule->end_at);
             if ($diff->invert > 0) {
                 return response()->json(['success' => false, 'error' => true, 'message' => 'Mohon periksa jam mulai dan selesai!']);
-            } elseif ($isScheduleExist) {
+            }
+            if ($isScheduleExist) {
                 return response()->json(['success' => false, 'error' => true, 'message' => 'Lapangan telah dibooking pada waktu tersebut!']);
             }
 
             $totalPrice = ($field->price * $diff->h);
             $downPayment = (0.5 * $totalPrice);
-            $expiredPayment = Carbon::now('id')->addHour(2)->format('Y-m-d H:i:s');
+            $expiredPayment = Carbon::now()->addHour(2)->format('Y-m-d H:i:s');
 
             $order = Order::create([
                 'user_id' => auth()->user()->id,
                 'futsal_field_id' => $field->id,
                 'hours' => $diff->h,
                 'price' => $totalPrice,
-                'play_date' => $schedule['day'],
-                'start_at' => $schedule['start_at'],
-                'end_at' => $schedule['end_at'],
+                'play_date' => $schedule->day,
+                'start_at' => Carbon::parse($schedule->start_at)->format('Y-m-d H:i:s'),
+                'end_at' => Carbon::parse($schedule->end_at)->format('Y-m-d H:i:s'),
             ]);
+            $orderId = $order->id;
             $trx = Transaction::create([
-                'order_id' => $order->id(),
+                'order_id' => $orderId,
                 'transaction_type_id' => $req['transaction_type_id'],
                 'payment_type_id' => $req['payment_type_id'],
                 'code' => rand(100, 999),
@@ -98,7 +100,7 @@ class OrderController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Lapangan berhasil dipesan. Segera lakukan pembayaran',
-                'data' => ['orderId' => $order->id(), 'expired_at' => $expiredPayment, 'transactionId' => $trx->id()],
+                'data' => ['orderId' => $orderId, 'expired_at' => $expiredPayment, 'transactionId' => $trx->id],
             ]);
         } catch (Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
@@ -123,14 +125,20 @@ class OrderController extends Controller
             return response()->json(['success' => false, 'error' => true, 'message' => $errors]);
         }
         try {
-            $validated = $validator->validated();
-            $diff = (new Carbon($validated['start_at']))->diff($validated['end_at']);
-            $isScheduleExist = Order::isScheduleExist($field->id, $validated['day'], $validated['start_at'], $validated['end_at']);
+            $req = $validator->validated();
+            $req['start_at'] = Carbon::parse($req['start_at'])->format('Y-m-d H:i:s');
+            $req['end_at'] = Carbon::parse($req['end_at'])->format('Y-m-d H:i:s');
+            $diff = (new Carbon($req['start_at']))->diff($req['end_at']);
+            $isScheduleExist = Order::isScheduleExist($field->id, $req['day'], $req['start_at'], $req['end_at']);
+            if ($isScheduleExist) {
+                return response()->json(['success' => false, 'error' => true, 'message' => 'Lapangan telah dibooking pada waktu tersebut!']);
+            }
+            $isScheduleExist = Order::isScheduleExist($field->id, $req['day'], $req['start_at'], $req['end_at']);
             if ($diff->invert > 0) {
                 return response()->json(['success' => false, 'error' => true, 'message' => 'Mohon periksa jam mulai dan selesai!']);
             }
             if ($diff->h > 0 && $diff->i == 0 && !$isScheduleExist) {
-                $data = base64_encode(json_encode($validated));
+                $data = base64_encode(json_encode($req));
                 return response()->json(['success' => true, 'message' => 'Jadwal Tersedia!', 'data' => $data]);
             }
             return response()->json(['success' => false, 'message' => 'Jadwal tidak tersedia!']);
