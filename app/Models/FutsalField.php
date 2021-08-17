@@ -11,7 +11,7 @@ class FutsalField extends Model
 
     protected $table = 'futsal_fields';
 
-    protected $fillable = ['field_type_id', 'price', 'width', 'height', 'is_available'];
+    protected $fillable = ['field_type_id', 'price', 'width', 'height','image', 'is_available'];
 
     public function field_type()
     {

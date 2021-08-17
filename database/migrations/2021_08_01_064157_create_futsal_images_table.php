@@ -15,7 +15,12 @@ class CreateFutsalImagesTable extends Migration
     {
         Schema::create('futsal_images', function (Blueprint $table) {
             $table->id();
-            $table->text('image')->nullable();
+            $table->foreignId('futsal_field_id')
+                ->nullable()
+                ->constrained('futsal_fields')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->text('img')->nullable();
             $table->enum('is_active', [0, 1])->nullable()->default(1);
             $table->timestamps();
         });

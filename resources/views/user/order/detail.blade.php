@@ -1,24 +1,19 @@
 @extends('theme.theme')
 @section('title','Booking Online Futsal')
 @section('content')
-{{-- Slider --}}
-<div id="slider" class="my-3">
-    <div class="swiper-container h-36 md:h-64">
-        <!-- Additional required wrapper -->
-        <div class="swiper-wrapper">
-            <!-- Slides -->
-            <div class="swiper-slide">
-                <img src="https://smktrimulia.sch.id/wp-content/uploads/2020/09/Ilustrasi-futsal-istimewa8f521491d609bc2c.jpg"
-                    class="object-cover h-36 md:h-64 w-full rounded" alt="">
-            </div>
-            <div class="swiper-slide">
-                <img src="https://d10dnch8g6iuzs.cloudfront.net/pictures/480x306/picture/92620190718180021549"
-                    class="object-cover h-36 md:h-64 w-full rounded" alt="">
-            </div>
+<div class="flex justify-between space-x-2" id="images">
+    <div class="w-2/3">
+        <img src="{{ asset($field->img) }}" class="object-cover rounded w-full h-32 md:h-64" alt="">
+    </div>
+    <div class="w-1/3">
+        <div class="flex flex-col space-y-2 h-32 md:h-64 overflow-y-auto overflow-x-hidden">
+            @for ($i = 1; $i <= 5; $i++)
+                <img src="{{ asset($field->img) }}" class="object-cover rounded w-full" alt="">
+            @endfor
         </div>
+
     </div>
 </div>
-{{-- End of Slider --}}
 <h1 class="text-md text-black font-semibold border-b-2 pb-3 mb-2">Informasi Lapangan</h1>
 <div id="description" class="my-3">
     <p>
@@ -92,11 +87,10 @@
 <script>
     const swiper = new Swiper('.swiper-container', {
         // Optional parameters
-        direction: 'horizontal',
-        loop: true,
-        autoplay: true,
+        direction: 'vertical',
         delay : 2000,
-        });
+        spaceBetween: 15,
+    });
 </script>
 <script>
     $(document).ready(function(){
@@ -120,13 +114,10 @@
     // on Submit
     $('form').submit(function(e){
         e.preventDefault();
-        const URL  = $(this).attr('action');
-        const TYPE  = $(this).attr('method');
-        const DATA = $(this).serialize();
         $.ajax({
-            url : URL,
-            type : TYPE,
-            data : DATA,
+            url : $(this).attr('action'),
+            type : $(this).attr('method'),
+            data : $(this).serialize(),
             dataType : 'json',
             success : function(data){
                 if(data?.success){

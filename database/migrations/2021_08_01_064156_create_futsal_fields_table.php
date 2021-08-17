@@ -24,6 +24,8 @@ class CreateFutsalFieldsTable extends Migration
             $table->double("price")->nullable()->default(0);
             $table->float("width")->nullable()->default(25);
             $table->float("height")->nullable()->default(16);
+            $table->text('img')
+                ->nullable();
             $table->enum('is_available', [0, 1])->nullable()->default(1);
             $table->timestamps();
         });

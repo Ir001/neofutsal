@@ -12384,6 +12384,102 @@ video {
   overflow-y: scroll;
 }
 
+.hover\:overflow-auto:hover {
+  overflow: auto;
+}
+
+.hover\:overflow-hidden:hover {
+  overflow: hidden;
+}
+
+.hover\:overflow-visible:hover {
+  overflow: visible;
+}
+
+.hover\:overflow-scroll:hover {
+  overflow: scroll;
+}
+
+.hover\:overflow-x-auto:hover {
+  overflow-x: auto;
+}
+
+.hover\:overflow-y-auto:hover {
+  overflow-y: auto;
+}
+
+.hover\:overflow-x-hidden:hover {
+  overflow-x: hidden;
+}
+
+.hover\:overflow-y-hidden:hover {
+  overflow-y: hidden;
+}
+
+.hover\:overflow-x-visible:hover {
+  overflow-x: visible;
+}
+
+.hover\:overflow-y-visible:hover {
+  overflow-y: visible;
+}
+
+.hover\:overflow-x-scroll:hover {
+  overflow-x: scroll;
+}
+
+.hover\:overflow-y-scroll:hover {
+  overflow-y: scroll;
+}
+
+.focus\:overflow-auto:focus {
+  overflow: auto;
+}
+
+.focus\:overflow-hidden:focus {
+  overflow: hidden;
+}
+
+.focus\:overflow-visible:focus {
+  overflow: visible;
+}
+
+.focus\:overflow-scroll:focus {
+  overflow: scroll;
+}
+
+.focus\:overflow-x-auto:focus {
+  overflow-x: auto;
+}
+
+.focus\:overflow-y-auto:focus {
+  overflow-y: auto;
+}
+
+.focus\:overflow-x-hidden:focus {
+  overflow-x: hidden;
+}
+
+.focus\:overflow-y-hidden:focus {
+  overflow-y: hidden;
+}
+
+.focus\:overflow-x-visible:focus {
+  overflow-x: visible;
+}
+
+.focus\:overflow-y-visible:focus {
+  overflow-y: visible;
+}
+
+.focus\:overflow-x-scroll:focus {
+  overflow-x: scroll;
+}
+
+.focus\:overflow-y-scroll:focus {
+  overflow-y: scroll;
+}
+
 .overscroll-auto {
   -ms-scroll-chaining: chained;
       overscroll-behavior: auto;
@@ -44747,6 +44843,102 @@ nav > a.active {
     overflow-y: scroll;
   }
 
+  .sm\:hover\:overflow-auto:hover {
+    overflow: auto;
+  }
+
+  .sm\:hover\:overflow-hidden:hover {
+    overflow: hidden;
+  }
+
+  .sm\:hover\:overflow-visible:hover {
+    overflow: visible;
+  }
+
+  .sm\:hover\:overflow-scroll:hover {
+    overflow: scroll;
+  }
+
+  .sm\:hover\:overflow-x-auto:hover {
+    overflow-x: auto;
+  }
+
+  .sm\:hover\:overflow-y-auto:hover {
+    overflow-y: auto;
+  }
+
+  .sm\:hover\:overflow-x-hidden:hover {
+    overflow-x: hidden;
+  }
+
+  .sm\:hover\:overflow-y-hidden:hover {
+    overflow-y: hidden;
+  }
+
+  .sm\:hover\:overflow-x-visible:hover {
+    overflow-x: visible;
+  }
+
+  .sm\:hover\:overflow-y-visible:hover {
+    overflow-y: visible;
+  }
+
+  .sm\:hover\:overflow-x-scroll:hover {
+    overflow-x: scroll;
+  }
+
+  .sm\:hover\:overflow-y-scroll:hover {
+    overflow-y: scroll;
+  }
+
+  .sm\:focus\:overflow-auto:focus {
+    overflow: auto;
+  }
+
+  .sm\:focus\:overflow-hidden:focus {
+    overflow: hidden;
+  }
+
+  .sm\:focus\:overflow-visible:focus {
+    overflow: visible;
+  }
+
+  .sm\:focus\:overflow-scroll:focus {
+    overflow: scroll;
+  }
+
+  .sm\:focus\:overflow-x-auto:focus {
+    overflow-x: auto;
+  }
+
+  .sm\:focus\:overflow-y-auto:focus {
+    overflow-y: auto;
+  }
+
+  .sm\:focus\:overflow-x-hidden:focus {
+    overflow-x: hidden;
+  }
+
+  .sm\:focus\:overflow-y-hidden:focus {
+    overflow-y: hidden;
+  }
+
+  .sm\:focus\:overflow-x-visible:focus {
+    overflow-x: visible;
+  }
+
+  .sm\:focus\:overflow-y-visible:focus {
+    overflow-y: visible;
+  }
+
+  .sm\:focus\:overflow-x-scroll:focus {
+    overflow-x: scroll;
+  }
+
+  .sm\:focus\:overflow-y-scroll:focus {
+    overflow-y: scroll;
+  }
+
   .sm\:overscroll-auto {
     -ms-scroll-chaining: chained;
         overscroll-behavior: auto;
@@ -76787,6 +76979,102 @@ nav > a.active {
   }
 
   .md\:overflow-y-scroll {
+    overflow-y: scroll;
+  }
+
+  .md\:hover\:overflow-auto:hover {
+    overflow: auto;
+  }
+
+  .md\:hover\:overflow-hidden:hover {
+    overflow: hidden;
+  }
+
+  .md\:hover\:overflow-visible:hover {
+    overflow: visible;
+  }
+
+  .md\:hover\:overflow-scroll:hover {
+    overflow: scroll;
+  }
+
+  .md\:hover\:overflow-x-auto:hover {
+    overflow-x: auto;
+  }
+
+  .md\:hover\:overflow-y-auto:hover {
+    overflow-y: auto;
+  }
+
+  .md\:hover\:overflow-x-hidden:hover {
+    overflow-x: hidden;
+  }
+
+  .md\:hover\:overflow-y-hidden:hover {
+    overflow-y: hidden;
+  }
+
+  .md\:hover\:overflow-x-visible:hover {
+    overflow-x: visible;
+  }
+
+  .md\:hover\:overflow-y-visible:hover {
+    overflow-y: visible;
+  }
+
+  .md\:hover\:overflow-x-scroll:hover {
+    overflow-x: scroll;
+  }
+
+  .md\:hover\:overflow-y-scroll:hover {
+    overflow-y: scroll;
+  }
+
+  .md\:focus\:overflow-auto:focus {
+    overflow: auto;
+  }
+
+  .md\:focus\:overflow-hidden:focus {
+    overflow: hidden;
+  }
+
+  .md\:focus\:overflow-visible:focus {
+    overflow: visible;
+  }
+
+  .md\:focus\:overflow-scroll:focus {
+    overflow: scroll;
+  }
+
+  .md\:focus\:overflow-x-auto:focus {
+    overflow-x: auto;
+  }
+
+  .md\:focus\:overflow-y-auto:focus {
+    overflow-y: auto;
+  }
+
+  .md\:focus\:overflow-x-hidden:focus {
+    overflow-x: hidden;
+  }
+
+  .md\:focus\:overflow-y-hidden:focus {
+    overflow-y: hidden;
+  }
+
+  .md\:focus\:overflow-x-visible:focus {
+    overflow-x: visible;
+  }
+
+  .md\:focus\:overflow-y-visible:focus {
+    overflow-y: visible;
+  }
+
+  .md\:focus\:overflow-x-scroll:focus {
+    overflow-x: scroll;
+  }
+
+  .md\:focus\:overflow-y-scroll:focus {
     overflow-y: scroll;
   }
 
@@ -108833,6 +109121,102 @@ nav > a.active {
     overflow-y: scroll;
   }
 
+  .lg\:hover\:overflow-auto:hover {
+    overflow: auto;
+  }
+
+  .lg\:hover\:overflow-hidden:hover {
+    overflow: hidden;
+  }
+
+  .lg\:hover\:overflow-visible:hover {
+    overflow: visible;
+  }
+
+  .lg\:hover\:overflow-scroll:hover {
+    overflow: scroll;
+  }
+
+  .lg\:hover\:overflow-x-auto:hover {
+    overflow-x: auto;
+  }
+
+  .lg\:hover\:overflow-y-auto:hover {
+    overflow-y: auto;
+  }
+
+  .lg\:hover\:overflow-x-hidden:hover {
+    overflow-x: hidden;
+  }
+
+  .lg\:hover\:overflow-y-hidden:hover {
+    overflow-y: hidden;
+  }
+
+  .lg\:hover\:overflow-x-visible:hover {
+    overflow-x: visible;
+  }
+
+  .lg\:hover\:overflow-y-visible:hover {
+    overflow-y: visible;
+  }
+
+  .lg\:hover\:overflow-x-scroll:hover {
+    overflow-x: scroll;
+  }
+
+  .lg\:hover\:overflow-y-scroll:hover {
+    overflow-y: scroll;
+  }
+
+  .lg\:focus\:overflow-auto:focus {
+    overflow: auto;
+  }
+
+  .lg\:focus\:overflow-hidden:focus {
+    overflow: hidden;
+  }
+
+  .lg\:focus\:overflow-visible:focus {
+    overflow: visible;
+  }
+
+  .lg\:focus\:overflow-scroll:focus {
+    overflow: scroll;
+  }
+
+  .lg\:focus\:overflow-x-auto:focus {
+    overflow-x: auto;
+  }
+
+  .lg\:focus\:overflow-y-auto:focus {
+    overflow-y: auto;
+  }
+
+  .lg\:focus\:overflow-x-hidden:focus {
+    overflow-x: hidden;
+  }
+
+  .lg\:focus\:overflow-y-hidden:focus {
+    overflow-y: hidden;
+  }
+
+  .lg\:focus\:overflow-x-visible:focus {
+    overflow-x: visible;
+  }
+
+  .lg\:focus\:overflow-y-visible:focus {
+    overflow-y: visible;
+  }
+
+  .lg\:focus\:overflow-x-scroll:focus {
+    overflow-x: scroll;
+  }
+
+  .lg\:focus\:overflow-y-scroll:focus {
+    overflow-y: scroll;
+  }
+
   .lg\:overscroll-auto {
     -ms-scroll-chaining: chained;
         overscroll-behavior: auto;
@@ -140876,6 +141260,102 @@ nav > a.active {
     overflow-y: scroll;
   }
 
+  .xl\:hover\:overflow-auto:hover {
+    overflow: auto;
+  }
+
+  .xl\:hover\:overflow-hidden:hover {
+    overflow: hidden;
+  }
+
+  .xl\:hover\:overflow-visible:hover {
+    overflow: visible;
+  }
+
+  .xl\:hover\:overflow-scroll:hover {
+    overflow: scroll;
+  }
+
+  .xl\:hover\:overflow-x-auto:hover {
+    overflow-x: auto;
+  }
+
+  .xl\:hover\:overflow-y-auto:hover {
+    overflow-y: auto;
+  }
+
+  .xl\:hover\:overflow-x-hidden:hover {
+    overflow-x: hidden;
+  }
+
+  .xl\:hover\:overflow-y-hidden:hover {
+    overflow-y: hidden;
+  }
+
+  .xl\:hover\:overflow-x-visible:hover {
+    overflow-x: visible;
+  }
+
+  .xl\:hover\:overflow-y-visible:hover {
+    overflow-y: visible;
+  }
+
+  .xl\:hover\:overflow-x-scroll:hover {
+    overflow-x: scroll;
+  }
+
+  .xl\:hover\:overflow-y-scroll:hover {
+    overflow-y: scroll;
+  }
+
+  .xl\:focus\:overflow-auto:focus {
+    overflow: auto;
+  }
+
+  .xl\:focus\:overflow-hidden:focus {
+    overflow: hidden;
+  }
+
+  .xl\:focus\:overflow-visible:focus {
+    overflow: visible;
+  }
+
+  .xl\:focus\:overflow-scroll:focus {
+    overflow: scroll;
+  }
+
+  .xl\:focus\:overflow-x-auto:focus {
+    overflow-x: auto;
+  }
+
+  .xl\:focus\:overflow-y-auto:focus {
+    overflow-y: auto;
+  }
+
+  .xl\:focus\:overflow-x-hidden:focus {
+    overflow-x: hidden;
+  }
+
+  .xl\:focus\:overflow-y-hidden:focus {
+    overflow-y: hidden;
+  }
+
+  .xl\:focus\:overflow-x-visible:focus {
+    overflow-x: visible;
+  }
+
+  .xl\:focus\:overflow-y-visible:focus {
+    overflow-y: visible;
+  }
+
+  .xl\:focus\:overflow-x-scroll:focus {
+    overflow-x: scroll;
+  }
+
+  .xl\:focus\:overflow-y-scroll:focus {
+    overflow-y: scroll;
+  }
+
   .xl\:overscroll-auto {
     -ms-scroll-chaining: chained;
         overscroll-behavior: auto;
@@ -172916,6 +173396,102 @@ nav > a.active {
   }
 
   .\32xl\:overflow-y-scroll {
+    overflow-y: scroll;
+  }
+
+  .\32xl\:hover\:overflow-auto:hover {
+    overflow: auto;
+  }
+
+  .\32xl\:hover\:overflow-hidden:hover {
+    overflow: hidden;
+  }
+
+  .\32xl\:hover\:overflow-visible:hover {
+    overflow: visible;
+  }
+
+  .\32xl\:hover\:overflow-scroll:hover {
+    overflow: scroll;
+  }
+
+  .\32xl\:hover\:overflow-x-auto:hover {
+    overflow-x: auto;
+  }
+
+  .\32xl\:hover\:overflow-y-auto:hover {
+    overflow-y: auto;
+  }
+
+  .\32xl\:hover\:overflow-x-hidden:hover {
+    overflow-x: hidden;
+  }
+
+  .\32xl\:hover\:overflow-y-hidden:hover {
+    overflow-y: hidden;
+  }
+
+  .\32xl\:hover\:overflow-x-visible:hover {
+    overflow-x: visible;
+  }
+
+  .\32xl\:hover\:overflow-y-visible:hover {
+    overflow-y: visible;
+  }
+
+  .\32xl\:hover\:overflow-x-scroll:hover {
+    overflow-x: scroll;
+  }
+
+  .\32xl\:hover\:overflow-y-scroll:hover {
+    overflow-y: scroll;
+  }
+
+  .\32xl\:focus\:overflow-auto:focus {
+    overflow: auto;
+  }
+
+  .\32xl\:focus\:overflow-hidden:focus {
+    overflow: hidden;
+  }
+
+  .\32xl\:focus\:overflow-visible:focus {
+    overflow: visible;
+  }
+
+  .\32xl\:focus\:overflow-scroll:focus {
+    overflow: scroll;
+  }
+
+  .\32xl\:focus\:overflow-x-auto:focus {
+    overflow-x: auto;
+  }
+
+  .\32xl\:focus\:overflow-y-auto:focus {
+    overflow-y: auto;
+  }
+
+  .\32xl\:focus\:overflow-x-hidden:focus {
+    overflow-x: hidden;
+  }
+
+  .\32xl\:focus\:overflow-y-hidden:focus {
+    overflow-y: hidden;
+  }
+
+  .\32xl\:focus\:overflow-x-visible:focus {
+    overflow-x: visible;
+  }
+
+  .\32xl\:focus\:overflow-y-visible:focus {
+    overflow-y: visible;
+  }
+
+  .\32xl\:focus\:overflow-x-scroll:focus {
+    overflow-x: scroll;
+  }
+
+  .\32xl\:focus\:overflow-y-scroll:focus {
     overflow-y: scroll;
   }
 

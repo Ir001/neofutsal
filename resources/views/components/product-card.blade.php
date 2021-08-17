@@ -1,7 +1,7 @@
 <div class="w-full bg-white shadow-2xl rounded-md overflow-hidden">
     <div class="img">
         <a href="{{url("detail/$field->id")}}">
-            <img src="{{ asset('images/field/default.png') }}" alt="Foto Lapangan" class="object-cover w-full">
+            <img src="{{ asset($field->img) }}" alt="Foto Lapangan" class="object-cover w-full">
         </a>
     </div>
     <div class="description px-2 py-4">

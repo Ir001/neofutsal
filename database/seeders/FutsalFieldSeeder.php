@@ -23,16 +23,19 @@ class FutsalFieldSeeder extends Seeder
             'name' => 'Neofutsal Lite',
             'field_type_id' => 1, //Vynl
             'price' => 50000,
+            'img' => 'images/field/default.png'
         ]);
         FutsalField::insert([
             'name' => 'Neofutsal +',
             'field_type_id' => 2, // Sintetis
             'price' => 64000,
+            'img' => 'images/field/default-2.png'
         ]);
         FutsalField::insert([
             'name' => 'Neofutsal Sport',
             'field_type_id' => 2, //Sintetis
             'price' => 64000,
+            'img' => 'images/field/default.png'
         ]);
     }
 }
