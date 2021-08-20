@@ -29,9 +29,9 @@ class Transaction extends Model
     {
         return $this->belongsTo(Order::class);
     }
-    public function trancation_type()
+    public function transaction_type()
     {
-        return $this->belongsTo(TransactionType::class,'transaction_type_id');
+        return $this->belongsTo(TransactionType::class);
     }
     public function payment_type()
     {

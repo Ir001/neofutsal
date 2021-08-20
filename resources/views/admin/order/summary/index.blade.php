@@ -39,22 +39,6 @@
                                 <th>Bukti Pembayaran</th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <a href="#" class="btn btn-round btn-info" title="Lihat Detail">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </td>
-                                    <td><a href="#">Irwan Antonio</a></td>
-                                    <td>Lapangan X</td>
-                                    <td><span class="badge badge-info">Menunggu Validasi</span></td>
-                                    <td>Jumat, 27 Agustus 2021</td>
-                                    <td>08:00 - 10:00 WIB</td>
-                                    <td>2 Jam</td>
-                                    <td>Rp. 150,000</td>
-                                    <td><span class="badge badge-info">DownPayment (Rp. 75,000)</span></td>
-                                    <td><a href="#">Lihat</a></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -222,6 +206,58 @@
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
 <script>
-    $('#tbl-orders').DataTable();
+    $('#tbl-orders').DataTable({
+        ajax : {
+            url : '{{ route('api.transactions') }}'         
+        },
+        serverSide : true,
+        processing : true,
+        columns : [
+            {
+                render :function(data,type,row){
+                    return `<a href="{{ route('admin.summary.store') }}/${row.id}" class="btn btn-round btn-info" title="Lihat Detail">
+                                <i class="fas fa-eye"></i>
+                            </a>`;
+                },
+                data : 'id'
+            },
+            {
+                data : 'order.user.name'
+            },{
+                data : 'order.futsal_field.name'
+            },{
+                render:function(data,type,row){
+                    let status = row.order.status_transaction.name_admin;
+                    let color = row.order.status_transaction.color
+                    return `<span class="badge ${color}">${status}</span>`;
+                },
+                data : 'order.status_transaction.name_admin'
+            },{
+                data : 'order.play_date'
+            },{
+                render: function(data,type,row){
+                    return row?.order?.schedule;
+                },
+                data : 'order.start_at'
+            },{
+                render: function(data,type,row){
+                    return `${row?.order?.hours} jam`;
+                },
+                data : 'order.hours'
+            },{
+                render: function(data,type,row){
+                    return `Rp. ${row.amount.toLocaleString('id')}`;
+                },
+                data : 'amount'
+            },{
+                data : 'transaction_type.name'
+            },{
+                render : function(data,type,row){
+                    return `<a href="{{ asset("storage") }}/${row?.proof_file}" target="_blank">Lihat Bukti Transfer</a>`;
+                },
+                data : 'proof_file'
+            }
+        ],
+    });
 </script>
 @endpush

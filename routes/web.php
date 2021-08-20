@@ -69,40 +69,40 @@ Route::prefix('admin')->group(function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('login', [LoginController::class, 'login']);
 });
-Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'name' => 'admin.'], function () {
+Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
     // Dashboard
     Route::get('/', [DashboardController::class, 'index'])->name('home');
     // Master
     Route::group(['prefix' => 'master', 'name' => 'master.'], function () {
-        // Pengguna Route | admin.customer
-        Route::get('users', [UserController::class, 'index'])->name('admin.user.index');
+        // Pengguna Route | customer
+        Route::get('users', [UserController::class, 'index'])->name('user.index');
         Route::prefix('user')->group(function () {
-            Route::post('/', [UserController::class, 'store'])->name('admin.user.store');
-            Route::get('create', [UserController::class, 'create'])->name('admin.user.create');
+            Route::post('/', [UserController::class, 'store'])->name('user.store');
+            Route::get('create', [UserController::class, 'create'])->name('user.create');
             Route::get('edit/{user}', [UserController::class, 'edit']);
             Route::patch('edit/{user}', [UserController::class, 'update']);
         });
-        // Lapangan Route | admin.ball
-        Route::get('balls', [BallController::class, 'index'])->name('admin.ball.index');
+        // Lapangan Route | ball
+        Route::get('balls', [BallController::class, 'index'])->name('ball.index');
         Route::prefix('ball')->group(function () {
-            Route::post('/', [BallController::class, 'store'])->name('admin.ball.store');
-            Route::get('create', [BallController::class, 'create'])->name('admin.ball.create');
+            Route::post('/', [BallController::class, 'store'])->name('ball.store');
+            Route::get('create', [BallController::class, 'create'])->name('ball.create');
             Route::get('edit/{ball}', [BallController::class, 'edit']);
             Route::patch('edit/{ball}', [BallController::class, 'update']);
         });
-        // Lapangan Route | admin.field
-        Route::get('fields', [FieldController::class, 'index'])->name('admin.field.index');
+        // Lapangan Route | field
+        Route::get('fields', [FieldController::class, 'index'])->name('field.index');
         Route::prefix('field')->group(function () {
-            Route::post('/', [FieldController::class, 'store'])->name('admin.field.store');
-            Route::get('create', [FieldController::class, 'create'])->name('admin.field.create');
+            Route::post('/', [FieldController::class, 'store'])->name('field.store');
+            Route::get('create', [FieldController::class, 'create'])->name('field.create');
             Route::get('edit/{field}', [FieldController::class, 'edit']);
             Route::patch('edit/{field}', [FieldController::class, 'update']);
         });
-        // Lapangan Route | admin.paymentType
-        Route::get('payment-types', [PaymentTypeController::class, 'index'])->name('admin.paymentType.index');
+        // Lapangan Route | paymentType
+        Route::get('payment-types', [PaymentTypeController::class, 'index'])->name('paymentType.index');
         Route::prefix('payment-type')->group(function () {
-            Route::post('/', [PaymentTypeController::class, 'store'])->name('admin.paymentType.store');
-            Route::get('create', [PaymentTypeController::class, 'create'])->name('admin.paymentType.create');
+            Route::post('/', [PaymentTypeController::class, 'store'])->name('paymentType.store');
+            Route::get('create', [PaymentTypeController::class, 'create'])->name('paymentType.create');
             Route::get('edit/{paymentType}', [PaymentTypeController::class, 'edit']);
             Route::patch('edit/{paymentType}', [PaymentTypeController::class, 'update']);
         });
@@ -110,21 +110,26 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'name' => 'admi
     // Order
     Route::prefix('order')->group(function () {
         // Rekap Orderan
-        Route::get('sumaries', [SummaryController::class, 'index'])->name('admin.summary.index');
+        Route::get('sumaries', [SummaryController::class, 'index'])->name('summary.index');
         Route::prefix('summary')->group(function () {
-            Route::post('/', [SummaryController::class, 'store'])->name('admin.summary.store');
-            Route::get('create', [SummaryController::class, 'create'])->name('admin.summary.create');
-            Route::get('edit/{summary}', [SummaryController::class, 'edit']);
-            Route::patch('edit/{summary}', [SummaryController::class, 'update']);
+            Route::post('/', [SummaryController::class, 'store'])->name('summary.store');
+            Route::get('create', [SummaryController::class, 'create'])->name('summary.create');
+            Route::get('edit/{transaction}', [SummaryController::class, 'edit']);
+            Route::patch('edit/{transaction}', [SummaryController::class, 'update']);
+            Route::get('{transaction}', [SummaryController::class, 'show']);
         });
         // Pendapatan
-        Route::get('incomes', [IncomeController::class, 'index'])->name('admin.income.index');
+        Route::get('incomes', [IncomeController::class, 'index'])->name('income.index');
         Route::prefix('income')->group(function () {
-            Route::post('/', [IncomeController::class, 'store'])->name('admin.income.store');
-            Route::get('create', [IncomeController::class, 'create'])->name('admin.income.create');
+            Route::post('/', [IncomeController::class, 'store'])->name('income.store');
+            Route::get('create', [IncomeController::class, 'create'])->name('income.create');
             Route::get('edit/{income}', [IncomeController::class, 'edit']);
             Route::patch('edit/{income}', [IncomeController::class, 'update']);
         });
     });
+    
     Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
+});
+Route::group(['middleware'=>'auth.admin','prefix'=>'api','as'=>'api.'],function(){
+    Route::get('transactions',[SummaryController::class,'datatable'])->name('transactions');
 });
