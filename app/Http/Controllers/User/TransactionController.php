@@ -63,9 +63,8 @@ class TransactionController extends Controller
                 }
                 $request = $validator->validated();
                 $trxTypeId = $transaction->transaction_type_id;
-                $trx['proof_file'] = Transaction::uploadPayment($request['proof_file'],$trxTypeId);
+                $transaction->uploadPayment($request['proof_file']);
                 $status = ($trxTypeId == 1 ? 3 : 4);
-                $transaction->update($trx);
                 $transaction->order->update(['status_transaction_id'=>$status]);
                 return redirect()->back()->withSuccess('Pembayaran sedang diproses!');
             }

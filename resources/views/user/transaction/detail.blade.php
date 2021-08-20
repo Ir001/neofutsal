@@ -93,11 +93,7 @@
                    {{$transaction->payment_type->bank_account}}
                 </p>
             </div>
-            @if ($transaction->is_valid == 1 && $transaction->trancation_type->id == 1)
-            <a href="{{ url("transaction/repayment/{$transaction->order->id}") }}" class="btn-primary block">
-                Bayar Pelunasan
-            </a>
-            @else
+            @if ($transaction->order->status_transaction_id < 3)
             <form action="{{ route('app.transaction.pay',['transaction'=>$transaction->id]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="file" name="proof_file" class="hidden">
