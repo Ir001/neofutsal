@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Transaction;
 use Carbon\Carbon;
+use Exception;
+use Helpers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TransactionController extends Controller
 {
@@ -42,8 +45,40 @@ class TransactionController extends Controller
         }
         return redirect()->back()->withError('Invalid data!');
     }
+
+    public function pay(Transaction $transaction){
+        try{
+            if($transaction->order->user_id == auth()->user()->id){
+                $validator = Validator::make(request()->all(),[
+                    'proof_file' => 'required|file|max:5120|mimes:png,jpg,docx,pdf'
+                ],[
+                    'proof_file.required' => 'Bukti pembayaran wajib diupload!',
+                    'proof_file.file' => 'Bukti pembayaran harus berupa file!',
+                    'proof_file.max' => 'Ukuran file bukti pembayaran terlalu besar. Max: 5MB!',
+                    'proof_file.mimes' => 'Format file tidak didukung!'
+                ]);
+                if($validator->fails()){
+                    $errors = Helpers::setErrors($validator->errors()->messages());
+                    return redirect()->back()->with('errors',$errors);
+                }
+                $request = $validator->validated();
+                $trxTypeId = $transaction->transaction_type_id;
+                $trx['proof_file'] = Transaction::uploadPayment($request['proof_file'],$trxTypeId);
+                $status = ($trxTypeId == 1 ? 3 : 4);
+                $transaction->update($trx);
+                $transaction->order->update(['status_transaction_id'=>$status]);
+                return redirect()->back()->withSuccess('Pembayaran sedang diproses!');
+            }
+            return redirect()->back()->with('errors','Forbidden!');
+        }catch(Exception $e){
+            return redirect()->back()->with('errors',$e->getMessage());
+        }
+        
+    }
+
     public function repayment(Order $order)
     {
         return view('user.transaction.repayment');
     }
+
 }

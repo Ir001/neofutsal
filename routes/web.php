@@ -57,7 +57,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('transaction', [TransactionController::class, 'index'])->name('app.transaction');
     Route::get('transaction/history', [TransactionController::class, 'history'])->name('app.transaction.history');
     Route::get('transaction/order/{order}', [TransactionController::class, 'order']);
-    Route::get('transaction/repayment/{order}', [TransactionController::class, 'pay']);
+    Route::post('transaction/pay/{transaction}', [TransactionController::class, 'pay'])->name('app.transaction.pay');
+    // Route::get('transaction/repayment/{order}', [TransactionController::class, 'pay']);
     Route::get('transaction/{transaction}', [TransactionController::class, 'detail'])->name('app.transaction.detail');
 });
 

@@ -102,6 +102,15 @@
         })
     </script>
     @yield('js')
+    @if ($msg = session()->get('success'))
+    <script>
+        toastr('success', `{{ $msg }}`);
+    </script>
+    @elseif ($msg = session()->get('errors'))
+    <script>
+        toastr('error', `{!! $msg !!}`,`Saya Paham`);
+    </script>
+    @endif
 </body>
 
 </html>

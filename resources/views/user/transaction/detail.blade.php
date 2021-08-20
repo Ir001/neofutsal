@@ -98,7 +98,8 @@
                 Bayar Pelunasan
             </a>
             @else
-            <form action="">
+            <form action="{{ route('app.transaction.pay',['transaction'=>$transaction->id]) }}" method="post" enctype="multipart/form-data">
+                @csrf
                 <input type="file" name="proof_file" class="hidden">
                 <div id="upload" class="border border-indigo-500 rounded cursor-pointer">
                     <p class="px-3 py-4 text-sm text-indigo-500 text-center">
@@ -106,9 +107,9 @@
                         <span id="uploadText">Upload Bukti Pembayaran</span>
                     </p>
                 </div>
-                <a href="{{ url("transaction/pay/{$transaction->id}") }}" class="btn-primary block">
+                <button type="submit" class="btn-primary block">
                     Verifikasi Pembayaran   
-                </a>
+                </button>
             </form>
             @endif
 
@@ -122,6 +123,7 @@
         $('#upload').click(function(){
             $('input[name=proof_file]').click();
         })
+
     })
 </script>
 @endsection
