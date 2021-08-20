@@ -11,5 +11,5 @@ class FutsalImage extends Model
 
     protected $table = 'futsal_images';
 
-    protected $fillable = ['futsal_field_id', 'image', 'is_active'];
+    protected $fillable = ['futsal_field_id', 'image'];
 }

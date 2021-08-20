@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\checkScheduleRequest;
 use App\Models\BallType;
 use App\Models\FutsalField;
+use App\Models\FutsalImage;
 use App\Models\Order;
 use App\Models\PaymentType;
 use App\Models\Transaction;
@@ -20,7 +21,10 @@ class OrderController extends Controller
     public function detail(FutsalField $field)
     {
         $ball_types = BallType::select("name")->where('is_available', '1')->get();
-        return view('user.order.detail', compact('field', 'ball_types'));
+        $images = FutsalImage::where(['futsal_field_id'=>$field->id]);
+        $imageExist = $images->exists();
+        $images = $images->get();
+        return view('user.order.detail', compact('field', 'ball_types','images','imageExist'));
     }
 
     public function order(FutsalField $field)
@@ -32,10 +36,8 @@ class OrderController extends Controller
                 return redirect()->back()->with('error', 'Invalid!');
             }
             $date = $schedule->day;
-            $start_at = "{$date} " . $schedule->start_at;
-            $end_at = "{$date} " . $schedule->end_at;
             $dateReadable = Carbon::parse($date)->locale('id')->translatedFormat('l, d F Y');
-            $hours = Carbon::parse($start_at)->diffInHours($end_at);
+            $hours = Carbon::parse($schedule->start_at)->diffInHours($schedule->end_at);
             $priceTotal = $hours * $field->price;
             $downPayment = $priceTotal * 0.5;
             $paymentTypes = PaymentType::select(['id', 'bank_name'])->where('is_active', '1')->get();
@@ -134,7 +136,7 @@ class OrderController extends Controller
                 return response()->json(['success' => false, 'error' => true, 'message' => 'Lapangan telah dibooking pada waktu tersebut!']);
             }
             $isScheduleExist = Order::isScheduleExist($field->id, $req['day'], $req['start_at'], $req['end_at']);
-            if ($diff->invert > 0) {
+            if ($diff->invert > 0 || $diff->h < 1) {
                 return response()->json(['success' => false, 'error' => true, 'message' => 'Mohon periksa jam mulai dan selesai!']);
             }
             if ($diff->h > 0 && $diff->i == 0 && !$isScheduleExist) {

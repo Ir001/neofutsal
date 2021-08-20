@@ -43,11 +43,24 @@ Route::post('api/check-schedule/{field:id}', [OrderController::class, 'checkSche
 Route::get('app/profile', [ProfileController::class, 'index'])->name('app.profile');
 Route::get('app/profile/edit', [ProfileController::class, 'edit'])->name('app.profile.edit');
 Route::get('app/profile/password', [ProfileController::class, 'password'])->name('app.profile.password');
-// My Order
-Route::get('transaction', [TransactionController::class, 'index'])->name('app.transaction');
-Route::get('transaction/history', [TransactionController::class, 'history'])->name('app.transaction.history');
-Route::get('transaction/pay/{id}', [TransactionController::class, 'pay']);
-Route::get('transaction/{id}', [TransactionController::class, 'detail']);
+// Transaction
+Route::middleware(['auth'])->group(function () {
+    Route::post('order/booking/{field}', [OrderController::class, 'booking'])
+        ->middleware('auth')
+        ->name('booking');
+    Route::get('order/{field}', [OrderController::class, 'order']);
+    Route::post('api/check-schedule/{field:id}', [OrderController::class, 'checkSchedule'])->name('check-schedule');
+    Route::get('app/profile', [ProfileController::class, 'index'])->name('app.profile');
+    Route::get('app/profile/edit', [ProfileController::class, 'edit'])->name('app.profile.edit');
+    Route::get('app/profile/password', [ProfileController::class, 'password'])->name('app.profile.password');
+
+    Route::get('transaction', [TransactionController::class, 'index'])->name('app.transaction');
+    Route::get('transaction/history', [TransactionController::class, 'history'])->name('app.transaction.history');
+    Route::get('transaction/order/{order}', [TransactionController::class, 'order']);
+    Route::get('transaction/repayment/{order}', [TransactionController::class, 'pay']);
+    Route::get('transaction/{transaction}', [TransactionController::class, 'detail'])->name('app.transaction.detail');
+});
+
 
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('logout', [LoginController::class, 'logout']);

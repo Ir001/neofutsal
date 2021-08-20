@@ -9,7 +9,9 @@
         <a href="{{route('app.transaction.history')}}">History</a>
     </div>
 </div>
-<div id="transaction">
-    <x-transaction-card></x-transaction-card>
+<div id="order" class="flex flex-col md:flex-row space-y-2 md:space-y-0">
+    @foreach ($orders as $order)
+        <x-transaction-card :order="$order"></x-transaction-card>
+    @endforeach
 </div>
 @endsection

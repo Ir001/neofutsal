@@ -16,7 +16,7 @@
         <p><i class="fas mr-2 fa-clock"></i> 08:00 - 11:00 WIB (2 jam)</p>
     </div>
     <h2 class="text-md text-black font-semibold border-b-2 pb-2 mb-2">Informasi Harga</h2>
-    <form action="{{route('check-schedule')}}" method="post">
+    <form action="" method="post">
         @csrf
         <div class="w-full mb-3">
             <label>Pilih Metode Pembayaran</label>

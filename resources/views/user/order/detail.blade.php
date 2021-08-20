@@ -1,15 +1,15 @@
 @extends('theme.theme')
 @section('title','Booking Online Futsal')
 @section('content')
-<div class="flex justify-between space-x-2" id="images">
-    <div class="w-2/3">
-        <img src="{{ asset($field->img) }}" class="object-cover rounded w-full h-32 md:h-64" alt="">
+<div class="flex justify-between {{ $imageExist ? 'space-x-2' : 'flex-col' }} mb-3" id="images">
+    <div class="{{ $imageExist ? 'w-2/3' : 'w-full' }}">
+        <img src="{{ asset($field->img) }}" class="object-cover rounded w-full h-32 md:h-64 transition-all duration-300" id="previewImg" alt="Foto Lapangan Futsal">
     </div>
-    <div class="w-1/3">
-        <div class="flex flex-col space-y-2 h-32 md:h-64 overflow-y-auto overflow-x-hidden">
-            @for ($i = 1; $i <= 5; $i++)
-                <img src="{{ asset($field->img) }}" class="object-cover rounded w-full" alt="">
-            @endfor
+    <div class="{{ $imageExist ? 'w-1/3' : 'hidden' }}">
+        <div class="flex flex-col space-y-4 h-32 md:h-64 overflow-y-auto overflow-x-hidden">
+            @foreach ($images as $image)
+                <img src="{{ asset($image->img) }}" class="object-cover rounded w-full img-detail cursor-pointer transition-all duration-300" alt="Foto Lapangan Futsal">
+            @endforeach
         </div>
 
     </div>
@@ -93,7 +93,7 @@
     });
 </script>
 <script>
-    $(document).ready(function(){
+$(document).ready(function(){
     //    Timepicker
     $('.timepicker').pickatime({
         clear : 'Hapus',
@@ -134,7 +134,17 @@
         })
     })
 
+    // Image Preview
 
-   })
+    $('.img-detail').click(function(e){
+        e.preventDefault();
+        const src = $(this).attr('src');
+        $('.img-detail').removeClass('border-2')
+        $(this).addClass('border-2');
+        $("#previewImg").attr('src',src);
+    })
+
+
+})
 </script>
 @endsection

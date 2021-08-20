@@ -4,7 +4,7 @@
         <i class="fas fa-xl fa-home text-xl"></i>
         <small class="text-xs block">Home</small>
     </a>
-    <a href="{{route('app.transaction')}}" class="{{request()->routeIs('app.transaction') ? 'active' : null }}">
+    <a href="{{route('app.transaction')}}" class="{{request()->routeIs('app.transaction.*') || request()->routeIs('app.transaction') ? 'active' : null }}">
         <i class="fas fa-xl fa-receipt text-xl"></i>
         <small class="text-xs block">Transaksi</small>
     </a>

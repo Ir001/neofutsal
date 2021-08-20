@@ -21,7 +21,6 @@ class CreateFutsalImagesTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->text('img')->nullable();
-            $table->enum('is_active', [0, 1])->nullable()->default(1);
             $table->timestamps();
         });
     }

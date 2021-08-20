@@ -15,8 +15,9 @@ class CreateStatusTransactionsTable extends Migration
     {
         Schema::create('status_transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('name_client')->nullable();
+            $table->string('name_user')->nullable();
             $table->string('name_admin')->nullable();
+            $table->string('color')->nullable();
             $table->timestamps();
         });
     }

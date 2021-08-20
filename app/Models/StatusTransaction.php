@@ -11,5 +11,5 @@ class StatusTransaction extends Model
 
     protected $table = 'status_transactions';
 
-    protected $fillable = ['name_client', 'name_admin'];
+    protected $fillable = ['name_user', 'name_admin','color'];
 }

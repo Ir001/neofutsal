@@ -68,7 +68,7 @@ nav > a.active {
     @apply px-3 py-2 bg-white w-full rounded-md shadow-lg my-2;
 }
 .card-transaction div {
-    @apply py-2;
+    @apply py-1;
 }
 .card-transaction .card-header {
     @apply border-b-2;
