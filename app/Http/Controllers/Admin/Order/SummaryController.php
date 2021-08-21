@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Order;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -47,9 +48,9 @@ class SummaryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction)
+    public function show(Order $order)
     {
-        dd($transaction);   
+        return view('admin.order.summary.detail', compact('order'));
     }
 
     /**
@@ -83,32 +84,30 @@ class SummaryController extends Controller
      */
     public function destroy($id)
     {
-    }
-
+    }   
     public function datatable(){
-        $query = Transaction::with(['payment_type:id,bank_name','transaction_type:id,name','order.user:id,name','order.futsal_field:id,name','order.status_transaction:id,name_admin']);
+        $query = Order::with(['user:id,name','futsal_field:id,name','status_transaction:id,name_admin']);
         return DataTables::eloquent($query)
-            ->editColumn('order.status_transaction.color',function($query){
-                $status = $query->order->status_transaction->id;
-                if(in_array($status,[3,4])){
-                    $color = 'bg-info';
-                }elseif(in_array($status,[5,6])){
-                    $color = 'bg-success';
-                }else{
-                    $color = 'text-white bg-danger';
-                }
-                return $color;
-            })
-            ->editColumn('order.play_date',function($query){
-                return Carbon::parse($query->order->play_date)
-                        ->locale('id')
-                        ->translatedFormat('l, j F Y');
-            })
-            ->editColumn('order.schedule',function($query){
-                $startAt = Carbon::parse($query->order->start_at)->format('H:i');
-                $endAt = Carbon::parse($query->order->end_at)->format('H:i');
-                return "$startAt - $endAt WIB";
-            })
-            ->make(true);
+        ->editColumn('total',function($query){
+            return ($query->hours * $query->price);
+        })
+        ->editColumn('play_date',function($query){
+            return Carbon::parse($query->play_date)->locale('id')->translatedFormat('l, d F Y');
+        })
+        ->editColumn('start_at', function($query){
+            return Carbon::parse($query->start_at)->format('H:i');
+        })
+        ->editColumn('end_at',function($query){
+            return Carbon::parse($query->end_at)->format('H:i');
+        })
+        ->editColumn('created_at', function($query){
+            return Carbon::parse($query->created_at)->locale('id')->translatedFormat('l, d F Y | H:i')." WIB";
+        })
+        ->editColumn('updated_at', function($query){
+            return Carbon::parse($query->updated_at)->locale('id')->diffForHumans();
+        })
+        ->make(true)
+        ;
+        
     }
 }

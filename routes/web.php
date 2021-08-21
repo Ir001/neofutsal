@@ -114,9 +114,9 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'as' => 'admin.
         Route::prefix('summary')->group(function () {
             Route::post('/', [SummaryController::class, 'store'])->name('summary.store');
             Route::get('create', [SummaryController::class, 'create'])->name('summary.create');
-            Route::get('edit/{transaction}', [SummaryController::class, 'edit']);
-            Route::patch('edit/{transaction}', [SummaryController::class, 'update']);
-            Route::get('{transaction}', [SummaryController::class, 'show']);
+            Route::get('edit/{order}', [SummaryController::class, 'edit']);
+            Route::patch('edit/{order}', [SummaryController::class, 'update']);
+            Route::get('{order}', [SummaryController::class, 'show']);
         });
         // Pendapatan
         Route::get('incomes', [IncomeController::class, 'index'])->name('income.index');

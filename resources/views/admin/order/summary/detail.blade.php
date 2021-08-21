@@ -1,74 +1,74 @@
 @extends('layouts.app', [
-'namePage' => 'Rekap Orderan',
+'namePage' => 'Rekap Orderan '.$order->futsal_field->name,
 'class' => 'login-page sidebar-mini ',
 'activePage' => 'rekap',
 'backgroundImage' => asset('now') . "/img/bg14.jpg",
 'parent' => 'order'
 ])
-@section('title','Rekap Orderan')
+@section('title','Detail Order '.$order->futsal_field->name)
 @section('content')
 <div class="panel-header panel-header-sm">
 </div>
 <div class="content">
     <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="card-title">
-                            Rekap Orderan
-                        </div>
-                        <a href="#" data-toggle="modal" data-target="#modalFilter" class="btn btn-round btn-primary">
-                            <i class="fas fa-filter"></i> Filter
-                        </a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="tbl-orders">
-                            <thead>
-                                <th></th>
-                                <th>Pemesaan</th>
-                                <th>Lapangan</th>
-                                <th>Status</th>
-                                <th>Tanggal</th>
-                                <th>Jadwal</th>
-                                <th>Total Tagihan</th>
-                                <th>Tanggal Order</th>
-                                <th>Terakhir Diubah</th>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-            </div>
-            {{-- <div class="d-flex justify-content-between">
-                <h2 class="h4 mt-0 mb-4">Rekap Orderan Terbaru</h2>
-                <a href="#" class="btn btn-info btn-round">
-                    <i class="fas fa-filter"></i> Filter by
+        <div class="col-md-8 pt-5">
+            <div class="d-flex justify-content-between">
+                <h2 class="h4 mt-0 mb-4">Detail Order</h2>
+                <a href="{{ route('admin.summary.index') }}" class="btn btn-link btn-round">
+                    <i class="fas fa-arrow-left"></i> Kembali
                 </a>
             </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="text-muted">Pemesan</p>
+                        <p class="text-muted"><a href="#">{{ $order->user->name }}</a></p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="text-muted">Lapangan</p>
+                        <p class="text-muted">{{ $order->futsal_field->name }}</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="text-muted">Tanggal Sewa</p>
+                        <p class="text-muted">{{ \Carbon\Carbon::parse($order->play_date)->locale('id')->translatedFormat('l, d F Y') }}</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="text-muted">Jadwal Sewa</p>
+                        <p class="text-muted">
+                            {{ \Carbon\Carbon::parse($order->start_at)->format('H:i') }} - {{ \Carbon\Carbon::parse($order->end_at)->format('H:i') }} WIB ({{ $order->hours }} jam)
+                        </p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="text-muted">Status Transaksi</p>
+                        <p class="text-white">
+                            <span class="badge @if ($order->status_transaction_id < 3) bg-danger @elseif($order->status_transaction_id > 4) bg-success @else bg-info @endif">
+                                {{ $order->status_transaction->name_admin }}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="text-muted">Total Tagihan</p>
+                        <p class="text-success text-bold h2">Rp. {{ number_format($order->hours * $order->price) }}</p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="text-muted">Tanggal Order</p>
+                        <p class="text-muted">{{ $order->created_at->locale('id')->translatedFormat('l, d F Y | H:i:s') }} WIB</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 pt-5">
+            <div class="d-flex justify-content-between">
+                <h2 class="h4 mt-0 mb-4">Transaksi Pembayaran</h2>
+            </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">Lapangan X</div>
                         </div>
                         <div class="card-body description-box">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="text-muted">Pemesan</p>
-                                <p class="text-muted"><a href="#">Irwan Antonio</a></p>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="text-muted">Tanggal</p>
-                                <p class="text-muted">Jumat, 27 Agustus 2021</p>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="text-muted">Waktu</p>
-                                <p class="text-muted">08:00 - 10:00 WIB (2 jam)</p>
-                            </div>
+                            
                             <div class="d-flex justify-content-between align-items-center">
                                 <p class="text-muted">Tagihan</p>
                                 <p class="text-muted">2 x 75,000 = Rp. 150,000</p>
@@ -113,7 +113,7 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
 </div>
