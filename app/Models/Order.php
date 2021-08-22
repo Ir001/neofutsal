@@ -41,7 +41,7 @@ class Order extends Model
     }
     public function transactions()
     {
-        return $this->hasMany(Relation::class, 'order_id', 'id');
+        return $this->hasMany(Transaction::class, 'order_id', 'id');
     }
 
     // Helper

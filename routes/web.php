@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Master\PaymentTypeController;
 use App\Http\Controllers\Admin\Master\UserController;
 use App\Http\Controllers\Admin\Order\IncomeController;
 use App\Http\Controllers\Admin\Order\SummaryController;
+use App\Http\Controllers\Admin\Order\TransactionController as OrderTransactionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
@@ -118,6 +119,8 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'as' => 'admin.
             Route::patch('edit/{order}', [SummaryController::class, 'update']);
             Route::get('{order}', [SummaryController::class, 'show']);
         });
+
+        Route::patch('transaction/update/{transaction}',[OrderTransactionController::class,'update'])->name('transaction.update');
         // Pendapatan
         Route::get('incomes', [IncomeController::class, 'index'])->name('income.index');
         Route::prefix('income')->group(function () {
@@ -131,5 +134,9 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'as' => 'admin.
     Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
 });
 Route::group(['middleware'=>'auth.admin','prefix'=>'api','as'=>'api.'],function(){
-    Route::get('transactions',[SummaryController::class,'datatable'])->name('transactions');
+    //JSON
+    Route::get('json/transaction/{transaction}',[OrderTransactionController::class,'json'])->name('json.transaction');
+    
+    // Datatable
+    Route::get('datatable/orders',[SummaryController::class,'datatable'])->name('orders');
 });

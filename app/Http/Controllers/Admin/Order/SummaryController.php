@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Transaction;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -84,7 +85,9 @@ class SummaryController extends Controller
      */
     public function destroy($id)
     {
-    }   
+    }
+    
+    
     public function datatable(){
         $query = Order::with(['user:id,name','futsal_field:id,name','status_transaction:id,name_admin']);
         return DataTables::eloquent($query)

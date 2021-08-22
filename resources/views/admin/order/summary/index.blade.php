@@ -207,7 +207,7 @@
 <script>
     $('#tbl-orders').DataTable({
         ajax : {
-            url : '{{ route('api.transactions') }}'         
+            url : `{{ route('api.orders') }}`         
         },
         serverSide : true,
         processing : true,
