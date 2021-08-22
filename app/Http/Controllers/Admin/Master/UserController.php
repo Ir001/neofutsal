@@ -24,16 +24,9 @@ class UserController extends Controller
         $q = request()->q;
         $users = User::when($q,function($query) use ($q){
             return $query->search($q);
-        })->orderByDesc('id')->paginate(1)->withQueryString();
+        })->orderByDesc('id')->paginate(12)->withQueryString();
         return view('admin.master.user.index',compact('users'));
     }
-
-
-    public function create()
-    {
-        return view('admin.master.user.create');
-    }
-
     /**
      * Store a newly created resource in storage.
      *

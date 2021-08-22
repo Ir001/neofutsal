@@ -32,7 +32,12 @@
                     </form>
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="pt-2">{{ empty(request()->q) ? 'Total' : 'Hasil Pencarian' }} : {{ $users->count() }} User</p>
-                        <button class="btn btn-info">Cari</button>
+                        <div>
+                            <a href="{{ route('admin.user.index') }}" class="btn btn-secondary">
+                                Reset
+                            </a>
+                            <button class="btn btn-info">Cari</button>
+                        </div>
                     </div>
                 </div>
             </div>
