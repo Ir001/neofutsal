@@ -15,7 +15,11 @@ class FieldController extends Controller
 {
     public function index()
     {
-        return view('admin.master.field.index');
+        $q = request()->q;
+        $fields = FutsalField::when($q,function($query) use ($q){
+            return $query->search($q);
+        })->orderByDesc('updated_at')->paginate(6)->withQueryString();
+        return view('admin.master.field.index',compact('fields'));
     }
     public function create()
     {
@@ -33,7 +37,12 @@ class FieldController extends Controller
                 return redirect()->back()->with('errors',$errors)->withInput();
             }
             $data = $validator->validated();
-            FutsalField::create($data);
+            $futsalField = FutsalField::create($data);
+            $id = $futsalField->id;
+            $futsalField->uploadCover($data['img']);
+            if(!empty($data['detail'])){
+                $futsalField->uploadDetailImg($data['detail'],$id);
+            }
             return redirect(route('admin.field.index'))->withSuccess('Data lapangan berhasil ditambahkan!');
         }catch(Exception $e){
             return redirect()->back()->with('errors',$e->getMessage())->withInput();

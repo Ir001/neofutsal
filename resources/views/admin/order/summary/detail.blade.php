@@ -186,7 +186,7 @@
                         $('#paymentAccount').html(trx?.payment_type?.bank_account);
                         $('#paymentAccountName').html(trx?.payment_type?.holder_name);
 
-                        $('#paymentProof').attr('href',`{{ asset("storage") }}/${trx?.proof_file}`)
+                        $('#paymentProof').attr('href',`{{ asset("/") }}${trx?.proof_file}`)
                         const total = parseFloat(trx?.code)+parseFloat(trx?.amount);
                         $('#paymentTotal').html(`Rp. ${total.toLocaleString('id')}`);
                         $(`input[name="is_valid"]`).prop('checked',false);

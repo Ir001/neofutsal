@@ -26,51 +26,63 @@
                 <div class="card-body">
                     <form action="" method="get">
                         <div class="form-group">
-                            <input type="text" name="q" placeholder="Cari" class="form-control form-control-md">
+                            <input type="text" name="q" value="{{ request()->q }}" placeholder="Cari" class="form-control form-control-md">
 
                         </div>
                     </form>
-                    <div class="d-flex justify-content-end">
-                        <button class="btn btn-info">Cari</button>
+                    <div class="d-flex justify-content-between">
+                        <p class="pt-2">{{ empty(request()->q) ? 'Total' : 'Hasil Pencarian' }} : {{ $fields->count() }} Lapangan</p>
+                        <div>
+                            <a href="{{ route('admin.field.index') }}" class="btn btn-secondary">Reset</a>
+                            <button type="submit" class="btn btn-info">Cari</button>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-12"> {{ $fields->links("pagination::bootstrap-4") }} </div>
+                @foreach ($fields as $field)
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Lapangan X</div>
+                            <div class="card-title text-center h5">{{ $field->name }}</div>
+                            <img src="{{ asset($field->img) }}" alt="" class="img" style="object-fit:cover;width:100%;max-height:150px">
                         </div>
                         <div class="card-body description-box">
                             <div class="d-flex justify-content-between align-items-center">
                                 <p class="text-muted">Harga Sewa per Jam</p>
-                                <p class="text-muted">Rp. 75,000</p>
+                                <p class="text-info h5">Rp. {{ number_format($field->price) }}</p>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <p class="text-muted">Jenis Lapangan</p>
-                                <p class="text-muted">Sintetis</p>
+                                <p class="text-muted">{{ $field->field_type->name }}</p>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <p class="text-muted">Status</p>
                                 <p class="text-muted">
-                                    <span class="badge badge-success">Tersedia</span>
+                                    <span class="badge badge-{{ $field->is_available == 1 ? 'success' : 'danger' }}">
+                                        {{ $field->is_available == 1 ? 'Tersedia' : 'Tidak Tersedia' }}
+                                    </span>
                                 </p>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <p class="text-muted">Panjang</p>
-                                <p class="text-muted">25 m</p>
+                                <p class="text-muted">{{ $field->width }} m</p>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <p class="text-muted">Lebar</p>
-                                <p class="text-muted">16 m</p>
+                                <p class="text-muted">{{ $field->height }} m</p>
                             </div>
                         </div>
                         <div class="card-footer d-flex justify-content-between">
-                            <a href="" class="btn btn-info btn-round w-100 mr-2"><i class="fas fa-pen"></i></a>
-                            <a href="" class="btn btn-danger btn-round w-100"><i class="fas fa-trash"></i></a>
+                            <button type="button" data-id="{{ $field->id }}" class="btn-view btn btn-primary btn-round w-100 mr-2"><i class="fas fa-eye"></i></button>
+                            <button type="button" data-id="{{ $field->id }}" class="btn-edit btn btn-info btn-round w-100 mr-2"><i class="fas fa-pen"></i></button>
+                            <button type="button" data-id="{{ $field->id }}" class="btn-delete btn btn-danger btn-round w-100"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
                 </div>
+                @endforeach
+                <div class="col-md-12"> {{ $fields->links("pagination::bootstrap-4") }} </div>
             </div>
         </div>
     </div>

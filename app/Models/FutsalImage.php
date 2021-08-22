@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class FutsalImage extends Model
 {
@@ -12,4 +14,23 @@ class FutsalImage extends Model
     protected $table = 'futsal_images';
 
     protected $fillable = ['futsal_field_id', 'image'];
+
+    //Helper
+    public static function uploadDetailImg($files, $futsalFieldId){
+        try{
+           foreach ($files as $file) {
+                $ext = $file->extension();
+                $filename = Str::random(10).".".$ext;
+                $fullPath = "futsal-field/detail-{$filename}";
+                $file->storeAs("public","storage/$fullPath");
+                self::create([
+                    'futsal_field_id' => $futsalFieldId,
+                    'img' => $fullPath,
+                ]);
+            }
+            return true;
+        }catch(Exception $e){
+            return false;
+        }
+    }
 }

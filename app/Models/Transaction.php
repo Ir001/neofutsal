@@ -58,7 +58,7 @@ class Transaction extends Model
             $filename = auth()->user()->id."-".Str::random(30).".".$ext;
             $fullPath = "payment/{$type}/{$filename}";
             $file->storeAs("public",$fullPath);
-            $this->update(['proof_file' => $fullPath]);
+            $this->update(['proof_file' => "storage/$fullPath"]);
             $this->touch();
             return true;
         }catch(Exception $e){

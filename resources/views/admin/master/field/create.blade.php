@@ -38,15 +38,15 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="form-label">Gambar Sampul <small class="text-danger">*</small></label>
-                                <input type="file" name="cover" class="d-none" id="cover">
-                                <div class="px-2 py-3 rounded border text-secondary" data-target="#cover">
+                                <input type="file" name="img" class="d-none" id="cover">
+                                <div class="px-2 py-3 rounded border text-secondary upload-image" data-target="#cover">
                                     <i class="fas fa-image"></i> Upload Gambar
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Gambar Detail <small>(opsional)</small></label>
-                                <input type="file" name="images[]" class="d-none" id="images">
-                                <div class="px-2 py-3 rounded border text-secondary" data-target="#images">
+                                <input type="file" name="detail[]" class="d-none" id="images" multiple>
+                                <div class="px-2 py-3 rounded border text-secondary upload-image" data-target="#images">
                                     <i class="fas fa-image"></i> Upload Gambar
                                 </div>
                             </div>
@@ -92,7 +92,9 @@
     </div>
 </div>
 @endsection
-
+@push('css')
+<style> .upload-image{ cursor: pointer; overflow:hidden } </style>
+@endpush
 @push('js')
 <script>
     let cleanNumber = (value) => {
@@ -118,6 +120,38 @@
             $(this).val((isNaN(val) ? 0 : formatNumber(val)));
             $('#price-submit').val(val);
         });
+
+        //Upload Image
+        $('.upload-image').click(function(){
+            const target = $(this).data('target');
+            $(target).click();
+        })
+
+        //
+        $('input[name="detail[]"]').change(function(){
+            let images = ``;
+            const files = document.querySelector('input[name="detail[]"]').files;
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                images += `<span class="badge badge-info">${file?.name?.split(/(\\|\/)/g).pop()+'\n'}</span>,`;
+            }
+            if(images == ``){
+                images = `<i class="fas fa-image"></i> Upload Gambar`;
+            }
+            $('.upload-image[data-target="#images"]').html(images);
+        })
+        $('input[name="img"]').change(function(){
+            let images = ``;
+            const files = document.querySelector('input[name="img"]').files;
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                images += `<span class="badge badge-info">${file?.name?.split(/(\\|\/)/g).pop()+'\n'}</span>,`;
+            }
+            if(images == ``){
+                images = `<i class="fas fa-image"></i> Upload Gambar`;
+            }
+            $('.upload-image[data-target="#cover"]').html(images);
+        })
     })
 </script>
 @endpush

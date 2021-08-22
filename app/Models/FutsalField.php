@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\SearchTrait;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 class FutsalField extends Model
 {
-    use HasFactory;
+    use HasFactory,SearchTrait;
 
     protected $table = 'futsal_fields';
 
@@ -17,7 +20,7 @@ class FutsalField extends Model
         'price', 
         'width', 
         'height',
-        'image', 
+        'img', 
         'is_available'
     ];
 
@@ -31,4 +34,23 @@ class FutsalField extends Model
     {
         return $this->attributes['is_available'] < 1 ? false : true;
     }
+
+    public function uploadCover($file){
+        try{
+            $oldFile = $this->attributes['img'];
+            if (Storage::exists("public/$oldFile")) {
+                Storage::delete("public/$oldFile");
+            }
+            $ext = $file->extension();
+            $filename = Str::random(30).".".$ext;
+            $fullPath = "futsal-field/cover-{$filename}";
+            $file->storeAs("public",$fullPath);
+            $this->update(['img' => "storage/$fullPath"]);
+            $this->touch();
+            return true;
+        }catch(Exception $e){
+            return false;
+        }
+    }
+    
 }

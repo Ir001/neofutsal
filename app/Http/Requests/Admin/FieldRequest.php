@@ -24,6 +24,8 @@ class FieldRequest extends FormRequest
     public function rules()
     {
         return [
+            'img' => 'required|file|mimes:png,jpg',
+            'detail.*' => 'nullable|file|mimes:png,jpg',
             'field_type_id' => 'required',
             'name' => 'required',
             'price' => 'required|numeric',
@@ -34,6 +36,10 @@ class FieldRequest extends FormRequest
 
     public function messages(){
         return [
+            'img.required' => 'Gambar sampul lapangan wajib ada!',
+            'img.mimes' => 'Format gambar sampul salah!',
+            'detail.*.file' => 'Format gambar detail salah!',
+            'detail.*.mimes' => 'Format gambar detail salah!',
             'field_type_id.required' => 'Jenis lapangan wajib dipilih!',
             'name.required' => 'Nama lapangan wajib diisi!',
             'price.required' => 'Harga sewa per jam wajib diisi!',
