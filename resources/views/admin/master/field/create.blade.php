@@ -24,41 +24,58 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('admin.field.store')}}" method="post">
+                    <form action="{{route('admin.field.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label class="form-label">Jenis Lapangan <small class="text-danger">*</small></label>
                             <select name="field_type_id" class="form-control">
                                 <option value="" selected disabled>Pilih Jenis Lapangan</option>
+                                @foreach ($fieldTypes as $type)
+                                    <option value="{{ $type->id }}" {{ old('field_type_id') == $type->id ? 'selected':'' }}>{{ $type->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
+                                <label class="form-label">Gambar Sampul <small class="text-danger">*</small></label>
+                                <input type="file" name="cover" class="d-none" id="cover">
+                                <div class="px-2 py-3 rounded border text-secondary" data-target="#cover">
+                                    <i class="fas fa-image"></i> Upload Gambar
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Gambar Detail <small>(opsional)</small></label>
+                                <input type="file" name="images[]" class="d-none" id="images">
+                                <div class="px-2 py-3 rounded border text-secondary" data-target="#images">
+                                    <i class="fas fa-image"></i> Upload Gambar
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Lapangan <small class="text-danger">*</small></label>
-                                    <input type="text" name="name" placeholder="Nama Lapangan" class="form-control">
+                                    <input type="text" name="name" placeholder="Nama Lapangan" value="{{ old('name') }}" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Harga Sewa per Jam <small
                                             class="text-danger">*</small></label>
-                                    <input type="text" name="price" inputmode="numeric"
+                                    <input type="text" name="price" value="{{ number_format(old('price')) }}" inputmode="numeric"
                                         placeholder="(IDR) Harga Sewa per Jam" class="form-control" value="0">
-                                    <input type="hidden" name="price" id="price-submit">
+                                    <input type="hidden" name="price" value="{{ old('price') }}" id="price-submit">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Panjang (meter) <small
                                             class="text-danger">*</small></label>
-                                    <input type="text" name="width" placeholder="Panjang Lapangan" class="form-control">
+                                    <input type="text" name="width" name="{{ old('width') }}" placeholder="Panjang Lapangan" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Lebar (meter) <small class="text-danger">*</small></label>
-                                    <input type="text" name="height" placeholder="Lebar Lapangan" class="form-control">
+                                    <input type="text" name="height" name="{{ old('height') }}" placeholder="Lebar Lapangan" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -99,25 +116,8 @@
             let val = $(this).val();
             val = cleanNumber(val);
             $(this).val((isNaN(val) ? 0 : formatNumber(val)));
+            $('#price-submit').val(val);
         });
-        //on submit
-        $('form').submit(function(e){
-            e.preventDefault();
-            $('#price-submit').val(cleanNumber(price.val()));
-            let button = $(this).find('button[type=submit]');
-            let url = $(this).attr('action');
-            let type = $(this).attr('method');
-            let data = $(this).serialize();
-            submitForm({
-                url,
-                type,
-                data,
-                successCallback : function(){
-                    $('button[type=reset]').click();
-                },
-                button,
-            });
-        })
     })
 </script>
 @endpush

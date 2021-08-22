@@ -83,7 +83,7 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'as' => 'admin.
             Route::patch('update/{user}', [UserController::class, 'update']);
             Route::delete('delete/{user}',[UserController::class,'destroy']);
         });
-        // Lapangan Route | ball
+        // Ball Route | ball
         Route::get('balls', [BallController::class, 'index'])->name('ball.index');
         Route::prefix('ball')->group(function () {
             Route::post('/', [BallController::class, 'store'])->name('ball.store');

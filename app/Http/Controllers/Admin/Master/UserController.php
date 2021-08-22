@@ -104,6 +104,12 @@ class UserController extends Controller
             return response()->json(['success'=>false,'message'=>$e->getMessage()]);
         }
     }
+    /**
+     * Show Detail User Return JSON
+     *
+     * @param User $user
+     * @return json
+     */
     public function json(User $user){
         return response()->json(['success'=>true,'data'=>$user]);
     }
