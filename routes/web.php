@@ -120,7 +120,6 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'as' => 'admin.
             Route::get('{order}', [SummaryController::class, 'show']);
         });
 
-        Route::patch('transaction/update/{transaction}',[OrderTransactionController::class,'update'])->name('transaction.update');
         // Pendapatan
         Route::get('incomes', [IncomeController::class, 'index'])->name('income.index');
         Route::prefix('income')->group(function () {
@@ -130,6 +129,8 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'as' => 'admin.
             Route::patch('edit/{income}', [IncomeController::class, 'update']);
         });
     });
+    Route::patch('transaction/update/{transaction}',[OrderTransactionController::class,'update'])->name('transaction.update');
+
     
     Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
 });

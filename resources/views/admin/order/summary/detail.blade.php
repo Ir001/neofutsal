@@ -81,7 +81,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <p class="text-muted">Metode Pembayaran</p>
                         <p class="text-muted">
-                            {{ $transaction->payment_type->bank_name }}
+                            {{ @$transaction->payment_type->bank_name ? $transaction->payment_type->bank_name : 'Belum Memilih' }}
                         </p>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
@@ -125,6 +125,7 @@
             <div class="modal-body">
                 <form action="" method="post" id="editForm">
                     @csrf
+                    @method('PATCH')
                     <div class="form-group">
                         <label>Metode Pembayaran</label>
                         <p id="paymentMethod">Bank BRI</p>
@@ -139,11 +140,11 @@
                        
                         <label class="d-block">Status Pembayaran</label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="invalid" value="0">
+                            <input class="form-check-input" type="radio" name="is_valid" id="invalid" value="0">
                             <label class="form-check-label" for="invalid">Tidak Valid</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status" id="valid" value="1">
+                            <input class="form-check-input" type="radio" name="is_valid" id="valid" value="1">
                             <label class="form-check-label" for="valid">Valid</label>
                         </div>
                     </div>
@@ -189,9 +190,9 @@
                         $('#paymentProof').attr('href',`{{ asset("storage") }}/${trx?.proof_file}`)
                         const total = parseFloat(trx?.code)+parseFloat(trx?.amount);
                         $('#paymentTotal').html(`Rp. ${total.toLocaleString('id')}`);
-                        $(`input[name="status"]`).prop('checked',false);
-                        $('#editForm').attr('action',`{{ url('transaction/update') }}/${trx.id}`);
-                        $(`input[name="status"][value="${trx?.is_valid}"]`).prop('checked',true);
+                        $(`input[name="is_valid"]`).prop('checked',false);
+                        $('#editForm').attr('action',`{{ url('admin/transaction/update') }}/${trx.id}`);
+                        $(`input[name="is_valid"][value="${trx?.is_valid}"]`).prop('checked',true);
                         console.log(trx?.is_valid);
                         return $('#modalEdit').modal('show');
                     }
@@ -201,6 +202,10 @@
                     return toastr("error",err);
                 }
             })
+        });
+        $('#editForm').submit(function(e){
+            e.preventDefault();
+            return swallConfirm(this,'Apakah Anda yakin ingin mengubah status transaksi?','Ya, Saya Yakin');
         })
     })
 </script>

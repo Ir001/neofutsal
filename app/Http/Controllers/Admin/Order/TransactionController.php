@@ -25,10 +25,10 @@ class TransactionController extends Controller
         try{
             $validator = Validator::make($request->all(),
             [
-                'status'=>'required|numeric'
+                'is_valid'=>'required|numeric'
             ],[
-                'status.required' => 'Status wajib dipilih!',
-                'status.numeric' => 'Invalid status!',
+                'is_valid.required' => 'Status wajib dipilih!',
+                'is_valid.numeric' => 'Invalid status!',
             ]);
             if($validator->fails()){
                 $errors = Helpers::setErrors($validator->errors()->messages());
@@ -36,14 +36,19 @@ class TransactionController extends Controller
             }
             $data = $validator->validated();
             $transaction->update($data);
+            $repayment = Transaction::where(['order_id'=>$transaction->order_id,'transaction_type_id'=>2]);
             if($transaction->transaction_type_id == 1){
-                Transaction::create([
-                    'order_id' => $transaction->order->id,
-                    'transaction_type_id' => 2,
-                    'code' => rand(100,999),
-                    'amount' => (($transaction->order->price*$transaction->order->hours) * 0.5),
-                    'expired_payment' => Carbon::parse($transaction->order->end_at)->addHours(2)->format('Y-m-d H:i:s')
-                ]);
+                if(!$repayment->exists()){
+                    Transaction::create([
+                        'order_id' => $transaction->order->id,
+                        'transaction_type_id' => 2,
+                        'code' => rand(100,999),
+                        'amount' => (($transaction->order->price*$transaction->order->hours) * 0.5),
+                        'expired_payment' => Carbon::parse($transaction->order->end_at)->addHours(2)->format('Y-m-d H:i:s')
+                    ]);
+                }else{
+                    $repayment->delete();
+                }                
             }
             return redirect()->back()->withSuccess('Data transaksi telah diubah!');
         }catch(Exception $e){

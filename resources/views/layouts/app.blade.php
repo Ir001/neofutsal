@@ -61,6 +61,18 @@
                 confirmButtonText : btn,
             })
         }
+        let swallConfirm = (el,html,confirmButtonText)=>{
+            Swal.fire({
+                html,
+                showCancelButton: true,
+                confirmButtonText,
+                cancelButtonText: `Batal`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    el.submit();    
+                }
+            })
+        }
     </script>
     <script>
         //show Errors
@@ -106,6 +118,11 @@
         }
     </script>
     @stack('js')
+    @if ($msg = session()->get('success'))
+        <script> toastr('success',`{!! $msg !!}`,'Tutup'); </script>   
+    @elseif($msg = session()->get('errors'))
+        <script> toastr('error',`{!! $msg !!}`,'Saya Paham'); </script>   
+    @endif
 </body>
 
 </html>
