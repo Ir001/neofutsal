@@ -32,7 +32,7 @@ class TransactionController extends Controller
             ]);
             if($validator->fails()){
                 $errors = Helpers::setErrors($validator->errors()->messages());
-                return redirect()->back()->withErrors($errors);
+                return redirect()->back()->with('errors',$errors);
             }
             $data = $validator->validated();
             $transaction->update($data);
@@ -52,7 +52,7 @@ class TransactionController extends Controller
             }
             return redirect()->back()->withSuccess('Data transaksi telah diubah!');
         }catch(Exception $e){
-            return redirect()->back()->withErrors($e->getMessage());
+            return redirect()->back()->with('errors',$e->getMessage());
 
         }
     }

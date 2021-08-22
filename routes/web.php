@@ -80,8 +80,7 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'as' => 'admin.
         Route::prefix('user')->group(function () {
             Route::post('/', [UserController::class, 'store'])->name('user.store');
             Route::get('create', [UserController::class, 'create'])->name('user.create');
-            Route::get('edit/{user}', [UserController::class, 'edit']);
-            Route::patch('edit/{user}', [UserController::class, 'update']);
+            Route::patch('update/{user}', [UserController::class, 'update']);
         });
         // Lapangan Route | ball
         Route::get('balls', [BallController::class, 'index'])->name('ball.index');
@@ -137,6 +136,7 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'as' => 'admin.
 Route::group(['middleware'=>'auth.admin','prefix'=>'api','as'=>'api.'],function(){
     //JSON
     Route::get('json/transaction/{transaction}',[OrderTransactionController::class,'json'])->name('json.transaction');
+    Route::get('json/user/{user}',[UserController::class,'json'])->name('json.user');
     
     // Datatable
     Route::get('datatable/orders',[SummaryController::class,'datatable'])->name('orders');

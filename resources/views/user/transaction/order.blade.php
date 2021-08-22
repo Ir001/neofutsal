@@ -24,7 +24,7 @@
         </div>
     </div>
 </div>
-<div id="transaction" class="flex flex-col md:flex-row space-y-0 md:space-y-2">
+<div id="transaction" class="flex flex-col md:flex-row space-y-0 md:space-x-2 md:space-y-2">
     @foreach ($transactions as $transaction)
     <div class="card-transaction md:w-1/2 w-full">
         <div class="flex justify-start items-start flex-col">
@@ -45,8 +45,8 @@
             <p class="text-gray-500">
                 Jenis Pembayaran
             </p>
-            <p class="py-1 px-3 text-white text-xs  {{ $transaction->trancation_type->id == 2 ? 'bg-green-500' : 'bg-blue-500' }} rounded-md">
-                {{ $transaction->trancation_type->name }}
+            <p class="py-1 px-3 text-white text-xs  {{ $transaction->transaction_type->id == 2 ? 'bg-green-500' : 'bg-blue-500' }} rounded-md">
+                {{ $transaction->transaction_type->name }}
             </p>
         </div>
         <div class="flex justify-start items-start flex-col">

@@ -54,7 +54,7 @@
                         <p class="text-muted">Tanggal Order</p>
                         <p class="text-muted">{{ $order->created_at->locale('id')->translatedFormat('l, d F Y | H:i:s') }} WIB</p>
                     </div>
-                    <a href="#" onclick="window.print()" class="d-print-none btn btn-success btn-round w-100 btn-view mr-2"><i
+                    <a href="#" onclick="window.print()" class="d-print-none btn btn-success btn-round w-100 mr-2"><i
                         class="fas fa-print"></i> Print </a>
                 </div>
             </div>
@@ -137,7 +137,6 @@
                         <p class="h4 mt-n2 text-info" id="paymentTotal">Rp. 25.515</p>
                     </div>
                     <div class="form-group">
-                       
                         <label class="d-block">Status Pembayaran</label>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="is_valid" id="invalid" value="0">

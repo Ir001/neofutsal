@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Admin\Master;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Exception;
+use Helpers;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -14,7 +20,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.master.user.index');
+        $q = request()->q;
+        $users = User::when($q,function($query) use ($q){
+            return $query->search($q);
+        })->orderByDesc('id')->paginate(4)->withQueryString();
+        return view('admin.master.user.index',compact('users'));
     }
 
 
@@ -37,26 +47,42 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(User $user,Request $request)
     {
-        //
+        try{
+            $validator = Validator::make($request->all(),[
+                'name' => 'required',
+                'phone' => 'required|numeric|min:12',
+                'password' => 'nullable|min:6|confirmed',
+            ],[
+                'name.required' => 'Nama lengkap wajib diisi!',
+                'phone.required' => 'Nomor WhatsApp wajib diisi!',
+                'phone.numeric' => 'Format nomor WhatsApp salah!',
+                'phone.min' => 'Nomor WhatsApp minimal 11 karakter!',
+                'password.min' => 'Password baru minimal 6 karakter!',
+                'password.confirmed' => 'Konfirmasi password salah!'
+            ]);
+            if($validator->fails()){
+                $errors = Helpers::setErrors($validator->errors()->messages());
+                return redirect()->back()->with('errors',$errors);
+            }
+            $data = $validator->validated();
+            if(empty($data['password'])){
+                unset($data['password']);
+            }else{
+                $data['password'] = Hash::make($data['password']);
+            }
+            $user->update($data);
+            return redirect()->back()->withSuccess('Data user telah diperbarui!');
+        }catch(Exception $e){
+            return redirect()->back()->with('errors',$e->getMessage());
+        }
     }
 
     /**
@@ -68,5 +94,8 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function json(User $user){
+        return response()->json(['success'=>true,'data'=>$user]);
     }
 }
