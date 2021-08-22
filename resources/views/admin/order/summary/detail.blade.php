@@ -189,10 +189,10 @@
                         $('#paymentProof').attr('href',`{{ asset("storage") }}/${trx?.proof_file}`)
                         const total = parseFloat(trx?.code)+parseFloat(trx?.amount);
                         $('#paymentTotal').html(`Rp. ${total.toLocaleString('id')}`);
-                        $(`input[name="status"]`).attr('checked',false);
-                        $(`input[name="status"][value="${trx?.is_valid}]`).prop('checked',true);
-
-                        $('#editForm').attr('action')
+                        $(`input[name="status"]`).prop('checked',false);
+                        $('#editForm').attr('action',`{{ url('transaction/update') }}/${trx.id}`);
+                        $(`input[name="status"][value="${trx?.is_valid}"]`).prop('checked',true);
+                        console.log(trx?.is_valid);
                         return $('#modalEdit').modal('show');
                     }
                     return toastr("error",data?.message);

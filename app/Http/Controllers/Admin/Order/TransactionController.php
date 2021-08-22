@@ -14,7 +14,8 @@ class TransactionController extends Controller
 {
     public function json(Transaction $transaction){
         try{
-            return response()->json(['success'=>true,'data'=>$transaction->with('payment_type')->first()]);
+            $transaction->payment_type = $transaction->payment_type;
+            return response()->json(['success'=>true,'data'=>$transaction]);
         }catch(Exception $e){
             return response()->json(['success'=>false,'message'=>$e->getMessage()]);
         }
