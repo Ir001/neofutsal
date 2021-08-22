@@ -12,6 +12,7 @@
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
@@ -53,6 +54,15 @@
     {{-- Sweetalert2 --}}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        $(document).ready(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        })
+    </script>
+    <script>
         let toastr = (type, msg, btn=null)=>{
             Swal.fire({
                 icon : type,
@@ -70,6 +80,18 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     el.submit();    
+                }
+            })
+        }
+        let confirmDelete = (html,callback)=>{
+            Swal.fire({
+                html,
+                showCancelButton: true,
+                confirmButtonText:'Hapus',
+                cancelButtonText: `Batal`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    callback()
                 }
             })
         }

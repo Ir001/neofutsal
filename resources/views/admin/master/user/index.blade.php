@@ -18,24 +18,28 @@
                         <div class="card-title">
                             Kelola Pelanggan
                         </div>
-                        <a href="{{route('admin.user.create')}}" class="btn btn-round btn-primary">
+                        <button data-toggle="modal" data-target="#modalCreate" class="btn btn-round btn-primary">
                             <i class="fas fa-plus"></i> Buat Akun
-                        </a>
+                        </button>
                     </div>
                 </div>
                 <div class="card-body">
                     <form action="" method="get">
                         <div class="form-group">
-                            <input type="text" name="q" placeholder="Cari" class="form-control form-control-md">
+                            <input type="text" name="q" value="{{ request()->q }}" placeholder="Cari" class="form-control form-control-md">
 
                         </div>
                     </form>
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="pt-2">{{ empty(request()->q) ? 'Total' : 'Hasil Pencarian' }} : {{ $users->count() }} User</p>
                         <button class="btn btn-info">Cari</button>
                     </div>
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-12">
+                    {!! $users->links('pagination::bootstrap-4') !!}
+                </div>
                 @foreach ($users as $user)
                 <div class="col-md-4">
                     <div class="card">
@@ -92,6 +96,61 @@
 </div>
 @endsection
 @push('modal')
+<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalFormTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalFormTitle">Create User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('admin.user.store') }}" method="post" id="createForm">
+                    @csrf
+                    <div class="form-group">
+                        <label>Nama Lengkap <small class="text-danger">*</small></label>
+                        <input type="text" name="name" placeholder="Nama Lengkap" value="{{ old('name') }}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Email <small class="text-danger">*</small></label>
+                        <input type="email" name="email" placeholder="Email Valid" value="{{ old('email') }}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>WhatsApp <small class="text-danger">*</small></label>
+                        <input type="text" name="phone" placeholder="WhatsApp" value="{{ old('phone') }}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="d-block">Role <small class="text-danger">*</small></label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="is_admin" id="admin" value="1" {{ old('is_admin') == 1 ? 'checked' : '' }}>
+                            <label class="form-check-label" for="admin">Admin</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="is_admin" id="customer" value="0" {{ old('is_admin') == 0 ? 'checked' : '' }}>
+                            <label class="form-check-label" for="customer">Customer</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password <small class="text-danger">*</small></label>
+                        <input type="password" name="password" placeholder="Password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Konfirmasi Password  <small class="text-danger">*</small></label>
+                        <input type="password" name="password_confirmation" placeholder="Ketik Ulang Password" class="form-control">
+                    </div>
+                    <input type="hidden" name="is_aggree" value="1">
+                    <div class="form-group d-flex justify-content-end">
+                        <button type="submit" class="btn btn-round btn-primary">
+                            Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalFormTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -153,6 +212,7 @@
 @push('js')
 <script>
     $(document).ready(function(){
+        // Edit Click
         $('.btn-edit').click(function(){
             const id = $(this).data('id');
             $.ajax({
@@ -177,9 +237,34 @@
                 }
             })
         })
+        // Edit Submit
         $('#editForm').submit(function(e){
             e.preventDefault();
             return swallConfirm(this,'Anda yakin ingin mengubah data user?','Ya, Saya Yakin');
+        })
+        // Delete Click
+        $('.btn-delete').click(function(){
+            const id = $(this).data('id');
+            confirmDelete('Apakah Anda yakin ingin menghapus User?',function(){
+                $.ajax({
+                    url : `{{ route('admin.user.store') }}/delete/${id}`,
+                    type : 'DELETE',
+                    dataType : 'json',
+                    data : $(this).serialize(),
+                    success : function(data){
+                        if(data?.success){
+                            toastr('success',data?.message,'Tutup');
+                            return setTimeout(() => {
+                                window.location.reload();
+                            }, 1000);
+                        }
+                        return toasstr('error',data?.message)
+                    },
+                    error : function(xhr, status, err){
+                        return toasstr('error',err.toString())
+                    }
+                })
+            })
         })
     })
 </script>

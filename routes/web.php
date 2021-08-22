@@ -81,6 +81,7 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'as' => 'admin.
             Route::post('/', [UserController::class, 'store'])->name('user.store');
             Route::get('create', [UserController::class, 'create'])->name('user.create');
             Route::patch('update/{user}', [UserController::class, 'update']);
+            Route::delete('delete/{user}',[UserController::class,'destroy']);
         });
         // Lapangan Route | ball
         Route::get('balls', [BallController::class, 'index'])->name('ball.index');

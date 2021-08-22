@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Master;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Exception;
 use Helpers;
@@ -23,7 +24,7 @@ class UserController extends Controller
         $q = request()->q;
         $users = User::when($q,function($query) use ($q){
             return $query->search($q);
-        })->orderByDesc('id')->paginate(4)->withQueryString();
+        })->orderByDesc('id')->paginate(1)->withQueryString();
         return view('admin.master.user.index',compact('users'));
     }
 
@@ -36,14 +37,24 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $data['success'] = false;
-        $data['message'] = 'Terjadi kesalahan';
-        return response()->json($data);
+        try{
+            $request = new RegisterRequest();
+            $validator = Validator::make(request()->all(),$request->rules(),$request->messages());
+            if($validator->fails()){
+                $errors = Helpers::setErrors($validator->errors()->messages());
+                return redirect()->back()->with('errors',$errors)->withInput();
+            }
+            $user = $validator->validated();
+            $user['password'] = Hash::make($user['password']);
+            User::create($user);
+            return redirect()->back()->withSuccess('User berhasil ditambah!');
+        }catch(Exception $e){
+            return redirect()->back()->with('errors',$e->getMessage())->withInput();
+        }
     }
 
     /**
@@ -88,12 +99,17 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \app\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        try{
+            $user->delete();
+            return response()->json(['success'=>true,'message'=>'User berhasil dihapus!']);
+        }catch(Exception $e){
+            return response()->json(['success'=>false,'message'=>$e->getMessage()]);
+        }
     }
     public function json(User $user){
         return response()->json(['success'=>true,'data'=>$user]);
