@@ -4,11 +4,11 @@
 
 ## Preview
 
-### Desktop
+### Desktop Admin
 
 ![Image](https://github.com/Ir001/neofutsal/blob/main/Neo_Futsal_Desktop.png?raw=true)
 
-### Mobile
+### Mobile User
 
 ![Image](https://github.com/Ir001/neofutsal/blob/main/Neo_Futsal_App.png?raw=true)
 
