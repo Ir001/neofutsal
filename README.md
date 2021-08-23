@@ -85,6 +85,7 @@ php artisan key:generate
 php artisan migrate --seed
 npm install
 npm run production
+php artisan storage:link
 php artisan serve
 # Open http://localhost:8000/
 ```
