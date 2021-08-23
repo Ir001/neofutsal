@@ -2,6 +2,16 @@
 
 [NeoFutsal](https://github.com/Ir001/neofutsal) adalah situs aplikasi layanan booking online lapangan futsal yang menerima berbagai metode pembayaran.
 
+## Preview
+
+### Desktop
+
+![Image](https://github.com/Ir001/neofutsal/blob/main/Neo Futsal Desktop.png?raw=true)
+
+### Mobile
+
+![Image](https://github.com/Ir001/neofutsal/blob/main/Neo Futsal App.png?raw=true)
+
 ## Latar Belakang
 
 Di era modern seperti sekarang ini, dunia telah mengenal dengan teknologi bernama internet. Melalui internet, semua orang bisa berkomunikasi dengan orang lain yang bahkan berada di berbagai negara diseluruh dunia. Adanya jaringan global membuat internet bisa diakses selama 24 jam. Kita pasti tahu peran dari media internet itu sendiri dalam kehidupan seperti apa. Bukan hanya untuk membantu manusia mencari informasi, internet juga bisa digunakan sebagai peluang bisnis dengan membuat aplikasi berbasis website. Aplikasi berbasis website ini mudah diakses oleh semua orang karena penggunaan internet yang semakin luas.
