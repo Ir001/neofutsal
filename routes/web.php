@@ -89,7 +89,8 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'as' => 'admin.
             Route::post('/', [BallController::class, 'store'])->name('ball.store');
             Route::get('create', [BallController::class, 'create'])->name('ball.create');
             Route::get('edit/{ball}', [BallController::class, 'edit']);
-            Route::patch('edit/{ball}', [BallController::class, 'update']);
+            Route::patch('update/{ball}', [BallController::class, 'update']);
+            Route::delete('delete/{ball}', [BallController::class, 'destroy']);
         });
         // Lapangan Route | field
         Route::get('fields', [FieldController::class, 'index'])->name('field.index');
@@ -137,6 +138,7 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'as' => 'admin.
 });
 Route::group(['middleware'=>'auth.admin','prefix'=>'api','as'=>'api.'],function(){
     //JSON
+    Route::get('json/ball/{ball}',[BallController::class,'json'])->name('json.ball');
     Route::get('json/transaction/{transaction}',[OrderTransactionController::class,'json'])->name('json.transaction');
     Route::get('json/user/{user}',[UserController::class,'json'])->name('json.user');
     

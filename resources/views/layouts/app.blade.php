@@ -105,7 +105,7 @@
                     html+=errors[key];
                 });
                 html+=`</ul>`;
-                toastr('error',html,'Saya Paham');
+                toastr('error',html,'Tutup');
             }
         }
         let submitForm = (req)=>{
