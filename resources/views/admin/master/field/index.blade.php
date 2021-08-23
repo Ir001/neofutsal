@@ -75,8 +75,8 @@
                             </div>
                         </div>
                         <div class="card-footer d-flex justify-content-between">
-                            <button type="button" data-id="{{ $field->id }}" class="btn-view btn btn-primary btn-round w-100 mr-2"><i class="fas fa-eye"></i></button>
-                            <button type="button" data-id="{{ $field->id }}" class="btn-edit btn btn-info btn-round w-100 mr-2"><i class="fas fa-pen"></i></button>
+                            <button type="button" class="btn-view btn btn-primary btn-round w-100 mr-2"><i class="fas fa-eye"></i></button>
+                            <a href="{{ route('admin.field.edit',['field'=>$field->id])."" }}" class="btn-edit btn btn-info btn-round w-100 mr-2"><i class="fas fa-pen"></i></a>
                             <button type="button" data-id="{{ $field->id }}" class="btn-delete btn btn-danger btn-round w-100"><i class="fas fa-trash"></i></button>
                         </div>
                     </div>
@@ -90,4 +90,34 @@
 @endsection
 
 @push('js')
+
+<script>
+    $(document).ready(function(){
+        // Delete Field
+        $('.btn-delete').click(function(){
+            const id = $(this).data('id');
+            return confirmDelete('Anda yakin ingin menghapus lapangan?',function(){
+                $.ajax({
+                    url : `{{ route('admin.field.store') }}/delete/${id}`,
+                    type : 'DELETE',
+                    dataType : 'json',
+                    data : $(this).serialize(),
+                    success : function(data){
+                        if(data?.success){
+                            toastr('success',data?.message,'Tutup');
+                            return setTimeout(() => {
+                                window.location.reload();
+                            }, 1000);
+                        }
+                        return  toastr('error',data?.message,'Tutup');
+                         
+                    },
+                    error : function(xhr, status, err){
+                        return  toastr('error',err.toString(),'Tutup');
+                    }
+                })
+            })
+        })
+    });
+</script>
 @endpush

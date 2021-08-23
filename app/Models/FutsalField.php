@@ -29,6 +29,10 @@ class FutsalField extends Model
         return $this->belongsTo(FieldType::class, 'field_type_id', 'id');
     }
 
+    public function futsal_images(){
+        return $this->hasMany(FutsalImage::class,'futsal_field_id','id');
+    }
+
     // Helper
     public function available()
     {
@@ -38,14 +42,14 @@ class FutsalField extends Model
     public function uploadCover($file){
         try{
             $oldFile = $this->attributes['img'];
-            if (Storage::exists("public/$oldFile")) {
-                Storage::delete("public/$oldFile");
+            if (Storage::exists($oldFile)) {
+                Storage::delete($oldFile);
             }
             $ext = $file->extension();
             $filename = Str::random(30).".".$ext;
             $fullPath = "futsal-field/cover-{$filename}";
-            $file->storeAs("public",$fullPath);
-            $this->update(['img' => "storage/$fullPath"]);
+            $file->storeAs("public", $fullPath);
+            $this->update(['img' => $fullPath]);
             $this->touch();
             return true;
         }catch(Exception $e){

@@ -143,7 +143,7 @@
     @if ($msg = session()->get('success'))
         <script> toastr('success',`{!! $msg !!}`,'Tutup'); </script>   
     @elseif($msg = session()->get('errors'))
-        <script> toastr('error',`{!! $msg !!}`,'Saya Paham'); </script>   
+        <script> toastr('error',`{!! $msg !!}`,'Saya Paham'); console.error(`{!! $msg !!}`)</script>   
     @endif
 </body>
 

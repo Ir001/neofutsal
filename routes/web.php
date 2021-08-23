@@ -96,8 +96,9 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'as' => 'admin.
         Route::prefix('field')->group(function () {
             Route::post('/', [FieldController::class, 'store'])->name('field.store');
             Route::get('create', [FieldController::class, 'create'])->name('field.create');
-            Route::get('edit/{field}', [FieldController::class, 'edit']);
-            Route::patch('edit/{field}', [FieldController::class, 'update']);
+            Route::get('edit/{field}', [FieldController::class, 'edit'])->name('field.edit');
+            Route::patch('edit/{field}', [FieldController::class, 'update'])->name('field.update');
+            Route::delete('delete/{field}', [FieldController::class, 'destroy']);
         });
         // Lapangan Route | paymentType
         Route::get('payment-types', [PaymentTypeController::class, 'index'])->name('paymentType.index');

@@ -13,7 +13,7 @@ class FutsalImage extends Model
 
     protected $table = 'futsal_images';
 
-    protected $fillable = ['futsal_field_id', 'image'];
+    protected $fillable = ['futsal_field_id', 'img'];
 
     //Helper
     public static function uploadDetailImg($files, $futsalFieldId){
@@ -22,7 +22,7 @@ class FutsalImage extends Model
                 $ext = $file->extension();
                 $filename = Str::random(10).".".$ext;
                 $fullPath = "futsal-field/detail-{$filename}";
-                $file->storeAs("public","storage/$fullPath");
+                $file->storeAs("public",$fullPath);
                 self::create([
                     'futsal_field_id' => $futsalFieldId,
                     'img' => $fullPath,

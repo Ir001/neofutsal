@@ -1,5 +1,5 @@
 @extends('layouts.app', [
-'namePage' => 'Tambah Lapangan',
+'namePage' => 'Edit Lapangan',
 'class' => 'login-page sidebar-mini ',
 'activePage' => 'field',
 'backgroundImage' => asset('now') . "/img/bg14.jpg",
@@ -16,7 +16,7 @@
                 <div class="card-header">
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="card-title">
-                            Tambah Lapangan
+                            Edit Lapangan
                         </div>
                         <a href="{{route('admin.field.index')}}" class="btn btn-round btn-link">
                             <i class="fas fa-arrow-left"></i> Kembali
@@ -24,58 +24,65 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('admin.field.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('admin.field.update',['field'=>$field->id])}}" method="post" enctype="multipart/form-data">
                         @csrf
+                        @method('PATCH')
                         <div class="form-group">
                             <label class="form-label">Jenis Lapangan <small class="text-danger">*</small></label>
                             <select name="field_type_id" class="form-control">
                                 <option value="" selected disabled>Pilih Jenis Lapangan</option>
                                 @foreach ($fieldTypes as $type)
-                                    <option value="{{ $type->id }}" {{ old('field_type_id') == $type->id ? 'selected':'' }}>{{ $type->name }}</option>
+                                    <option value="{{ $type->id }}" {{ old('field_type_id',$field->field_type_id) == $type->id ? 'selected':'' }}>{{ $type->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="form-label">Gambar Sampul <small class="text-danger">*</small></label>
+                                <img src="{{ asset($field->img) }}" alt="" class="img mx-1 mb-3">
                                 <input type="file" name="img" class="d-none" id="cover">
                                 <div class="px-2 py-3 rounded border text-secondary upload-image" data-target="#cover">
                                     <i class="fas fa-image"></i> Upload Gambar
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Gambar Detail <small>(opsional)</small></label>
-                                <input type="file" name="detail[]" class="d-none" id="images" multiple>
-                                <div class="px-2 py-3 rounded border text-secondary upload-image" data-target="#images">
-                                    <i class="fas fa-image"></i> Upload Gambar
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
+                               <div class="form-group">
+                                    <label class="form-label">Gambar Detail <small>(opsional)</small></label>
+                                    <div class="row my-1">
+                                        @foreach ($field->futsal_images as $img)
+                                        <div class="col-md-4">
+                                            <img src="{{ asset($img->img) }}" alt="" class="img mx-1">
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                    <input type="file" name="detail[]" class="d-none" id="images" multiple>
+                                    <div class="px-2 py-3 rounded border text-secondary upload-image" data-target="#images">
+                                        <i class="fas fa-image"></i> Upload Gambar
+                                    </div>
+                               </div>
+                               <div class="form-group">
                                     <label class="form-label">Lapangan <small class="text-danger">*</small></label>
-                                    <input type="text" name="name" placeholder="Nama Lapangan" value="{{ old('name') }}" class="form-control">
+                                    <input type="text" name="name" placeholder="Nama Lapangan" value="{{ old('name',$field->name) }}" class="form-control">
                                 </div>
-                            </div>
-                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Harga Sewa per Jam <small
                                             class="text-danger">*</small></label>
-                                    <input type="text" name="price" value="{{ number_format(old('price')) }}" inputmode="numeric"
-                                        placeholder="(IDR) Harga Sewa per Jam" class="form-control" value="0">
-                                    <input type="hidden" name="price" value="{{ old('price') }}" id="price-submit">
+                                    <input type="text" name="price" value="{{ number_format(old('price',$field->price)) }}" inputmode="numeric"
+                                        placeholder="(IDR) Harga Sewa per Jam" class="form-control">
+                                    <input type="hidden" name="price" value="{{ old('price',$field->price) }}" id="price-submit">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Panjang (meter) <small
                                             class="text-danger">*</small></label>
-                                    <input type="text" name="width" value="{{ old('width') }}" placeholder="Panjang Lapangan" class="form-control">
+                                    <input type="text" name="width" value="{{ old('width',$field->width) }}" placeholder="Panjang Lapangan" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Lebar (meter) <small class="text-danger">*</small></label>
-                                    <input type="text" name="height" value="{{ old('height') }}" placeholder="Lebar Lapangan" class="form-control">
+                                    <input type="text" name="height" value="{{ old('height',$field->height) }}" placeholder="Lebar Lapangan" class="form-control">
                                 </div>
                             </div>
                         </div>
