@@ -44,7 +44,9 @@ Route::get('order/{field}', [OrderController::class, 'order']);
 Route::post('api/check-schedule/{field:id}', [OrderController::class, 'checkSchedule'])->name('check-schedule');
 Route::get('app/profile', [ProfileController::class, 'index'])->name('app.profile');
 Route::get('app/profile/edit', [ProfileController::class, 'edit'])->name('app.profile.edit');
+Route::patch('app/profile/edit', [ProfileController::class, 'update']);
 Route::get('app/profile/password', [ProfileController::class, 'password'])->name('app.profile.password');
+Route::patch('app/profile/password', [ProfileController::class, 'updatePassword']);
 // Transaction
 Route::middleware(['auth'])->group(function () {
     Route::post('order/booking/{field}', [OrderController::class, 'booking'])

@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-body">
                     <p class="lead">Pendapatan Hari Ini</p>
-                    <p class="h4">Rp. 2,050,000</p>
+                    <p class="h4">Rp. 0</p>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
             <div class="card">
                 <div class="card-body">
                     <p class="lead">Pendapatan Sebulan Terakhir</p>
-                    <p class="h4">Rp. 2,050,000</p>
+                    <p class="h4">Rp. 0</p>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
             <div class="card">
                 <div class="card-body">
                     <p class="lead">Pendapatan Tahunan</p>
-                    <p class="h4">Rp. 2,050,000</p>
+                    <p class="h4">Rp. 0</p>
                 </div>
             </div>
         </div>

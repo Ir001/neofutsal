@@ -8,7 +8,9 @@
             <i class="fas fa-arrow-left"></i> Kembali
         </a>
     </div>
-   <form action="">
+   <form action="{{ route('app.profile.password') }}" method="post">
+    @csrf
+    @method("PATCH")
        <div class="mb-3">
            <label>Password Sekarang</label>
             <input type="password" name="old_password" placeholder="Password Sekarang">
@@ -22,7 +24,7 @@
             <input type="password" name="password_confirmation" placeholder="Konfirmasi Password Baru">
         </div>
         <div class="mb-3">
-            <button class="btn-primary">
+            <button type="submit" class="btn-primary">
                 Simpan
             </button>
         </div>

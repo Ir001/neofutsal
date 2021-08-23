@@ -26,10 +26,10 @@
         </div>
     </div>
     <div class="footer px-2 py-2 flex justify-end border-t-1 space-x-2">
-        <a href="{{url("detail/$field->id")}}" class="px-3 py-2 w-full font-semibold text-xs text-center rounded-md transition duration-500
+        {{-- <a href="{{url("detail/$field->id")}}" class="px-3 py-2 w-full font-semibold text-xs text-center rounded-md transition duration-500
              bg-white border border-primary hover:bg-primary text-primary hover:text-white">
             Cek Jadwal
-        </a>
+        </a> --}}
         <a href="{{url("detail/$field->id")}}" class="px-3 py-2 w-full font-semibold text-xs text-center rounded-md transition duration-500
              bg-secondary hover:bg-primary text-primary hover:text-white">
             Booking
