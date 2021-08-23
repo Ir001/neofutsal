@@ -51,7 +51,6 @@ class FieldController extends Controller
         }
     }
     public function edit(FutsalField $field ){
-        dd(Storage::exists("futsal-field/cover-sZ0pRoHgKJw0HdshyU91Rn0tYN0DhL.png"));
         $fieldTypes = FieldType::get();
         return view('admin.master.field.edit',compact('fieldTypes','field'));
     }
@@ -73,9 +72,11 @@ class FieldController extends Controller
                 return redirect()->back()->with('errors',$errors)->withInput();
             }
             $data = $validator->validated();
+            $cover = $data['img'];
+            unset($data['img']);
             $field->update($data);
-            if(!empty($data['img'])){
-                $field->uploadCover($data['img']);
+            if(!empty($cover)){
+                $field->uploadCover($cover);
             }
             if(!empty($data['detail'])){
                 $images = FutsalImage::where(['futsal_field_id'=>$field->id]);

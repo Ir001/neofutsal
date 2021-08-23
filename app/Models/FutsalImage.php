@@ -25,7 +25,7 @@ class FutsalImage extends Model
                 $file->storeAs("public",$fullPath);
                 self::create([
                     'futsal_field_id' => $futsalFieldId,
-                    'img' => $fullPath,
+                    'img' => "storage/$fullPath",
                 ]);
             }
             return true;

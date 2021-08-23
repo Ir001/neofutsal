@@ -41,7 +41,7 @@ class FutsalField extends Model
 
     public function uploadCover($file){
         try{
-            $oldFile = $this->attributes['img'];
+            $oldFile = str_replace("storage","public",$this->attributes['img']);
             if (Storage::exists($oldFile)) {
                 Storage::delete($oldFile);
             }
@@ -49,7 +49,7 @@ class FutsalField extends Model
             $filename = Str::random(30).".".$ext;
             $fullPath = "futsal-field/cover-{$filename}";
             $file->storeAs("public", $fullPath);
-            $this->update(['img' => $fullPath]);
+            $this->update(['img' => "storage/$fullPath"]);
             $this->touch();
             return true;
         }catch(Exception $e){
