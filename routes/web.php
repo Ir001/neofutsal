@@ -14,6 +14,7 @@ use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\TransactionController;
+use App\Models\PaymentType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -56,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('app/profile/password', [ProfileController::class, 'password'])->name('app.profile.password');
 
     Route::get('transaction', [TransactionController::class, 'index'])->name('app.transaction');
-    Route::get('transaction/history', [TransactionController::class, 'history'])->name('app.transaction.history');
+    // Route::get('transaction/history', [TransactionController::class, 'history'])->name('app.transaction.history');
     Route::get('transaction/order/{order}', [TransactionController::class, 'order']);
     Route::post('transaction/pay/{transaction}', [TransactionController::class, 'pay'])->name('app.transaction.pay');
     // Route::get('transaction/repayment/{order}', [TransactionController::class, 'pay']);
@@ -106,8 +107,9 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'as' => 'admin.
         Route::prefix('payment-type')->group(function () {
             Route::post('/', [PaymentTypeController::class, 'store'])->name('paymentType.store');
             Route::get('create', [PaymentTypeController::class, 'create'])->name('paymentType.create');
-            Route::get('edit/{paymentType}', [PaymentTypeController::class, 'edit']);
-            Route::patch('edit/{paymentType}', [PaymentTypeController::class, 'update']);
+            Route::get('edit/{payment}', [PaymentTypeController::class, 'edit']);
+            Route::patch('update/{payment}', [PaymentTypeController::class, 'update']);
+            Route::delete('delete/{payment}', [PaymentTypeController::class, 'destroy']);
         });
     });
     // Order
@@ -139,6 +141,7 @@ Route::group(['middleware' => 'auth.admin', 'prefix' => 'admin', 'as' => 'admin.
 Route::group(['middleware'=>'auth.admin','prefix'=>'api','as'=>'api.'],function(){
     //JSON
     Route::get('json/ball/{ball}',[BallController::class,'json'])->name('json.ball');
+    Route::get('json/payment-type/{payment}',[PaymentTypeController::class,'json'])->name('json.payment');
     Route::get('json/transaction/{transaction}',[OrderTransactionController::class,'json'])->name('json.transaction');
     Route::get('json/user/{user}',[UserController::class,'json'])->name('json.user');
     

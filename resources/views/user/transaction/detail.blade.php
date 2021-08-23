@@ -33,8 +33,8 @@
                 <p class="text-gray-600 text-sm font-medium">
                     Jenis Pembayaran
                 </p>
-                <p class="py-1 px-3 text-white text-xs font-medium {{ $transaction->trancation_type->id == 2 ? 'bg-green-500' : 'bg-blue-500' }} rounded-md">
-                    {{ $transaction->trancation_type->name }}
+                <p class="py-1 px-3 text-white text-xs font-medium {{ $transaction->transaction_type_id == 2 ? 'bg-green-500' : 'bg-blue-500' }} rounded-md">
+                    {{ $transaction->transaction_type->name }}
                 </p>
             </div>
             <div class="flex justify-between items-center">
@@ -93,16 +93,29 @@
                    {{$transaction->payment_type->bank_account}}
                 </p>
             </div>
+           @if ($transaction->status_transaction_id > 2)
+            <div class="flex justify-between items-start flex-col space-y-2">
+                <p class="text-gray-600 text-sm font-medium">
+                    Instruksi Pembayaran
+                </p>
+                <div class="text-gray-500 text-sm font-medium leading-8">
+                {!! $transaction->payment_type->instruction !!}
+                </div>
+            </div>
+           @endif
+
             @if ($transaction->order->status_transaction_id < 3)
-            <form action="{{ route('app.transaction.pay',['transaction'=>$transaction->id]) }}" method="post" enctype="multipart/form-data">
+            <form class="flex flex-col items-center align-middle" action="{{ route('app.transaction.pay',['transaction'=>$transaction->id]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="file" name="proof_file" class="hidden">
-                <div id="upload" class="border border-indigo-500 rounded cursor-pointer">
+                <div class="upload border border-indigo-500 rounded cursor-pointer w-full">
                     <p class="px-3 py-4 text-sm text-indigo-500 text-center">
                         <i class="fas fa-file-alt text-xl mr-3"></i> 
                         <span id="uploadText">Upload Bukti Pembayaran</span>
+                        <span class="text-xs block text-gray-400">png/jpg</span>
                     </p>
                 </div>
+                <img src="{{ asset("images/logo-neofutsal.png") }}" onerror="previewError()" class="object-cover w-56 border rounded upload cursor-pointer hidden" alt="Foto Bukti Pembayaran" id="preview">
                 <button type="submit" class="btn-primary block">
                     Verifikasi Pembayaran   
                 </button>
@@ -116,10 +129,31 @@
 @section('js')
 <script>
     $(document).ready(function(){
-        $('#upload').click(function(){
+        
+        const uploadHtml = $('#upload p').html();
+        $('.upload').click(function(){
             $('input[name=proof_file]').click();
         })
+        $('input[name=proof_file]').change(function(){
+            $('div.upload').addClass('hidden');
+            let images = ``;
+            const files = document.querySelector('input[name="proof_file"]').files;
+            if(files[0]){
+                const src = URL.createObjectURL(files[0]);
+                $('#preview').attr('src',src);
+                $('#preview').removeClass("hidden");
+            }else{
+                $('.upload').addClass('hidden');
+                $('div.upload').removeClass('hidden');
+            }
+        })
+        
 
     })
+    function previewError(){
+        toastr("error","Tidak dapat menampilkan preview! Periksa format gambar");
+        $('.upload').addClass('hidden');
+        $('div.upload').removeClass('hidden');
+    }
 </script>
 @endsection

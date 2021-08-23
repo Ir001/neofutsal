@@ -18,9 +18,9 @@
                         <div class="card-title">
                             Rekap Orderan
                         </div>
-                        <a href="#" data-toggle="modal" data-target="#modalFilter" class="btn btn-round btn-primary">
+                        {{-- <a href="#" data-toggle="modal" data-target="#modalFilter" class="btn btn-round btn-primary">
                             <i class="fas fa-filter"></i> Filter
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
                 <div class="card-body">

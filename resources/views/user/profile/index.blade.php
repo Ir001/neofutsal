@@ -18,7 +18,7 @@
         </div>
         <div>
             <p class="text-gray-900">Join Date</p>
-            <p class="text-sm text-gray-500">Jumat, 27 Agustus 2021</p>
+            <p class="text-sm text-gray-500">{{ $user->created_at->locale('id')->translatedFormat('l, d F Y') }}</p>
         </div>
     </div>
     <div class="my-2 px-2 py-3 border border-gray-200 rounded flex space-x-2 items-center">
@@ -27,7 +27,7 @@
         </div>
         <div>
             <p class="text-gray-900">Email</p>
-            <p class="text-sm text-gray-500">user@neofutsal.id</p>
+            <p class="text-sm text-gray-500">{{ $user->email }}</p>
         </div>
     </div>
     <div class="my-2 px-2 py-3 border border-gray-200 rounded flex space-x-2 items-center">
@@ -36,7 +36,7 @@
         </div>
         <div>
             <p class="text-gray-900">WhatsApp</p>
-            <p class="text-sm text-gray-500">+62822-4344-0959</p>
+            <p class="text-sm text-gray-500">{{ @$user->phone ? $user->phone : '-' }}</p>
         </div>
     </div>
     <a href="{{route('app.profile.password')}}" class="btn-gray mb-1 block">Ganti Password</a>

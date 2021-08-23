@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Admin\Master;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\PaymentTypeRequest;
+use App\Models\PaymentType;
+use Exception;
+use Helpers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PaymentTypeController extends Controller
 {
@@ -14,17 +19,11 @@ class PaymentTypeController extends Controller
      */
     public function index()
     {
-        return view('admin.master.payment-type.index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $q = request()->q;
+        $paymentTypes = PaymentType::when($q,function($query) use($q){
+            return $query->search($q);
+        })->orderByDesc("created_at")->paginate(6)->withQueryString();
+        return view('admin.master.payment-type.index', compact('paymentTypes'));
     }
 
     /**
@@ -35,51 +34,58 @@ class PaymentTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        try{
+            $paymentTypeRequest = new PaymentTypeRequest();
+            $validator = Validator::make($request->all(),$paymentTypeRequest->rules(),$paymentTypeRequest->messages());
+            if($validator->fails()){
+                $errors = Helpers::setErrors($validator->errors()->messages());
+                return redirect()->back()->with("errors",$errors)->withInput();
+            }
+            $data = $validator->validated();
+            PaymentType::create($data);
+            return redirect(route("admin.paymentType.index"))->withSuccess("Metode pembayaran baru berhasil ditambah!");
+        }catch(Exception $e){
+            return redirect()->back()->with("errors",$e->getMessage())->withInput();
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  PaymentType  $payment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, PaymentType $payment)
     {
-        //
+        try{
+            $paymentTypeRequest = new PaymentTypeRequest();
+            $validator = Validator::make($request->all(),$paymentTypeRequest->rules(),$paymentTypeRequest->messages());
+            if($validator->fails()){
+                $errors = Helpers::setErrors($validator->errors()->messages());
+                return redirect()->back()->with("errors",$errors)->withInput();
+            }
+            $data = $validator->validated();
+            $payment->update($data);
+            return redirect(route("admin.paymentType.index"))->withSuccess("Metode pembayaran berhasil diubah!");
+        }catch(Exception $e){
+            return redirect()->back()->with("errors",$e->getMessage())->withInput();
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  PaymentType  $payment
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(PaymentType $payment)
     {
-        //
+        $payment->delete();
+        return response()->json(['success'=>true,'message'=>'Metode pembayaran berhasil dihapus!']);
+    }
+
+    public function json(PaymentType $payment){
+        return response()->json(['success' => true,'data' => $payment]);
     }
 }

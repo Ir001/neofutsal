@@ -36,6 +36,26 @@ class TransactionController extends Controller
             }
             $data = $validator->validated();
             $transaction->update($data);
+            if($data['is_valid'] == 1){
+                $statusTransaction = $transaction->order->status_transaction_id;
+                switch ($statusTransaction) {
+                    case 2:
+                        $statusNew = $transaction->transaction_type_id == 1 ? 5 : 6; // Cek Pelunasan
+                        break;
+                    case 3:
+                        $statusNew = 5;
+                        break;
+                    case 4:
+                        $statusNew = 6; 
+                        break;
+                    default:
+                        $statusNew = 2; 
+                        break;
+                }
+                $transaction->order->update(['status_transaction_id'=>$statusNew]);
+            }else{
+                $transaction->order->update(['status_transaction_id'=>2]);
+            }
             $repayment = Transaction::where(['order_id'=>$transaction->order_id,'transaction_type_id'=>2]);
             if($transaction->transaction_type_id == 1){
                 if(!$repayment->exists()){
