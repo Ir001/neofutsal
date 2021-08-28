@@ -18,6 +18,7 @@
         @foreach ($orders as $order)
             <x-transaction-card :order="$order"></x-transaction-card>
         @endforeach
+        {{ $orders->links() }}
     @endempty
 </div>
 @endsection
