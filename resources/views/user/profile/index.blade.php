@@ -39,11 +39,11 @@
             <p class="text-sm text-gray-500">{{ @$user->phone ? $user->phone : '-' }}</p>
         </div>
     </div>
-    <a href="{{route('app.profile.password')}}" class="btn-gray mb-1 block">Ganti Password</a>
+    <a href="{{route('app.profile.password')}}" class="btn-gray mb-1 block">Change Password</a>
     <form action="{{route('logout')}}" method="post" id="formLogout">
         @csrf
         <button type="submit" class="btn bg-red-500 text-white">
-            Keluar
+            Logout
         </button>
     </form>
 </div>

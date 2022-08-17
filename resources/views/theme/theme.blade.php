@@ -39,13 +39,21 @@
                         class="bg-white px-3 py-4 rounded-md shadow-2xl absolute right-0 top-12 w-full transition duration-500 hidden"
                         id="notification-card">
                         <div class="flex justify-between items-center pb-3 border-b">
-                            <p class="text-dark font-medium">Notifikasi</p>
+                            <p class="text-dark font-medium">Notification</p>
                             <a href="#" class="text-xs text-gray-500 font-medium py-3">
-                                Lihat Semua
+                                Show All
                             </a>
                         </div>
                         <div class="notification-content border-b pb-3">
                             <a href="">
+                                <p class="font-medium text-gray-600 py-2">
+                                    Welcome to Neofutsal!
+                                </p>
+                                <p class="text-sm text-gray-500 py-2">
+                                    Thank you for register on our website
+                                </p>
+                            </a>
+                            {{-- <a href="">
                                 <p class="font-medium text-gray-600 py-2">
                                     Booking telah dikonfirmasi!
                                 </p>
@@ -55,7 +63,7 @@
                                 <p class="text-right text-gray-500 text-sm">
                                     1 jam yang lalu
                                 </p>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
 

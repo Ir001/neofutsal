@@ -6,7 +6,7 @@
     </a>
     <a href="{{route('app.transaction')}}" class="{{request()->routeIs('app.transaction.*') || request()->routeIs('app.transaction') ? 'active' : null }}">
         <i class="fas fa-xl fa-receipt text-xl"></i>
-        <small class="text-xs block">Transaksi</small>
+        <small class="text-xs block">Transaction</small>
     </a>
     @auth
     <a href="{{route('app.profile')}}" class="{{request()->routeIs('app.profile') ? 'active' : null }}">

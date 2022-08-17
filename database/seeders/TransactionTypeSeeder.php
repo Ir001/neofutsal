@@ -25,7 +25,7 @@ class TransactionTypeSeeder extends Seeder
             'name' => 'Down Payment'
         ]);
         TransactionType::insert([
-            'name' => 'Pelunasan'
+            'name' => 'Paid Off'
         ]);
     }
 }

@@ -41,7 +41,7 @@ class FieldTypeSeeder extends Seeder
         ]);
         // 5
         FieldType::insert([
-            'name' => 'Karpet Plastik'
+            'name' => 'Plastic Carpet'
         ]);
     }
 }

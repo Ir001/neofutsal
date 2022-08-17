@@ -19,7 +19,7 @@
     </div>
 </div>
 {{-- End of Slider --}}
-<h1 class="text-md text-dark font-semibold border-b-2 pb-3">Booking Online</h1>
+<h1 class="text-md text-dark font-semibold border-b-2 pb-3">Booking Now!</h1>
 <div class="my-3 grid grid-flow-row grid-cols-1 md:grid-cols-3 gap-4 auto-rows-max">
     @foreach ($futsal_fields as $field)
     <x-product-card :field="$field" />

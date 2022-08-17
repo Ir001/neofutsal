@@ -21,38 +21,38 @@ class StatusTransactionSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
         // 1
         StatusTransaction::insert([
-            'name_user' => 'Belum dibayar',
-            'name_admin' => 'Belum membayar',
+            'name_user' => 'Not Yet Paid',
+            'name_admin' => 'Not Yet Paid',
             'color' => 'bg-red-500'
         ]);
         // 2
         StatusTransaction::insert([
-            'name_user' => 'Bukti pembayaran tidak valid',
-            'name_admin' => 'Bukti pembayaran tidak valid',
+            'name_user' => 'Invalid proof of payment',
+            'name_admin' => 'Invalid proof of payment',
             'color' => 'bg-red-500'
         ]);
         // 3
         StatusTransaction::insert([
-            'name_user' => 'Menunggu validasi pembayaran DP',
-            'name_admin' => 'Menunggu validasi pembayaran DP',
+            'name_user' => 'Waiting for DP payment validation',
+            'name_admin' => 'Waiting for DP payment validation',
             'color' => 'bg-blue-500'
         ]);
         // 4
         StatusTransaction::insert([
-            'name_user' => 'Menunggu validasi pembayaran pelunasan',
-            'name_admin' => 'Menunggu validasi pembayaran pelunasan',
+            'name_user' => 'Waiting for payment validation',
+            'name_admin' => 'Waiting for payment validation',
             'color' => 'bg-blue-500'
         ]);
         // 5
         StatusTransaction::insert([
-            'name_user' => 'Berhasil membayar DP',
-            'name_admin' => 'Sudah membayar DP',
+            'name_user' => 'Successfully paid DP',
+            'name_admin' => 'Already paid DP',
             'color' => 'bg-green-500'
         ]);
         // 6
         StatusTransaction::insert([
-            'name_user' => 'Lunas',
-            'name_admin' => 'Lunas',
+            'name_user' => 'Paid off',
+            'name_admin' => 'Paid off',
             'color' => 'bg-green-500'
         ]);
     }
